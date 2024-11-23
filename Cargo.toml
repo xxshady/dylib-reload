@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+members = ["host", "module", "shared", "testing/host", "testing/module"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/xxshady/dylib-reload"
+readme = "README.md"
+rust-version = "1.82.0"
+
+[workspace.dependencies]
+
+[workspace.dependencies.stabby]
+version = "36.1.1"
+features = ["libloading"]
