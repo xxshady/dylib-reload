@@ -10,13 +10,14 @@ mod helpers;
 pub use crate::{error::Error, module::Module};
 
 pub unsafe fn load_module(path: impl AsRef<OsStr>) -> Result<Module, crate::Error> {
+  let library = open_library(path)?;
+  let module = Module::new(library);
+
   // I could use `std::thread::current().id()`
   // but I'm not sure how safe it is for FFI (+ it needs to be stored in a static)
   // since it's an opaque object and as_u64() is unstable
   let host_thread_id = libc::syscall(libc::SYS_gettid);
 
-  let library = open_library(path)?;
-  let module = Module::new(library);
   Ok(module)
 }
 

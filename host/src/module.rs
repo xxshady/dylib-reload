@@ -5,7 +5,10 @@ use std::{
 
 use stabby::libloading::StabbyLibrary;
 
-use crate::module_allocs;
+use crate::{
+  helpers::{cstr_bytes, get_stabbied_fn},
+  module_allocs,
+};
 
 pub type ModuleId = u64;
 
@@ -24,21 +27,10 @@ impl Module {
     let id = ID_COUNTER.fetch_add(1, Ordering::Relaxed);
     assert_ne!(id, 0, "this must never happen (integer overflow)");
 
-    //////////////////////////////////////////////////////////// TODO: move it to macro
-    let str = "kek";
-    let str = str.to_owned();
-    let str = str + "\0";
-
-    let cstr = CStr::from_bytes_until_nul(str.as_bytes()).unwrap_or_else(|_| {
-      panic!("Failed to create CStr from: {str:?}");
-    });
-
-    let bytes = cstr.to_bytes_with_nul();
-    /// ////////////////////////////////////////////////////////////////////////
     let instance = Self {
       id,
+      init_fn: unsafe { get_stabbied_fn(&library, "__init") },
       library,
-      init_fn: unsafe { library.get_stabbied(bytes) },
     };
 
     module_allocs::add_module(&instance);

@@ -16,3 +16,6 @@ thiserror = "2.0.3"
 [dependencies.shared]
 version = "=0.1.0"
 path = "../shared"
+
+[lints.clippy]
+unwrap_used = "forbid"
