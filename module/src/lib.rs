@@ -1,14 +1,37 @@
-pub fn add(left: u64, right: u64) -> u64 {
-  left + right
+use std::{
+  alloc::Layout,
+  sync::atomic::{AtomicBool, Ordering},
+};
+
+use host_statics::UNLOADED;
+use shared::{Allocation, AllocatorPtr, SliceAllocation};
+
+mod host_statics;
+mod thread_locals;
+mod allocator;
+mod helpers;
+
+static EXIT_DEALLOCATION: AtomicBool = AtomicBool::new(false);
+
+#[stabby::export]
+pub unsafe extern "C" fn __init() {
+  allocator::init();
 }
 
-#[cfg(test)]
-mod tests {
-  use super::*;
+#[stabby::export]
+pub extern "C" fn __exit(allocs: SliceAllocation) {
+  let allocs = unsafe { allocs.into_slice() };
 
-  #[test]
-  fn it_works() {
-    let result = add(2, 2);
-    assert_eq!(result, 4);
+  EXIT_DEALLOCATION.store(true, Ordering::SeqCst);
+
+  for Allocation(AllocatorPtr(ptr), layout, ..) in allocs {
+    unsafe {
+      std::alloc::dealloc(
+        *ptr,
+        Layout::from_size_align(layout.size, layout.align).unwrap(),
+      );
+    }
   }
+
+  UNLOADED.store(true, Ordering::SeqCst);
 }

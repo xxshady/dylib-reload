@@ -1,5 +1,5 @@
 [package]
-name = "module"
+name = "dylib-reload-module"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -8,6 +8,8 @@ readme.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+stabby.workspace = true
+libc.workspace = true
 
 [dependencies.shared]
 version = "=0.1.0"

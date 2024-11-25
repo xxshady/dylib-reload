@@ -1,6 +1,6 @@
 use std::fmt::{Debug, Formatter, Result as FmtResult};
 
-use stabby::stabby;
+use stabby::{stabby, str::Str};
 
 #[stabby]
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
@@ -61,3 +61,16 @@ impl<T> From<&[T]> for RawSlice<T> {
     }
   }
 }
+
+pub mod callbacks {
+  use super::*;
+  pub type Unrecoverable = extern "C" fn(Str) -> !;
+  pub type OnCachedAllocs = extern "C" fn(ModuleId, SliceAllocatorOp);
+  pub type OnAllocDealloc = extern "C" fn(ModuleId, *mut u8, StableLayout);
+  pub type Unloaded = extern "C" fn() -> bool;
+  pub type RunThreadLocalDtors = unsafe extern "C" fn();
+  pub type Exit = extern "C" fn(SliceAllocation);
+  pub type Init = unsafe extern "C" fn();
+}
+
+pub type ModuleId = u64;

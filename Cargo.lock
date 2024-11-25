@@ -15,6 +15,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
+name = "dylib-reload-module"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "shared",
+ "stabby",
+]
+
+[[package]]
 name = "equivalent"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -79,13 +88,6 @@ name = "memchr"
 version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
-
-[[package]]
-name = "module"
-version = "0.1.0"
-dependencies = [
- "shared",
-]
 
 [[package]]
 name = "ppv-lite86"
@@ -232,10 +234,17 @@ dependencies = [
 [[package]]
 name = "test-host"
 version = "0.1.0"
+dependencies = [
+ "host",
+]
 
 [[package]]
 name = "test-module"
 version = "0.1.0"
+dependencies = [
+ "dylib-reload-module",
+ "stabby",
+]
 
 [[package]]
 name = "thiserror"
