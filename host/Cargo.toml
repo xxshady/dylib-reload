@@ -1,5 +1,5 @@
 [package]
-name = "host"
+name = "dylib_reload_host"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
