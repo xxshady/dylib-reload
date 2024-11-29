@@ -15,7 +15,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
-name = "dylib-reload-module"
+name = "dylib_interface"
+version = "0.1.0"
+dependencies = [
+ "prettyplease",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.89",
+]
+
+[[package]]
+name = "dylib_reload_host"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "libloading",
+ "shared",
+ "stabby",
+ "thiserror",
+]
+
+[[package]]
+name = "dylib_reload_module"
 version = "0.1.0"
 dependencies = [
  "libc",
@@ -45,17 +66,6 @@ name = "hashbrown"
 version = "0.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3a9bfc1af68b1726ea47d3d5109de126281def866b33970e10fbab11b5dafab3"
-
-[[package]]
-name = "host"
-version = "0.1.0"
-dependencies = [
- "libc",
- "libloading",
- "shared",
- "stabby",
- "thiserror",
-]
 
 [[package]]
 name = "indexmap"
@@ -96,6 +106,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77957b295656769bb8ad2b6a6b09d897d94f05c41b069aede1fcdaa675eaea04"
 dependencies = [
  "zerocopy",
+]
+
+[[package]]
+name = "prettyplease"
+version = "0.2.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "64d1ec885c64d0457d564db4ec299b2dae3f9c02808b8ad9c3a089c591b18033"
+dependencies = [
+ "proc-macro2",
+ "syn 2.0.89",
 ]
 
 [[package]]
@@ -232,17 +252,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "test-host"
+name = "test_host"
 version = "0.1.0"
 dependencies = [
- "host",
+ "dylib_reload_host",
 ]
 
 [[package]]
-name = "test-module"
+name = "test_module"
 version = "0.1.0"
 dependencies = [
- "dylib-reload-module",
+ "dylib_reload_module",
  "stabby",
 ]
 

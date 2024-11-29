@@ -1,5 +1,5 @@
 [package]
-name = "test-host"
+name = "test_host"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -8,4 +8,4 @@ readme.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-host = { version = "0.1.0", path = "../../host" }
+dylib_reload_host = { version = "0.1.0", path = "../../host" }
