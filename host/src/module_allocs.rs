@@ -21,9 +21,9 @@ fn lock_allocs() -> MutexGuard<'static, Allocs> {
   allocs
 }
 
-pub fn add_module(module: &Module) {
+pub fn add_module(module_id: ModuleId) {
   let mut allocs = lock_allocs();
-  allocs.insert(module.id, Default::default());
+  allocs.insert(module_id, Default::default());
 }
 
 pub fn remove_module(module: &Module) {

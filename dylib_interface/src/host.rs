@@ -103,12 +103,15 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
     } = for_each_trait_item(trait_name, &item);
 
     let panic_message =
-      format!(r#"Failed to get "{ident}" fn symbol from module (mangled name: "{mangled_name}")"#);
+      format!(r#"Failed to get "{mangled_name}" symbol of static function pointer from module"#);
 
     imports.push(quote! {
       unsafe {
-        let ptr_to_static: *mut _ = *library.get(concat!(#mangled_name, "\0").as_bytes()).expect(#panic_message);
-        *ptr_to_static = impl_;
+        let ptr: *mut #unsafety extern "C" fn( #inputs ) #output
+          = *library.get(concat!(#mangled_name, "\0").as_bytes()).expect(#panic_message);
+
+        *ptr = impl_;
+
         #unsafety extern "C" fn impl_( #inputs ) #output {
           <ModuleImportsImpl as Imports>::#ident( #inputs_without_types )
         }
