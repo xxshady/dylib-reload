@@ -3,15 +3,11 @@ use std::{
   sync::{LazyLock, Mutex, MutexGuard},
 };
 
-use shared::{
-  callbacks::{OnAllocDealloc, OnCachedAllocs},
+use dylib_reload_shared::{
   Allocation, AllocatorOp, AllocatorPtr, ModuleId, SliceAllocatorOp, StableLayout,
 };
 
-use crate::{
-  helpers::{cstr_bytes, get_stabbied_fn, unrecoverable},
-  Module,
-};
+use crate::{helpers::unrecoverable, Module};
 
 type Allocs = HashMap<ModuleId, HashMap<AllocatorPtr, Allocation>>;
 
@@ -26,31 +22,12 @@ fn lock_allocs() -> MutexGuard<'static, Allocs> {
 }
 
 pub fn add_module(module: &Module) {
-  let library = module.library.as_ref().unwrap_or_else(|| unreachable!());
-
-  unsafe {
-    let on_cached_allocs_ptr: *mut OnCachedAllocs = *library
-      .get(&cstr_bytes("__ON_CACHED_ALLOCS"))
-      .expect("Failed to get __ON_CACHED_ALLOCS from module");
-    *on_cached_allocs_ptr = on_cached_allocs;
-
-    let on_alloc_ptr: *mut OnAllocDealloc = *library
-      .get(&cstr_bytes("__ON_ALLOC"))
-      .expect("Failed to get __ON_ALLOC from module");
-    *on_alloc_ptr = on_alloc;
-
-    let on_dealloc_ptr: *mut OnAllocDealloc = *library
-      .get(&cstr_bytes("__ON_DEALLOC"))
-      .expect("Failed to get __ON_DEALLOC from module");
-    *on_dealloc_ptr = on_dealloc;
-  }
-
   let mut allocs = lock_allocs();
   allocs.insert(module.id, Default::default());
 }
 
 pub fn remove_module(module: &Module) {
-  (module.request_cached_allocs)();
+  module.exports.request_cached_allocs();
 
   let mut allocs = lock_allocs();
   let Some(allocs) = allocs.remove(&module.id) else {
@@ -60,10 +37,12 @@ pub fn remove_module(module: &Module) {
   let allocs: Box<[Allocation]> = allocs.into_values().collect();
   let allocs: &[Allocation] = &allocs;
 
-  (module.exit)(allocs.into());
+  unsafe {
+    module.exports.exit(allocs.into());
+  }
 }
 
-extern "C" fn on_cached_allocs(module_id: ModuleId, ops: SliceAllocatorOp) {
+pub extern "C" fn on_cached_allocs(module_id: ModuleId, ops: SliceAllocatorOp) {
   let ops = unsafe { ops.into_slice() };
 
   // TEST
@@ -86,7 +65,7 @@ extern "C" fn on_cached_allocs(module_id: ModuleId, ops: SliceAllocatorOp) {
   }
 }
 
-extern "C" fn on_alloc(module_id: ModuleId, ptr: *mut u8, layout: StableLayout) {
+pub extern "C" fn on_alloc(module_id: ModuleId, ptr: *mut u8, layout: StableLayout) {
   let mut allocs = lock_allocs();
   let allocs = allocs
     .get_mut(&module_id)
@@ -96,7 +75,7 @@ extern "C" fn on_alloc(module_id: ModuleId, ptr: *mut u8, layout: StableLayout) 
   allocs.insert(ptr, Allocation(ptr, layout));
 }
 
-extern "C" fn on_dealloc(module_id: ModuleId, ptr: *mut u8, layout: StableLayout) {
+pub extern "C" fn on_dealloc(module_id: ModuleId, ptr: *mut u8, layout: StableLayout) {
   let mut allocs = lock_allocs();
   let allocs = allocs
     .get_mut(&module_id)

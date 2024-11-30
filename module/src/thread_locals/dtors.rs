@@ -13,8 +13,7 @@ pub unsafe fn register(obj: *mut u8, dtor: extern "C" fn(*mut u8)) {
   dtors.push((obj, dtor));
 }
 
-#[stabby::export]
-pub unsafe extern "C" fn __run_thread_local_dtors() {
+pub unsafe fn run() {
   loop {
     let mut dtors = DESTRUCTORS.0.borrow_mut();
     match dtors.pop() {
