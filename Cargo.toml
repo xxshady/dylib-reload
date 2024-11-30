@@ -1,6 +1,13 @@
 [workspace]
 resolver = "2"
-members = ["host", "module", "shared", "testing/host", "testing/module"]
+members = [
+  "dylib_interface",
+  "host",
+  "module",
+  "shared",
+  "testing/host",
+  "testing/module"
+]
 
 [workspace.package]
 version = "0.1.0"

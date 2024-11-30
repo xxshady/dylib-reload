@@ -1,2 +1,2 @@
 mod hook;
-mod dtors;
+pub mod dtors;

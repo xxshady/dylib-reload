@@ -8,12 +8,12 @@ use std::{
   },
 };
 
-use shared::{Allocation, AllocatorOp, AllocatorPtr, StableLayout};
+use dylib_reload_shared::{Allocation, AllocatorOp, AllocatorPtr, StableLayout};
 
 use crate::{
+  exit_deallocation, gen_imports,
   helpers::{check_unloaded_in_allocator, unrecoverable},
-  host_statics::{__MODULE_ID, __ON_ALLOC, __ON_CACHED_ALLOCS},
-  EXIT_DEALLOCATION,
+  MODULE_ID,
 };
 
 #[derive(Default, Debug)]
@@ -39,7 +39,7 @@ unsafe impl GlobalAlloc for Allocator {
     };
 
     if ALLOC_INIT.load(Ordering::SeqCst) {
-      __ON_ALLOC(__MODULE_ID, ptr, c_layout);
+      gen_imports::on_alloc(MODULE_ID, ptr, c_layout);
     } else {
       save_alloc_in_buffer(ptr, c_layout);
     }
@@ -52,7 +52,7 @@ unsafe impl GlobalAlloc for Allocator {
 
     self.inner.dealloc(ptr, layout);
 
-    if EXIT_DEALLOCATION.load(Ordering::SeqCst) {
+    if exit_deallocation() {
       return;
     }
 
@@ -123,11 +123,6 @@ fn save_dealloc_in_buffer(ptr: *mut u8, layout: StableLayout) {
   push_to_allocs_cache(AllocatorOp::Dealloc(Allocation(ptr, layout)), Some(cache));
 }
 
-fn allocation_not_found() -> ! {
-  // TODO: improve error message but be careful about allocations!!!
-  unrecoverable("unknown allocation");
-}
-
 pub unsafe fn init() {
   ALLOC_INIT.swap(true, Ordering::SeqCst);
 
@@ -153,16 +148,8 @@ pub fn send_cached_allocs(cache: Option<&mut AllocsCache>) {
 
   unsafe {
     let slice: &[AllocatorOp] = &transport;
-    __ON_CACHED_ALLOCS(__MODULE_ID, slice.into());
+    gen_imports::on_cached_allocs(MODULE_ID, slice.into());
   }
 
   transport.clear();
 }
-
-#[stabby::export]
-pub extern "C" fn __request_cached_allocs() {
-  send_cached_allocs(None);
-}
-
-#[global_allocator]
-static GLOBAL: Allocator = Allocator::new();

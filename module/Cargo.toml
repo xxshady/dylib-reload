@@ -11,6 +11,12 @@ rust-version.workspace = true
 stabby.workspace = true
 libc.workspace = true
 
-[dependencies.shared]
+# // TEST
+libc-print = "0.1.23"
+
+[dependencies.dylib_reload_shared]
 version = "=0.1.0"
 path = "../shared"
+
+[build-dependencies]
+dylib_interface = { version = "0.1.0", path = "../dylib_interface" }

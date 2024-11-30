@@ -3,35 +3,34 @@ use std::{
   sync::atomic::{AtomicBool, Ordering},
 };
 
-use host_statics::UNLOADED;
-use shared::{Allocation, AllocatorPtr, SliceAllocation};
+use dylib_reload_shared::{Allocation, AllocatorPtr, ModuleId, SliceAllocation};
 
-mod host_statics;
 mod thread_locals;
-mod allocator;
 mod helpers;
+mod gen_exports;
+mod gen_imports;
+mod exports_impl;
+
+mod allocator;
+use allocator::Allocator;
+
+#[global_allocator]
+static GLOBAL: Allocator = Allocator::new();
 
 static EXIT_DEALLOCATION: AtomicBool = AtomicBool::new(false);
-
-#[stabby::export]
-pub unsafe extern "C" fn __init() {
-  allocator::init();
+fn exit_deallocation() -> bool {
+  EXIT_DEALLOCATION.load(Ordering::SeqCst)
 }
 
-#[stabby::export]
-pub extern "C" fn __exit(allocs: SliceAllocation) {
-  let allocs = unsafe { allocs.into_slice() };
-
-  EXIT_DEALLOCATION.store(true, Ordering::SeqCst);
-
-  for Allocation(AllocatorPtr(ptr), layout, ..) in allocs {
-    unsafe {
-      std::alloc::dealloc(
-        *ptr,
-        Layout::from_size_align(layout.size, layout.align).unwrap(),
-      );
-    }
-  }
-
-  UNLOADED.store(true, Ordering::SeqCst);
+static UNLOADED: AtomicBool = AtomicBool::new(false);
+fn unloaded() -> bool {
+  UNLOADED.load(Ordering::SeqCst)
 }
+
+/// The id of the thread in which this module was loaded and in which it must be unloaded
+///
+/// SAFETY: will be initialized on one thread once and then never change
+static mut HOST_OWNER_THREAD: i64 = 0;
+
+/// SAFETY: will be initialized on one thread once and then never change
+static mut MODULE_ID: ModuleId = 0;

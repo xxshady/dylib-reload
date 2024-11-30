@@ -1,6 +1,6 @@
 use std::{ffi::c_void, mem::transmute};
 
-use crate::host_statics::__HOST_OWNER_THREAD;
+use crate::HOST_OWNER_THREAD;
 use super::dtors;
 
 // This function is called when some thread-local registers destructor callback (here it's `dtor`)
@@ -11,7 +11,7 @@ pub unsafe extern "C" fn __cxa_thread_atexit_impl(
   dso_symbol: *mut c_void,
 ) {
   // if we are not in main thread use original __cxa_thread_atexit_impl
-  if __HOST_OWNER_THREAD != libc::syscall(libc::SYS_gettid) {
+  if HOST_OWNER_THREAD != libc::syscall(libc::SYS_gettid) {
     // from fasterthanlime article
     // https://fasterthanli.me/articles/so-you-want-to-live-reload-rust
 
