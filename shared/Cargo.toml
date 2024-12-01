@@ -8,4 +8,3 @@ readme.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-stabby.workspace = true

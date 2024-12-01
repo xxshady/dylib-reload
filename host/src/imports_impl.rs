@@ -1,7 +1,6 @@
 use dylib_reload_shared::{
-  imports::___Internal___Imports___ as Imports, ModuleId, SliceAllocatorOp, StableLayout,
+  imports::___Internal___Imports___ as Imports, ModuleId, SliceAllocatorOp, StableLayout, Str,
 };
-use stabby::str::Str;
 use crate::{gen_imports::ModuleImportsImpl, helpers, module_allocs};
 
 impl Imports for ModuleImportsImpl {
@@ -18,6 +17,7 @@ impl Imports for ModuleImportsImpl {
   }
 
   fn unrecoverable(message: Str) -> ! {
-    helpers::unrecoverable(&format!("{} (from module)", message));
+    let message = unsafe { message.into_str() };
+    helpers::unrecoverable(&format!("{message} (from module)"));
   }
 }

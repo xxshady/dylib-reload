@@ -19,7 +19,3 @@ rust-version = "1.82.0"
 
 [workspace.dependencies]
 libc = "0.2.164"
-
-[workspace.dependencies.stabby]
-version = "36.1.1"
-features = ["libloading"]

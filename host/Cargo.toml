@@ -10,15 +10,20 @@ rust-version.workspace = true
 [dependencies]
 libc.workspace = true
 libloading = "0.8.5"
-stabby.workspace = true
 thiserror = "2.0.3"
 
 [dependencies.dylib_reload_shared]
 version = "=0.1.0"
 path = "../shared"
 
-[build-dependencies]
-dylib_interface = { version = "0.1.0", path = "../dylib_interface" }
+[dependencies.dylib_interface]
+version = "0.1.0"
+path = "../dylib_interface"
+
+[build-dependencies.dylib_interface]
+version = "0.1.0"
+path = "../dylib_interface"
+features = ["build"]
 
 [lints.clippy]
 unwrap_used = "forbid"

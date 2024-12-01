@@ -88,7 +88,12 @@ pub fn write_code_to_file(file: &str, code: TokenStream) {
     {code}"
   );
 
-  fs::write(file, out).expect("Failed to create generated file in src directory");
+  let out_dir = std::env::var("OUT_DIR").unwrap();
+  let path = Path::new(&out_dir).join(file);
+
+  fs::write(&path, out).unwrap_or_else(|e| {
+    panic!("Failed to write {}, reason: {e:#}", path.display());
+  });
 }
 
 pub struct TraitFn<'a> {

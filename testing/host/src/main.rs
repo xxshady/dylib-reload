@@ -3,7 +3,7 @@ fn main() {
 
   dbg!();
   unsafe {
-    module.main::<()>();
+    let out: () = module.main();
   }
   dbg!();
 }

@@ -1,17 +1,18 @@
 use std::ffi::OsStr;
 
-use gen_exports::ModuleExports;
-use gen_imports::init_imports;
-use helpers::{next_module_id, open_library, unrecoverable};
 use dylib_reload_shared::ModuleId;
-use stabby::str::Str;
+
+dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
+use gen_exports::ModuleExports;
+
+dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");
+use gen_imports::init_imports;
 
 mod error;
 mod module;
 mod module_allocs;
 mod helpers;
-mod gen_exports;
-mod gen_imports;
+use helpers::{next_module_id, open_library, unrecoverable};
 mod imports_impl;
 
 pub use crate::{error::Error, module::Module};

@@ -8,7 +8,8 @@ use crate::shared::{
   extract_trait_name_from_path, for_each_trait_item, parse_trait_file, write_code_to_file, TraitFn,
 };
 
-/// Will generate src/gen_exports.rs module which you can include using `mod gen_exports;` in your lib.rs
+/// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
+/// using `include!(concat!(env!("OUT_DIR"), "/<file>"));` in your `lib.rs` or `main.rs`
 /// and then use `ModuleExportsImpl` struct to implement your `Exports` trait:
 /// ```
 /// impl Exports for ModuleExportsImpl {
@@ -57,7 +58,7 @@ fn generate_exports(exports_file_path: impl AsRef<Path> + Debug, exports_trait_p
   }
 
   write_code_to_file(
-    "src/gen_exports.rs",
+    "generated_module_exports.rs",
     quote! {
       #module_use_items
 
@@ -108,7 +109,7 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
   }
 
   write_code_to_file(
-    "src/gen_imports.rs",
+    "generated_module_imports.rs",
     quote! {
       #module_use_items
 

@@ -7,12 +7,22 @@ repository.workspace = true
 readme.workspace = true
 rust-version.workspace = true
 
-[dependencies]
-prettyplease = "0.2.25"
-proc-macro2 = "1.0.92"
-quote = "1.0.37"
+[features]
+build = ["dep:prettyplease", "dep:proc-macro2", "dep:quote", "dep:syn"]
+
+[dependencies.prettyplease]
+optional = true
+version = "0.2.25"
+
+[dependencies.proc-macro2]
+optional = true
+version = "1.0.92"
+
+[dependencies.quote]
+optional = true
+version = "1.0.37"
 
 [dependencies.syn]
+optional = true
 version = "2.0.89"
 features = ["full"]
-

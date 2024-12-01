@@ -1,6 +1,4 @@
-use stabby::str::Str;
-
-use crate::{ModuleId, SliceAllocatorOp, StableLayout};
+use crate::{ModuleId, SliceAllocatorOp, StableLayout, Str};
 
 #[allow(non_camel_case_types)]
 pub trait ___Internal___Imports___ {

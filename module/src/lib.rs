@@ -5,12 +5,12 @@ use std::{
 
 use dylib_reload_shared::{Allocation, AllocatorPtr, ModuleId, SliceAllocation};
 
+dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
+dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");
+
 mod thread_locals;
 mod helpers;
-mod gen_exports;
-mod gen_imports;
 mod exports_impl;
-
 mod allocator;
 use allocator::Allocator;
 
