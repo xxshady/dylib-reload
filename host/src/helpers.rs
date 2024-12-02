@@ -1,15 +1,23 @@
 use std::{
-  ffi::{CString, OsStr},
+  ffi::OsStr,
+  fs::File,
+  io::{BufRead, BufReader},
+  path::Path,
   sync::atomic::{AtomicU64, Ordering},
 };
 
 use libc::{RTLD_DEEPBIND, RTLD_LAZY, RTLD_LOCAL};
 use dylib_reload_shared::ModuleId;
+use libloading::{Library, Symbol};
 
 pub fn unrecoverable(message: &str) -> ! {
   eprintln!("something unrecoverable happened: {message}");
   eprintln!("aborting");
   std::process::abort();
+}
+
+pub fn cstr_bytes(str: &str) -> Vec<u8> {
+  [str.as_bytes(), &[0]].concat()
 }
 
 pub fn next_module_id() -> ModuleId {
@@ -29,4 +37,30 @@ pub unsafe fn open_library(path: impl AsRef<OsStr>) -> Result<libloading::Librar
   use libloading::os::unix::Library;
   let library = Library::open(Some(path), FLAGS)?.into();
   Ok(library)
+}
+
+pub unsafe fn get_library_export<'lib, F>(
+  library: &'lib Library,
+  name: &str,
+) -> Result<Symbol<'lib, F>, libloading::Error> {
+  let fn_ = library.get(&cstr_bytes(name))?;
+  Ok(fn_)
+}
+
+#[cfg(target_os = "linux")]
+pub fn is_library_loaded(library_path: &Path) -> bool {
+  let library_path = library_path
+    .to_str()
+    .expect("library path must be UTF-8 string");
+
+  let file = File::open("/proc/self/maps").expect("Failed to open /proc/self/maps");
+  let reader = BufReader::new(file);
+
+  reader.lines().any(|line_result| {
+    if let Ok(line) = line_result {
+      line.contains(library_path)
+    } else {
+      false
+    }
+  })
 }

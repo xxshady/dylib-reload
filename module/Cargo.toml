@@ -10,10 +10,6 @@ rust-version.workspace = true
 [dependencies]
 libc.workspace = true
 
-# // TEST
-libc-print = "0.1.23"
-
-
 [dependencies.dylib_reload_shared]
 version = "=0.1.0"
 path = "../shared"

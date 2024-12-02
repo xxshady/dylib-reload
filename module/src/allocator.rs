@@ -1,9 +1,8 @@
 use std::{
   alloc::{GlobalAlloc, Layout, System},
   collections::HashMap,
-  ops,
   sync::{
-    atomic::{AtomicBool, AtomicIsize, AtomicUsize, Ordering},
+    atomic::{AtomicBool, Ordering},
     LazyLock, Mutex, MutexGuard,
   },
 };

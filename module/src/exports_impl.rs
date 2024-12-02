@@ -1,10 +1,7 @@
-use std::{
-  alloc::Layout,
-  sync::atomic::{AtomicBool, Ordering},
-};
+use std::{alloc::Layout, sync::atomic::Ordering};
 
 use dylib_reload_shared::{
-  exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId, SliceAllocation,
+  exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId,
 };
 use crate::{
   allocator, gen_exports::ModuleExportsImpl, thread_locals, unloaded, EXIT_DEALLOCATION,
@@ -13,11 +10,6 @@ use crate::{
 
 impl Exports for ModuleExportsImpl {
   unsafe fn init(host_owner_thread: i64, module: ModuleId) {
-    // TEST
-    std::env::set_var("RUST_BACKTRACE", "1");
-    // TEST
-    libc_print::libc_dbg!("test", host_owner_thread, module);
-
     HOST_OWNER_THREAD = host_owner_thread;
     MODULE_ID = module;
 
@@ -29,7 +21,7 @@ impl Exports for ModuleExportsImpl {
 
     EXIT_DEALLOCATION.store(true, Ordering::SeqCst);
 
-    // TODO: lock mutex before deallocation to prevent detached threads from touching allocator?
+    // TODO: use System allocator here and lock module allocator in take_cached_allocs_before_exit?
     for Allocation(AllocatorPtr(ptr), layout, ..) in allocs {
       unsafe {
         std::alloc::dealloc(
@@ -46,7 +38,7 @@ impl Exports for ModuleExportsImpl {
     unloaded()
   }
 
-  fn request_cached_allocs() {
+  fn take_cached_allocs_before_exit() {
     allocator::send_cached_allocs(None);
   }
 

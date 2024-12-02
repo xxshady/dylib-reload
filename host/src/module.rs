@@ -1,17 +1,15 @@
 use std::{
-  cell::Cell,
   fmt::Debug,
   marker::PhantomData,
-  path::PathBuf,
-  sync::atomic::{AtomicU64, Ordering},
-  thread::{self, ThreadId},
+  path::{Path, PathBuf},
 };
 
 use dylib_reload_shared::ModuleId;
+use libloading::Symbol;
 
 use crate::{
   gen_exports::ModuleExports,
-  helpers::{next_module_id, open_library, unrecoverable},
+  helpers::{get_library_export, is_library_loaded, open_library},
   module_allocs,
 };
 
@@ -47,9 +45,10 @@ impl Module {
   pub unsafe fn main<R>(&self) -> R {
     let library = self.library.as_ref().unwrap_or_else(|| unreachable!());
 
-    let main_fn: extern "C" fn() -> R = *library.get(b"main\0").unwrap_or_else(|e| {
+    let main_fn = get_library_export(library, "main").unwrap_or_else(|e| {
       panic!("Failed to get main fn from module, reason: {e:#}");
     });
+    let main_fn: Symbol<extern "C" fn() -> R> = main_fn;
 
     main_fn()
   }
@@ -57,30 +56,41 @@ impl Module {
 
 impl Drop for Module {
   fn drop(&mut self) {
+    // TEST
+    println!("----------- unloading library");
+
+    let library = self.library.take().unwrap_or_else(|| unreachable!());
+
+    unsafe {
+      let before_unload = get_library_export(&library, "before_unload");
+      if let Ok(before_unload) = before_unload {
+        println!(r#"Module exported "before_unload" function, calling it before unloading"#);
+
+        let before_unload: extern "C" fn() = *before_unload;
+        before_unload();
+      } else {
+        println!(
+          r#"Module did not export "before_unload" function, unloading library without calling it"#
+        );
+      }
+    }
+
     unsafe {
       self.exports.run_thread_local_dtors();
     }
 
     module_allocs::remove_module(self);
 
-    let library = self.library.take().unwrap_or_else(|| unreachable!());
-
     library.close().unwrap_or_else(|e| {
-      panic!("Failed to unloaded module library, reason: {e}");
+      panic!("Failed to unload module library, reason: {e}");
     });
 
-    unsafe {
-      let library = open_library(&self.library_path).unwrap_or_else(|e| {
-        panic!("Failed to load module library, reason: {e}");
-      });
-
-      let exports = ModuleExports::new(&library);
-      if exports.unloaded() {
-        panic!(
-          "Failed to unload module\n\
-          note: before unloading the module, make sure that all threads are joined if any were spawned by it"
-        );
-      }
+    let still_loaded = is_library_loaded(&self.library_path);
+    if still_loaded {
+      panic!(
+        "Failed to unload module\n\
+        note: before unloading the module, make sure that all threads are joined if any were spawned by it"
+      );
     }
   }
 }

@@ -1,9 +1,6 @@
-use std::{
-  alloc::Layout,
-  sync::atomic::{AtomicBool, Ordering},
-};
+use std::sync::atomic::{AtomicBool, Ordering};
 
-use dylib_reload_shared::{Allocation, AllocatorPtr, ModuleId, SliceAllocation};
+use dylib_reload_shared::ModuleId;
 
 dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
 dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");
