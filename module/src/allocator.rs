@@ -10,8 +10,8 @@ use std::{
 use dylib_reload_shared::{Allocation, AllocatorOp, AllocatorPtr, StableLayout};
 
 use crate::{
-  exit_deallocation, gen_imports,
-  helpers::{check_unloaded_in_allocator, unrecoverable},
+  gen_imports,
+  helpers::{assert_allocator_is_still_accessible, unrecoverable},
   MODULE_ID,
 };
 
@@ -28,7 +28,7 @@ impl Allocator {
 
 unsafe impl GlobalAlloc for Allocator {
   unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
-    check_unloaded_in_allocator();
+    assert_allocator_is_still_accessible();
 
     let ptr = self.inner.alloc(layout);
 
@@ -47,13 +47,9 @@ unsafe impl GlobalAlloc for Allocator {
   }
 
   unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
-    check_unloaded_in_allocator();
+    assert_allocator_is_still_accessible();
 
     self.inner.dealloc(ptr, layout);
-
-    if exit_deallocation() {
-      return;
-    }
 
     let c_layout = StableLayout {
       size: layout.size(),
@@ -105,7 +101,7 @@ fn push_to_allocs_cache(op: AllocatorOp, cache: Option<&mut AllocsCache>) {
 }
 
 fn save_alloc_in_buffer(ptr: *mut u8, layout: StableLayout) {
-  // unsafe { crate::PRINT("save_alloc_in_buffer"); }
+  // libc_print::libc_println!("save_alloc_in_buffer {ptr:?}");
 
   push_to_allocs_cache(
     AllocatorOp::Alloc(Allocation(AllocatorPtr(ptr), layout)),
@@ -114,9 +110,9 @@ fn save_alloc_in_buffer(ptr: *mut u8, layout: StableLayout) {
 }
 
 fn save_dealloc_in_buffer(ptr: *mut u8, layout: StableLayout) {
-  // unsafe { crate::PRINT("save_dealloc_in_buffer"); }
+  // libc_print::libc_println!("save_dealloc_in_buffer {ptr:?}");
 
-  let mut cache = &mut lock_allocs_cache();
+  let cache = &mut lock_allocs_cache();
 
   let ptr = AllocatorPtr(ptr);
   push_to_allocs_cache(AllocatorOp::Dealloc(Allocation(ptr, layout)), Some(cache));

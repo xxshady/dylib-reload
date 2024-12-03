@@ -25,5 +25,9 @@ version = "0.1.0"
 path = "../dylib_interface"
 features = ["build"]
 
+[build-dependencies.dylib_reload_shared]
+version = "=0.1.0"
+path = "../shared"
+
 [lints.clippy]
 unwrap_used = "forbid"

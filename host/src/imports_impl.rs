@@ -18,6 +18,6 @@ impl Imports for ModuleImportsImpl {
 
   fn unrecoverable(message: Str) -> ! {
     let message = unsafe { message.into_str() };
-    helpers::unrecoverable(&format!("{message} (from module)"));
+    helpers::unrecoverable_with_prefix(message, "module");
   }
 }

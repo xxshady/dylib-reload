@@ -19,11 +19,16 @@ pub extern "C" fn main() {
   thread::spawn(|| {
     println!("before");
     let initial = Instant::now();
-    while initial.elapsed() < Duration::from_secs(1) {
-      vec![1];
+    while initial.elapsed() < Duration::from_millis(10000) {
+      // vec![1];
     }
     println!("after");
   });
+
+  // thread_local! {
+  //   static V: Box<u8> = Box::new(1);
+  // }
+  // V.with(|_| {});
 }
 
 #[unsafe(no_mangle)]

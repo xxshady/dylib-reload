@@ -1,14 +1,15 @@
-use crate::{gen_imports, unloaded};
+use crate::{exit_deallocation, gen_imports, IS_IT_HOST_OWNER_THREAD};
 
 pub fn unrecoverable(message: &str) -> ! {
   gen_imports::unrecoverable(message.into())
 }
 
-pub fn check_unloaded_in_allocator() {
-  if unloaded() {
+pub fn assert_allocator_is_still_accessible() {
+  if exit_deallocation() && !IS_IT_HOST_OWNER_THREAD.get() {
     unrecoverable(
-      "Module is unloaded but it's allocator has been invoked\n\
-      note: before unloading the module, make sure that all threads are joined if any were spawned by it"
+      "module allocator was invoked while module was in the process of unloading\n\
+      note: before unloading the module, make sure that all threads are joined if any were spawned by it\n\
+      note: you can register \"before_unload\" callback for it",
     );
   }
 }

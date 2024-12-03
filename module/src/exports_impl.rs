@@ -1,11 +1,14 @@
-use std::{alloc::Layout, sync::atomic::Ordering};
+use std::{
+  alloc::{GlobalAlloc, Layout, System},
+  sync::atomic::Ordering,
+};
 
 use dylib_reload_shared::{
   exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId,
 };
 use crate::{
-  allocator, gen_exports::ModuleExportsImpl, thread_locals, unloaded, EXIT_DEALLOCATION,
-  HOST_OWNER_THREAD, MODULE_ID, UNLOADED,
+  allocator, gen_exports::ModuleExportsImpl, thread_locals, EXIT_DEALLOCATION, HOST_OWNER_THREAD,
+  IS_IT_HOST_OWNER_THREAD, MODULE_ID,
 };
 
 impl Exports for ModuleExportsImpl {
@@ -18,24 +21,14 @@ impl Exports for ModuleExportsImpl {
 
   unsafe fn exit(allocs: dylib_reload_shared::SliceAllocation) {
     let allocs = allocs.into_slice();
+    let system = System;
 
-    EXIT_DEALLOCATION.store(true, Ordering::SeqCst);
-
-    // TODO: use System allocator here and lock module allocator in take_cached_allocs_before_exit?
     for Allocation(AllocatorPtr(ptr), layout, ..) in allocs {
-      unsafe {
-        std::alloc::dealloc(
-          *ptr,
-          Layout::from_size_align(layout.size, layout.align).unwrap(),
-        );
-      }
+      system.dealloc(
+        *ptr,
+        Layout::from_size_align(layout.size, layout.align).unwrap(),
+      );
     }
-
-    UNLOADED.store(true, Ordering::SeqCst);
-  }
-
-  fn unloaded() -> bool {
-    unloaded()
   }
 
   fn take_cached_allocs_before_exit() {
@@ -43,6 +36,12 @@ impl Exports for ModuleExportsImpl {
   }
 
   unsafe fn run_thread_local_dtors() {
+    IS_IT_HOST_OWNER_THREAD.set(true);
     thread_locals::dtors::run();
+  }
+
+  fn lock_module_allocator() {
+    // TODO: rename it?
+    EXIT_DEALLOCATION.store(true, Ordering::SeqCst);
   }
 }

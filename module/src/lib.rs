@@ -1,4 +1,7 @@
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::{
+  cell::Cell,
+  sync::atomic::{AtomicBool, Ordering},
+};
 
 use dylib_reload_shared::ModuleId;
 
@@ -19,11 +22,6 @@ fn exit_deallocation() -> bool {
   EXIT_DEALLOCATION.load(Ordering::SeqCst)
 }
 
-static UNLOADED: AtomicBool = AtomicBool::new(false);
-fn unloaded() -> bool {
-  UNLOADED.load(Ordering::SeqCst)
-}
-
 /// The id of the thread in which this module was loaded and in which it must be unloaded
 ///
 /// SAFETY: will be initialized on one thread once and then never change
@@ -31,3 +29,7 @@ static mut HOST_OWNER_THREAD: i64 = 0;
 
 /// SAFETY: will be initialized on one thread once and then never change
 static mut MODULE_ID: ModuleId = 0;
+
+thread_local! {
+  static IS_IT_HOST_OWNER_THREAD: Cell<bool> = const { Cell::new(false) };
+}

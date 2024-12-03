@@ -9,7 +9,7 @@ fn main() {
   }
   dbg!();
 
-  thread::sleep(Duration::from_millis(1500));
+  thread::sleep(Duration::from_millis(200));
   drop(module);
-  thread::sleep(Duration::from_millis(2000));
+  thread::sleep(Duration::from_millis(1000));
 }

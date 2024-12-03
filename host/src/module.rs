@@ -75,22 +75,26 @@ impl Drop for Module {
       }
     }
 
+    dbg!();
+    self.exports.lock_module_allocator();
+
+    dbg!();
     unsafe {
       self.exports.run_thread_local_dtors();
     }
 
+    dbg!();
     module_allocs::remove_module(self);
 
+    dbg!();
     library.close().unwrap_or_else(|e| {
       panic!("Failed to unload module library, reason: {e}");
     });
 
+    dbg!();
     let still_loaded = is_library_loaded(&self.library_path);
     if still_loaded {
-      panic!(
-        "Failed to unload module\n\
-        note: before unloading the module, make sure that all threads are joined if any were spawned by it"
-      );
+      panic!("Failed to unload module: {}", self.library_path.display());
     }
   }
 }
