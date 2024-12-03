@@ -5,6 +5,7 @@ members = [
   "host",
   "module",
   "shared",
+  "crate_compilation_info",
   "testing/host",
   "testing/module"
 ]

@@ -21,6 +21,12 @@ path = "../shared"
 version = "0.1.0"
 path = "../dylib_interface"
 
+[dependencies.crate_compilation_info]
+version = "=0.1.0"
+path = "../crate_compilation_info"
+
+[build-dependencies]
+
 [build-dependencies.dylib_interface]
 version = "0.1.0"
 path = "../dylib_interface"
@@ -29,3 +35,8 @@ features = ["build"]
 [build-dependencies.dylib_reload_shared]
 version = "=0.1.0"
 path = "../shared"
+
+[build-dependencies.crate_compilation_info]
+version = "=0.1.0"
+path = "../crate_compilation_info"
+features = ["build"]

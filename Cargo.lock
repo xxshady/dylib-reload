@@ -9,6 +9,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
+name = "crate_compilation_info"
+version = "0.1.0"
+
+[[package]]
 name = "dylib_interface"
 version = "0.1.0"
 dependencies = [
@@ -22,6 +26,7 @@ dependencies = [
 name = "dylib_reload_host"
 version = "0.1.0"
 dependencies = [
+ "crate_compilation_info",
  "dylib_interface",
  "dylib_reload_shared",
  "libc",
@@ -33,6 +38,7 @@ dependencies = [
 name = "dylib_reload_module"
 version = "0.1.0"
 dependencies = [
+ "crate_compilation_info",
  "dylib_interface",
  "dylib_reload_shared",
  "libc",

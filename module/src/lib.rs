@@ -13,8 +13,8 @@ mod helpers;
 mod exports_impl;
 mod allocator;
 use allocator::Allocator;
-
 mod thread_spawn_hook;
+mod compilation_info;
 
 #[global_allocator]
 static GLOBAL: Allocator = Allocator::new();

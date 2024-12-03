@@ -42,8 +42,8 @@ pub type SliceAllocation = RawSlice<Allocation>;
 /// FFI-safe `&[T]`
 #[repr(C)]
 pub struct RawSlice<T> {
-  ptr: *const T,
-  len: usize,
+  pub ptr: *const T,
+  pub len: usize,
 }
 
 impl<T> RawSlice<T> {
@@ -51,6 +51,13 @@ impl<T> RawSlice<T> {
   /// See `Safety` of [`std::slice::from_raw_parts`]
   pub unsafe fn into_slice<'a>(self) -> &'a [T] {
     std::slice::from_raw_parts(self.ptr, self.len)
+  }
+
+  pub unsafe fn to_vec(&self) -> Vec<T>
+  where
+    T: Clone,
+  {
+    std::slice::from_raw_parts(self.ptr, self.len).to_vec()
   }
 }
 
@@ -68,11 +75,31 @@ impl<T> From<&[T]> for RawSlice<T> {
 pub struct Str(RawSlice<u8>);
 
 impl Str {
+  /// # Caution ⚠️
+  /// Be very careful when you return `Str` from module exports or imports,
+  /// it's better to clone it immediately using [`to_string`](Self::to_string)
+  ///
   /// # Safety
   /// See `Safety` of [`std::slice::from_raw_parts`]
   pub unsafe fn into_str<'a>(self) -> &'a str {
     let bytes = self.0.into_slice();
     std::str::from_utf8(bytes).expect("Failed to get valid UTF-8 string slice back")
+  }
+
+  /// # Safety
+  /// See `Safety` of [`std::slice::from_raw_parts`]
+  pub unsafe fn to_string(&self) -> String {
+    let bytes = self.0.to_vec();
+    String::from_utf8(bytes).expect("Failed to convert to valid UTF-8 string")
+  }
+
+  /// `From<&str>` for const contexts
+  pub const fn const_from(value: &str) -> Self {
+    let bytes = value.as_bytes();
+    Self(RawSlice {
+      ptr: bytes.as_ptr(),
+      len: bytes.len(),
+    })
   }
 }
 
@@ -81,5 +108,9 @@ impl From<&str> for Str {
     Self(value.as_bytes().into())
   }
 }
+
+// SAFETY: `&str` is Send and Sync
+unsafe impl Send for Str {}
+unsafe impl Sync for Str {}
 
 pub type ModuleId = u64;

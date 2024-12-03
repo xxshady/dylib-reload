@@ -1,7 +1,10 @@
 use std::{thread, time::Duration};
 
 fn main() {
-  let module = unsafe { dylib_reload_host::load_module("target/debug/libtest_module.so") }.unwrap();
+  let path = "target/debug/libtest_module.so";
+  // let path = "./libtest_moduledddddd.so";
+
+  let module = unsafe { dylib_reload_host::load_module(path) }.unwrap();
 
   dbg!();
   unsafe {

@@ -5,4 +5,6 @@ fn main() {
     "../shared/src/imports.rs",
     "dylib_reload_shared::imports::___Internal___Imports___",
   );
+
+  crate_compilation_info::provide();
 }

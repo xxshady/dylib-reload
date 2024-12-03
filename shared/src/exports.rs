@@ -1,6 +1,6 @@
-use crate::{ModuleId, SliceAllocation};
+use crate::{ModuleId, SliceAllocation, Str};
 
-#[allow(non_camel_case_types)]
+#[allow(non_camel_case_types, clippy::missing_safety_doc)]
 pub trait ___Internal___Exports___ {
   unsafe fn init(host_owner_thread: i64, module: ModuleId);
   unsafe fn exit(allocs: SliceAllocation);
