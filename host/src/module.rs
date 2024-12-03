@@ -75,6 +75,13 @@ impl Drop for Module {
       }
     }
 
+    if self.exports.spawned_threads_count() > 0 {
+      panic!(
+        "Cannot unload module with running threads\n\
+        note: module can export \"before_unload\" function to join spawned threads"
+      );
+    }
+
     dbg!();
     self.exports.lock_module_allocator();
 
