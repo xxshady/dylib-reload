@@ -7,7 +7,7 @@ use dylib_reload_shared::{
   exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId,
 };
 use crate::{
-  allocator, gen_exports::ModuleExportsImpl, thread_locals, thread_spawn_hook, EXIT_DEALLOCATION,
+  allocator, gen_exports::ModuleExportsImpl, thread_locals, thread_spawn_hook, ALLOCATOR_LOCK,
   HOST_OWNER_THREAD, IS_IT_HOST_OWNER_THREAD, MODULE_ID,
 };
 
@@ -41,8 +41,7 @@ impl Exports for ModuleExportsImpl {
   }
 
   fn lock_module_allocator() {
-    // TODO: rename it?
-    EXIT_DEALLOCATION.store(true, Ordering::SeqCst);
+    ALLOCATOR_LOCK.store(true, Ordering::SeqCst);
   }
 
   fn spawned_threads_count() -> u64 {

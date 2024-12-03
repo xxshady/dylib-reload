@@ -19,9 +19,9 @@ mod thread_spawn_hook;
 #[global_allocator]
 static GLOBAL: Allocator = Allocator::new();
 
-static EXIT_DEALLOCATION: AtomicBool = AtomicBool::new(false);
-fn exit_deallocation() -> bool {
-  EXIT_DEALLOCATION.load(Ordering::SeqCst)
+static ALLOCATOR_LOCK: AtomicBool = AtomicBool::new(false);
+fn allocator_lock() -> bool {
+  ALLOCATOR_LOCK.load(Ordering::SeqCst)
 }
 
 /// The id of the thread in which this module was loaded and in which it must be unloaded
