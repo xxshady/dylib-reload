@@ -5,7 +5,7 @@ pub mod module;
 #[cfg(feature = "build")]
 mod shared;
 
-#[cfg(not(feature = "build"))]
+#[cfg(feature = "normal")]
 #[macro_export]
 macro_rules! include_generated {
   ($mod_name:ident, $file_name:literal) => {

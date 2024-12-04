@@ -9,6 +9,7 @@ rust-version.workspace = true
 
 [features]
 build = ["dep:prettyplease", "dep:proc-macro2", "dep:quote", "dep:syn"]
+normal = []
 
 [dependencies.prettyplease]
 optional = true
