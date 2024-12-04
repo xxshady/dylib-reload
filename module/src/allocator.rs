@@ -40,7 +40,7 @@ unsafe impl GlobalAlloc for Allocator {
     if ALLOC_INIT.load(Ordering::SeqCst) {
       gen_imports::on_alloc(MODULE_ID, ptr, c_layout);
     } else {
-      save_alloc_in_buffer(ptr, c_layout);
+      save_alloc_in_cache(ptr, c_layout);
     }
 
     ptr
@@ -56,7 +56,7 @@ unsafe impl GlobalAlloc for Allocator {
       align: layout.align(),
     };
 
-    save_dealloc_in_buffer(ptr, c_layout);
+    save_dealloc_in_cache(ptr, c_layout);
   }
 }
 
@@ -100,8 +100,8 @@ fn push_to_allocs_cache(op: AllocatorOp, cache: Option<&mut AllocsCache>) {
   }
 }
 
-fn save_alloc_in_buffer(ptr: *mut u8, layout: StableLayout) {
-  // libc_print::libc_println!("save_alloc_in_buffer {ptr:?}");
+fn save_alloc_in_cache(ptr: *mut u8, layout: StableLayout) {
+  // libc_print::libc_println!("save_alloc_in_cache {ptr:?}");
 
   push_to_allocs_cache(
     AllocatorOp::Alloc(Allocation(AllocatorPtr(ptr), layout)),
@@ -109,8 +109,8 @@ fn save_alloc_in_buffer(ptr: *mut u8, layout: StableLayout) {
   );
 }
 
-fn save_dealloc_in_buffer(ptr: *mut u8, layout: StableLayout) {
-  // libc_print::libc_println!("save_dealloc_in_buffer {ptr:?}");
+fn save_dealloc_in_cache(ptr: *mut u8, layout: StableLayout) {
+  // libc_print::libc_println!("save_dealloc_in_cache {ptr:?}");
 
   let cache = &mut lock_allocs_cache();
 

@@ -39,7 +39,7 @@ pub unsafe fn load_module(path: impl AsRef<OsStr>) -> Result<Module, crate::Erro
   let owner_thread = unsafe {
     // I could use `std::thread::current().id()`
     // but I'm not sure how safe it is for FFI + it needs to be stored in a static
-    // since it's an opaque object and as_u64() is unstable
+    // (since it's an opaque object and as_u64() is unstable)
     libc::syscall(libc::SYS_gettid)
   };
   let module_id = next_module_id();
