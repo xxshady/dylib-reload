@@ -3,7 +3,7 @@ mod build;
 #[cfg(feature = "build")]
 pub use build::provide;
 
-#[cfg(feature = "build")]
+#[cfg(feature = "normal")]
 #[macro_export]
 macro_rules! get {
   () => {
