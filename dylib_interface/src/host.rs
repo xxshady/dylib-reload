@@ -86,6 +86,7 @@ fn generate_exports(
         },
         quote! {
           /// Returns `None` if module panics.
+          /// Consider unloading module if it panicked, as it is unsafe to call it again.
           /// Note: not all panics are handled, see a ["double panic"](https://doc.rust-lang.org/std/ops/trait.Drop.html#panics)
           /// ```
           /// struct Bomb;

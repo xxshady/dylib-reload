@@ -54,10 +54,5 @@ fn main() {
 #[define_module_export]
 fn before_unload() {
   println!("before unload");
-
-  std::thread::spawn(|| {
-    sleep(Duration::from_secs(10));
-  });
-
   // panic!();
 }
