@@ -5,7 +5,7 @@ use std::{
   time::{Duration, Instant},
 };
 
-use define_module_export::define_module_export;
+use testing_define_module_export::define_module_export;
 use dylib_reload_module as _;
 
 dylib_interface::include_exports!();
@@ -23,6 +23,16 @@ impl Exports for ModuleExportsImpl {
 #[define_module_export]
 fn main() {
   dbg!();
+  vec![1_u8; 1024 * 1024 * 10];
+  std::mem::forget(vec![1_u8; 1024 * 1024 * 10]);
+
+  thread_local! {
+    static V: Cell<Vec<u8>> = Vec::new().into();
+  }
+  V.with(|v| {
+    v.replace(vec![1_u8; 1024 * 1024 * 300]);
+  });
+
   // panic!();
   // 123
 }
@@ -56,4 +66,12 @@ fn main() {
 fn before_unload() {
   println!("before unload");
   // panic!();
+  // thread::spawn(|| {
+  //   println!("before");
+  //   let initial = Instant::now();
+  //   while initial.elapsed() < Duration::from_millis(750) {
+  //     // vec![1];
+  //   }
+  //   println!("after");
+  // });
 }

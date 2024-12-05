@@ -11,7 +11,7 @@ rust-version.workspace = true
 crate-type = ["cdylib"]
 
 [dependencies]
-define_module_export = { version = "0.1.0", path = "../../define_module_export" }
+testing_define_module_export = { version = "0.1.0", path = "../define_module_export" }
 dylib_reload_module = { version = "0.1.0", path = "../../module" }
 
 [dependencies.testing_shared]

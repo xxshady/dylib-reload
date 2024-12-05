@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use std::{thread, time::Duration};
 
 dylib_interface::include_exports!();
@@ -14,6 +15,12 @@ impl Imports for ModuleImportsImpl {
 }
 
 fn main() {
+  for _ in 1..=3 {
+    load_and_unload();
+  }
+}
+
+fn load_and_unload() {
   let path = "target/debug/libtest_module.so";
   // let path = "target/release/libtest_module.so";
   // let path = "./libtest_moduledddddd.so";
@@ -33,7 +40,9 @@ fn main() {
   let a = exports.a();
   dbg!(a);
 
-  thread::sleep(Duration::from_millis(200));
-  module.unload().unwrap();
-  thread::sleep(Duration::from_millis(1000));
+  // thread::sleep(Duration::from_millis(200));
+  module.unload().unwrap_or_else(|e| {
+    panic!("{e:#}");
+  });
+  // thread::sleep(Duration::from_millis(1000));
 }

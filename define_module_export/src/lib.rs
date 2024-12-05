@@ -1,11 +1,15 @@
-use proc_macro::TokenStream;
 use proc_macro2::TokenStream as TokenStream2;
 use quote::{quote, ToTokens};
-use syn::{FnArg, ItemFn, ReturnType};
+use syn::{ItemFn, ReturnType};
 
-#[proc_macro_attribute]
-pub fn define_module_export(_args: TokenStream, input: TokenStream) -> TokenStream {
-  let input = syn::parse_macro_input!(input as ItemFn);
+pub fn define_module_export(input: TokenStream2) -> TokenStream2 {
+  let input = syn::parse2(input);
+
+  let input: ItemFn = match input {
+    Ok(input) => input,
+    Err(e) => return e.to_compile_error(),
+  };
+
   let ItemFn {
     attrs,
     vis: _,
@@ -13,10 +17,10 @@ pub fn define_module_export(_args: TokenStream, input: TokenStream) -> TokenStre
     block,
   } = input;
 
+  let output = sig.output;
+  let inputs = sig.inputs;
   let ident = sig.ident;
   let mangled_name = format!("__{ident}");
-
-  let output = sig.output;
 
   // TODO: move it to shared crate since it's also needed in dylib_interface crate
   let return_type = match &output {
@@ -26,21 +30,6 @@ pub fn define_module_export(_args: TokenStream, input: TokenStream) -> TokenStre
     ReturnType::Type(_, ty) => ty.to_token_stream(),
   };
 
-  let inputs = sig.inputs;
-
-  // TODO: move it to shared crate since it's also needed in dylib_interface crate
-  let inputs_without_types: TokenStream2 = inputs
-    .iter()
-    .map(|arg| {
-      let FnArg::Typed(arg) = arg else {
-        unreachable!();
-      };
-
-      let ts = arg.pat.to_token_stream();
-      quote! { #ts , }
-    })
-    .collect();
-
   quote! {
     #[unsafe(export_name = #mangled_name)]
     #( #attrs )*
@@ -49,14 +38,7 @@ pub fn define_module_export(_args: TokenStream, input: TokenStream) -> TokenStre
       #inputs
     ) -> bool // returns false if function panicked
     {
-      fn ___do_call___( #inputs ) #output {
-        #block
-      }
-
-      let result = std::panic::catch_unwind(move || {
-        ___do_call___( #inputs_without_types )
-      });
-
+      let result = std::panic::catch_unwind(move || #block);
       match result {
         Ok(value) => {
           unsafe {
@@ -69,5 +51,4 @@ pub fn define_module_export(_args: TokenStream, input: TokenStream) -> TokenStre
       }
     }
   }
-  .into()
 }
