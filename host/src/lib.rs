@@ -22,8 +22,6 @@ pub use crate::{errors::Error, module::Module};
 pub unsafe fn load_module(path: impl AsRef<OsStr>) -> Result<Module, crate::Error> {
   let library = open_library(&path)?;
 
-  let exports = ModuleExports::new(&library);
-
   let compiled_with: Symbol<*const Str> = library.get(b"__CRATE_COMPILATION_INFO__\0")?;
   let compiled_with: &Str = &**compiled_with;
   let compiled_with = compiled_with.to_string();
@@ -48,6 +46,7 @@ pub unsafe fn load_module(path: impl AsRef<OsStr>) -> Result<Module, crate::Erro
 
   module_allocs::add_module(module_id);
 
+  let exports = ModuleExports::new(&library);
   exports.init(owner_thread, module_id);
 
   let module = Module::new(module_id, library, exports, path.as_ref().into());
