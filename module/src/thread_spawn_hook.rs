@@ -32,12 +32,16 @@ unsafe extern "C" fn pthread_create(
   let original_impl: OriginalImpl =
     std::mem::transmute(libc::dlsym(libc::RTLD_NEXT, c"pthread_create".as_ptr()));
 
-  original_impl(native, attr, thread_start, payload as *mut libc::c_void)
+  let result = original_impl(native, attr, thread_start, payload as *mut libc::c_void);
+
+  if result == 0 {
+    SPAWNED_THREADS_COUNT.fetch_add(1, Ordering::Relaxed);
+  }
+
+  result
 }
 
 extern "C" fn thread_start(payload: *mut libc::c_void) -> *mut libc::c_void {
-  SPAWNED_THREADS_COUNT.fetch_add(1, Ordering::Relaxed);
-
   let ret = unsafe {
     let (f, value) = *Box::from_raw(payload as *mut Payload);
     f(value)
