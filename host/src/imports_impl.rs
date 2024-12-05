@@ -20,4 +20,9 @@ impl Imports for ModuleImportsImpl {
     let message = unsafe { message.into_str() };
     helpers::unrecoverable_with_prefix(message, "module");
   }
+
+  fn println(message: Str) {
+    let message = unsafe { message.into_str() };
+    println!("{message}");
+  }
 }

@@ -2,6 +2,7 @@ use std::{
   ffi::OsStr,
   fs::File,
   io::{BufRead, BufReader},
+  mem::MaybeUninit,
   path::Path,
   sync::atomic::{AtomicU64, Ordering},
 };
@@ -73,4 +74,25 @@ pub fn is_library_loaded(library_path: &Path) -> bool {
       false
     }
   })
+}
+
+// call module export with panic handling
+// (in case of panic exported function returns false and return value remains uninitialized)
+pub unsafe fn call_module_pub_export<R>(
+  library: &Library,
+  name: &str,
+) -> Result<Option<R>, libloading::Error> {
+  let fn_ = get_library_export(library, name)?;
+  let fn_: Symbol<extern "C" fn(*mut MaybeUninit<R>) -> bool> = fn_;
+
+  let mut return_value = MaybeUninit::uninit();
+
+  let success = fn_(&mut return_value);
+  if !success {
+    return Ok(None);
+  }
+
+  // SAFETY: function returned true so we are allowed to read the pointer
+  let return_value = return_value.assume_init_read();
+  Ok(Some(return_value))
 }

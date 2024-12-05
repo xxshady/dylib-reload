@@ -7,8 +7,8 @@ use dylib_reload_shared::{
   exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId, RawSlice, Str,
 };
 use crate::{
-  allocator, gen_exports::ModuleExportsImpl, thread_locals, thread_spawn_hook, ALLOCATOR_LOCK,
-  HOST_OWNER_THREAD, IS_IT_HOST_OWNER_THREAD, MODULE_ID,
+  allocator, gen_exports::ModuleExportsImpl, panic_hook, thread_locals, thread_spawn_hook,
+  ALLOCATOR_LOCK, HOST_OWNER_THREAD, IS_IT_HOST_OWNER_THREAD, MODULE_ID,
 };
 
 impl Exports for ModuleExportsImpl {
@@ -17,6 +17,7 @@ impl Exports for ModuleExportsImpl {
     MODULE_ID = module;
 
     allocator::init();
+    panic_hook::init();
   }
 
   unsafe fn exit(allocs: dylib_reload_shared::SliceAllocation) {

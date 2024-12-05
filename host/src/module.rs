@@ -1,6 +1,7 @@
 use std::{
   fmt::Debug,
   marker::PhantomData,
+  mem::MaybeUninit,
   path::{Path, PathBuf},
 };
 
@@ -9,7 +10,7 @@ use libloading::Symbol;
 
 use crate::{
   gen_exports::ModuleExports,
-  helpers::{get_library_export, is_library_loaded, open_library},
+  helpers::{call_module_pub_export, get_library_export, is_library_loaded, open_library},
   module_allocs,
 };
 
@@ -42,15 +43,26 @@ impl Module {
     }
   }
 
-  pub unsafe fn main<R>(&self) -> R {
-    let library = self.library.as_ref().unwrap_or_else(|| unreachable!());
+  pub fn library(&self) -> &libloading::Library {
+    self.library.as_ref().unwrap_or_else(|| unreachable!())
+  }
 
-    let main_fn = get_library_export(library, "main").unwrap_or_else(|e| {
+  /// Returns `None` if module panics.
+  /// Note: not all panics are handled, see a ["double panic"](https://doc.rust-lang.org/std/ops/trait.Drop.html#panics)
+  /// ```
+  /// struct Bomb;
+  ///   impl Drop for Bomb {
+  ///     fn drop(&mut self) {
+  ///         panic!("boom"); // will abort the program
+  ///     }
+  /// }
+  /// let _bomb = Bomb;
+  /// panic!();
+  /// ```
+  pub unsafe fn call_main<R>(&self) -> Option<R> {
+    call_module_pub_export(self.library(), "__main").unwrap_or_else(|e| {
       panic!("Failed to get main fn from module, reason: {e:#}");
-    });
-    let main_fn: Symbol<extern "C" fn() -> R> = main_fn;
-
-    main_fn()
+    })
   }
 }
 
@@ -62,16 +74,17 @@ impl Drop for Module {
     let library = self.library.take().unwrap_or_else(|| unreachable!());
 
     unsafe {
-      let before_unload = get_library_export(&library, "before_unload");
-      if let Ok(before_unload) = before_unload {
-        println!(r#"Module exported "before_unload" function, calling it before unloading"#);
+      println!(r#"Trying to call "before_unload"#);
 
-        let before_unload: extern "C" fn() = *before_unload;
-        before_unload();
-      } else {
-        println!(
-          r#"Module did not export "before_unload" function, unloading library without calling it"#
-        );
+      let result = call_module_pub_export(&library, "__before_unload");
+      match result {
+        Ok(Some(())) => {}
+        Err(e) => {
+          println!("Failed to get \"before_unload\" from module: {e:#}, ignoring it");
+        }
+        Ok(None) => {
+          panic!(r#"Failed to call "before_unload", module panicked"#);
+        }
       }
     }
 

@@ -1,7 +1,8 @@
 use std::ffi::OsStr;
 
-dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
 use dylib_reload_shared::Str;
+
+dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
 use gen_exports::ModuleExports;
 
 dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");

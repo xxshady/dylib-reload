@@ -53,6 +53,8 @@ impl<T> RawSlice<T> {
     std::slice::from_raw_parts(self.ptr, self.len)
   }
 
+  /// # Safety
+  /// See `Safety` of [`std::slice::from_raw_parts`]
   pub unsafe fn to_vec(&self) -> Vec<T>
   where
     T: Clone,

@@ -15,6 +15,7 @@ mod allocator;
 use allocator::Allocator;
 mod thread_spawn_hook;
 mod compilation_info;
+mod panic_hook;
 
 #[global_allocator]
 static GLOBAL: Allocator = Allocator::new();

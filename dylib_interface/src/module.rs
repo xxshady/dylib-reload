@@ -1,11 +1,12 @@
 use std::{fmt::Debug, path::Path};
 
 use proc_macro2::{Span, TokenStream};
-use quote::quote;
-use syn::Ident;
+use quote::{quote, ToTokens};
+use syn::{Ident, ReturnType};
 
 use crate::shared::{
-  extract_trait_name_from_path, for_each_trait_item, parse_trait_file, write_code_to_file, TraitFn,
+  extract_trait_name_from_path, fn_output_to_type, for_each_trait_item, parse_trait_file,
+  write_code_to_file, TraitFn,
 };
 
 /// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
@@ -22,11 +23,33 @@ pub fn generate(
   imports_file_path: impl AsRef<Path> + Debug,
   imports_trait_path: &str,
 ) {
-  generate_exports(exports_file_path, exports_trait_path);
+  generate_exports(exports_file_path, exports_trait_path, false);
   generate_imports(imports_file_path, imports_trait_path);
 }
 
-fn generate_exports(exports_file_path: impl AsRef<Path> + Debug, exports_trait_path: &str) {
+/// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
+/// using `include!(concat!(env!("OUT_DIR"), "/<file>"));` in your `lib.rs` or `main.rs`
+/// and then use `ModuleExportsImpl` struct to implement your `Exports` trait:
+/// ```
+/// impl Exports for ModuleExportsImpl {
+///   // ...
+/// }
+/// ```
+pub fn generate_pub(
+  exports_file_path: impl AsRef<Path> + Debug,
+  exports_trait_path: &str,
+  imports_file_path: impl AsRef<Path> + Debug,
+  imports_trait_path: &str,
+) {
+  generate_exports(exports_file_path, exports_trait_path, true);
+  generate_imports(imports_file_path, imports_trait_path);
+}
+
+fn generate_exports(
+  exports_file_path: impl AsRef<Path> + Debug,
+  exports_trait_path: &str,
+  panic_handling: bool,
+) {
   let trait_name = extract_trait_name_from_path(exports_trait_path);
 
   let (exports_trait, module_use_items) =
@@ -49,12 +72,42 @@ fn generate_exports(exports_file_path: impl AsRef<Path> + Debug, exports_trait_p
 
     let mangled_name = Ident::new(&mangled_name, Span::call_site());
 
-    exports.push(quote! {
-      #[unsafe(no_mangle)]
-      pub #unsafety extern "C" fn #mangled_name( #inputs ) #output {
-        <ModuleExportsImpl as Exports>::#ident( #inputs_without_types )
+    let code = if panic_handling {
+      let return_type = fn_output_to_type(output);
+
+      quote! {
+        #[unsafe(no_mangle)]
+        pub #unsafety extern "C" fn #mangled_name(
+          ____return_value____: *mut std::mem::MaybeUninit<#return_type>, // will be initialized if function won't panic
+          #inputs
+        ) -> bool // returns false if function panicked
+        {
+          let result = std::panic::catch_unwind(move || {
+            <ModuleExportsImpl as Exports>::#ident( #inputs_without_types )
+          });
+
+          match result {
+            Ok(value) => {
+              unsafe {
+                (*____return_value____).write(value);
+              }
+              true
+            }
+            // ignoring content since it's handled in our panic hook
+            Err(_) => { false }
+          }
+        }
       }
-    });
+    } else {
+      quote! {
+        #[unsafe(no_mangle)]
+        pub #unsafety extern "C" fn #mangled_name( #inputs ) #output {
+          <ModuleExportsImpl as Exports>::#ident( #inputs_without_types )
+        }
+      }
+    };
+
+    exports.push(code);
   }
 
   write_code_to_file(

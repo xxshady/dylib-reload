@@ -9,7 +9,7 @@ rust-version.workspace = true
 
 [dependencies]
 libc.workspace = true
-libloading = "0.8.5"
+libloading.workspace = true
 thiserror = "2.0.3"
 
 [dependencies.dylib_reload_shared]

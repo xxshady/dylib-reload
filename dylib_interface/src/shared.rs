@@ -1,6 +1,6 @@
 use std::{env::current_dir, fmt::Debug, fs, path::Path};
 
-use proc_macro2::{Span, TokenStream};
+use proc_macro2::{Span, TokenStream as TokenStream2};
 use quote::{quote, ToTokens};
 use syn::{
   punctuated::Punctuated, FnArg, Ident, Item, ItemTrait, ReturnType, Token, TraitItem, UseTree,
@@ -18,7 +18,7 @@ pub fn parse_trait_file(
   trait_name: &str,
   file_path: impl AsRef<Path> + Debug,
   trait_path: &str,
-) -> (ItemTrait, TokenStream) {
+) -> (ItemTrait, TokenStream2) {
   let file_path = file_path.as_ref();
 
   let Some((crate_name, _)) = trait_path.split_once("::") else {
@@ -48,7 +48,7 @@ pub fn parse_trait_file(
 
       Some(patch_item_use_if_needed(item_use, &crate_name))
     })
-    .collect::<TokenStream>();
+    .collect::<TokenStream2>();
 
   let are_there_any_other_items = items
     .iter()
@@ -79,7 +79,7 @@ pub fn parse_trait_file(
   (trait_.clone(), module_use_items)
 }
 
-pub fn write_code_to_file(file: &str, code: TokenStream) {
+pub fn write_code_to_file(file: &str, code: TokenStream2) {
   let code = code.to_string();
   let code = format_code(&code);
   let out = format!(
@@ -100,7 +100,7 @@ pub struct TraitFn<'a> {
   pub ident: &'a Ident,
   pub unsafety: Option<Token![unsafe]>,
   pub inputs: &'a Punctuated<FnArg, Token![,]>,
-  pub inputs_without_types: TokenStream,
+  pub inputs_without_types: TokenStream2,
   pub output: &'a ReturnType,
   pub mangled_name: String,
 }
@@ -150,7 +150,7 @@ pub fn extract_trait_name_from_path(trait_path: &str) -> &str {
   })
 }
 
-fn patch_item_use_if_needed(item_use: &ItemUse, crate_name: &Ident) -> TokenStream {
+fn patch_item_use_if_needed(item_use: &ItemUse, crate_name: &Ident) -> TokenStream2 {
   match &item_use.tree {
     UseTree::Path(path) => {
       let ident = path.ident.to_string();
@@ -177,5 +177,14 @@ fn patch_item_use_if_needed(item_use: &ItemUse, crate_name: &Ident) -> TokenStre
       let code = item_use.to_token_stream();
       panic!("unexpected syntax: `{code}`");
     }
+  }
+}
+
+pub fn fn_output_to_type(output: &ReturnType) -> TokenStream2 {
+  match output {
+    ReturnType::Default => {
+      quote! { () }
+    }
+    ReturnType::Type(_, ty) => ty.to_token_stream(),
   }
 }

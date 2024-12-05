@@ -4,34 +4,55 @@ use std::{
   time::{Duration, Instant},
 };
 
+use define_module_export::define_module_export;
 use dylib_reload_module as _;
 
-#[unsafe(no_mangle)]
-pub extern "C" fn main() {
-  // println!("Hello, world!");
-  // std::mem::forget(vec![1_u8; 10000]);
-  // let _ = std::thread::spawn(|| {
-  //   std::thread::sleep_ms(1000);
-  //   dbg!();
-  //   std::thread::sleep_ms(1000);
-  // });
+dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
+dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");
 
-  thread::spawn(|| {
-    println!("before");
-    let initial = Instant::now();
-    while initial.elapsed() < Duration::from_millis(750) {
-      // vec![1];
-    }
-    println!("after");
-  });
-
-  // thread_local! {
-  //   static V: Box<u8> = Box::new(1);
-  // }
-  // V.with(|_| {});
+use gen_exports::ModuleExportsImpl;
+use testing_shared::exports::Exports;
+impl Exports for ModuleExportsImpl {
+  fn a() -> i32 {
+    // panic!("awdawdadwadwdwddwdwdwddddddddddddddd");
+    gen_imports::b() + 1
+  }
 }
 
-#[unsafe(no_mangle)]
-pub extern "C" fn before_unload() {
+#[define_module_export]
+fn main() {
+  dbg!();
+  // panic!();
+  // 123
+}
+
+// #[unsafe(no_mangle)]
+// pub extern "C" fn main() {
+//   // println!("Hello, world!");
+//   // std::mem::forget(vec![1_u8; 10000]);
+//   // let _ = std::thread::spawn(|| {
+//   //   std::thread::sleep_ms(1000);
+//   //   dbg!();
+//   //   std::thread::sleep_ms(1000);
+//   // });
+
+//   thread::spawn(|| {
+//     println!("before");
+//     let initial = Instant::now();
+//     while initial.elapsed() < Duration::from_millis(750) {
+//       // vec![1];
+//     }
+//     println!("after");
+//   });
+
+//   // thread_local! {
+//   //   static V: Box<u8> = Box::new(1);
+//   // }
+//   // V.with(|_| {});
+// }
+
+#[define_module_export]
+fn before_unload() {
   println!("before unload");
+  // panic!();
 }
