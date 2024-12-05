@@ -1,5 +1,7 @@
 use std::ffi::OsStr;
 
+use libloading::Symbol;
+
 use dylib_reload_shared::Str;
 
 dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
@@ -8,15 +10,15 @@ use gen_exports::ModuleExports;
 dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");
 use gen_imports::init_imports;
 
-mod error;
+mod errors;
 mod module;
 mod module_allocs;
 mod helpers;
 use helpers::{cstr_bytes, next_module_id, open_library};
-use libloading::Symbol;
 mod imports_impl;
+mod leak_library;
 
-pub use crate::{error::Error, module::Module};
+pub use crate::{errors::Error, module::Module};
 
 pub unsafe fn load_module(path: impl AsRef<OsStr>) -> Result<Module, crate::Error> {
   let library = open_library(&path)?;

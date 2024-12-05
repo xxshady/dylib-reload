@@ -1,24 +1,20 @@
-use std::{
-  fmt::Debug,
-  marker::PhantomData,
-  mem::MaybeUninit,
-  path::{Path, PathBuf},
-};
+use std::{fmt::Debug, marker::PhantomData, path::PathBuf};
 
 use dylib_reload_shared::ModuleId;
-use libloading::Symbol;
 
 use crate::{
+  errors::UnloadError,
   gen_exports::ModuleExports,
-  helpers::{call_module_pub_export, get_library_export, is_library_loaded, open_library},
+  helpers::{call_module_pub_export, is_library_loaded},
+  leak_library::LeakLibrary,
   module_allocs,
 };
 
+#[must_use = "module will be leaked if dropped, if you don't want that consider using `unload` method"]
 pub struct Module {
   pub id: ModuleId,
 
-  /// it's Option because of Drop impl
-  pub(crate) library: Option<libloading::Library>,
+  pub(crate) library: LeakLibrary,
   library_path: PathBuf,
 
   pub(crate) exports: ModuleExports,
@@ -36,7 +32,7 @@ impl Module {
   ) -> Self {
     Self {
       id,
-      library: Some(library),
+      library: LeakLibrary::new(library),
       library_path,
       exports,
       _not_thread_safe: PhantomData,
@@ -44,7 +40,7 @@ impl Module {
   }
 
   pub fn library(&self) -> &libloading::Library {
-    self.library.as_ref().unwrap_or_else(|| unreachable!())
+    self.library.get_ref()
   }
 
   /// Returns `None` if module panics.
@@ -64,58 +60,49 @@ impl Module {
       panic!("Failed to get main fn from module, reason: {e:#}");
     })
   }
-}
 
-impl Drop for Module {
-  fn drop(&mut self) {
+  pub fn unload(self) -> Result<(), UnloadError> {
     // TEST
     println!("----------- unloading library");
 
-    let library = self.library.take().unwrap_or_else(|| unreachable!());
+    let library = self.library();
+    let library_path = self.library_path.to_string_lossy().into_owned();
 
     unsafe {
       println!(r#"Trying to call "before_unload"#);
 
-      let result = call_module_pub_export(&library, "__before_unload");
+      let result = call_module_pub_export(library, "__before_unload");
       match result {
         Ok(Some(())) => {}
         Err(e) => {
           println!("Failed to get \"before_unload\" from module: {e:#}, ignoring it");
         }
         Ok(None) => {
-          panic!(r#"Failed to call "before_unload", module panicked"#);
+          return Err(UnloadError::BeforeUnloadPanicked(library_path));
         }
       }
     }
 
     if self.exports.spawned_threads_count() > 0 {
-      panic!(
-        "Cannot unload module with running threads\n\
-        note: module can export \"before_unload\" function to join spawned threads"
-      );
+      return Err(UnloadError::ThreadsStillRunning(library_path));
     }
 
-    dbg!();
     self.exports.lock_module_allocator();
 
-    dbg!();
     unsafe {
       self.exports.run_thread_local_dtors();
     }
 
-    dbg!();
-    module_allocs::remove_module(self);
+    module_allocs::remove_module(&self);
 
-    dbg!();
-    library.close().unwrap_or_else(|e| {
-      panic!("Failed to unload module library, reason: {e}");
-    });
+    self.library.take().close()?;
 
-    dbg!();
     let still_loaded = is_library_loaded(&self.library_path);
     if still_loaded {
-      panic!("Failed to unload module: {}", self.library_path.display());
+      return Err(UnloadError::UnloadingFail(library_path));
     }
+
+    Ok(())
   }
 }
 

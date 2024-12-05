@@ -35,6 +35,6 @@ fn main() {
   dbg!(a);
 
   thread::sleep(Duration::from_millis(200));
-  drop(module);
+  module.unload().unwrap();
   thread::sleep(Duration::from_millis(1000));
 }
