@@ -24,7 +24,7 @@ pub enum UnloadError {
 
   #[error(
     "module still has running threads\n\
-    module path: {0}
+    module path: {0}\n\
     note: module can export \"before_unload\" function to join spawned threads"
   )]
   ThreadsStillRunning(String),
