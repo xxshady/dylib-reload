@@ -7,10 +7,26 @@ mod shared;
 
 #[cfg(feature = "normal")]
 #[macro_export]
-macro_rules! include_generated {
-  ($mod_name:ident, $file_name:literal) => {
+macro_rules! include_exports {
+  () => {
+    $crate::include_exports!(gen_exports);
+  };
+  ($mod_name:ident) => {
     mod $mod_name {
-      include!(concat!(env!("OUT_DIR"), $file_name));
+      include!(concat!(env!("OUT_DIR"), "/generated_module_exports.rs"));
+    }
+  };
+}
+
+#[cfg(feature = "normal")]
+#[macro_export]
+macro_rules! include_imports {
+  () => {
+    $crate::include_imports!(gen_imports);
+  };
+  ($mod_name:ident) => {
+    mod $mod_name {
+      include!(concat!(env!("OUT_DIR"), "/generated_module_imports.rs"));
     }
   };
 }

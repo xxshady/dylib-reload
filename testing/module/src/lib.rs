@@ -7,8 +7,8 @@ use std::{
 use define_module_export::define_module_export;
 use dylib_reload_module as _;
 
-dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
-dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");
+dylib_interface::include_exports!();
+dylib_interface::include_imports!();
 
 use gen_exports::ModuleExportsImpl;
 use testing_shared::exports::Exports;

@@ -1,9 +1,8 @@
 use std::{thread, time::Duration};
 
-dylib_interface::include_generated!(gen_exports, "/generated_module_exports.rs");
+dylib_interface::include_exports!();
+dylib_interface::include_imports!();
 use gen_exports::ModuleExports;
-
-dylib_interface::include_generated!(gen_imports, "/generated_module_imports.rs");
 use gen_imports::{init_imports, ModuleImportsImpl};
 
 use testing_shared::imports::Imports;
