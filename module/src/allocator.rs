@@ -101,8 +101,6 @@ fn push_to_allocs_cache(op: AllocatorOp, cache: Option<&mut AllocsCache>) {
 }
 
 fn save_alloc_in_cache(ptr: *mut u8, layout: StableLayout) {
-  // libc_print::libc_println!("save_alloc_in_cache {ptr:?}");
-
   push_to_allocs_cache(
     AllocatorOp::Alloc(Allocation(AllocatorPtr(ptr), layout)),
     None,
@@ -110,8 +108,6 @@ fn save_alloc_in_cache(ptr: *mut u8, layout: StableLayout) {
 }
 
 fn save_dealloc_in_cache(ptr: *mut u8, layout: StableLayout) {
-  // libc_print::libc_println!("save_dealloc_in_cache {ptr:?}");
-
   let cache = &mut lock_allocs_cache();
 
   let ptr = AllocatorPtr(ptr);

@@ -48,10 +48,10 @@ impl Module {
   /// Note: not all panics are handled, see a ["double panic"](https://doc.rust-lang.org/std/ops/trait.Drop.html#panics)
   /// ```
   /// struct Bomb;
-  ///   impl Drop for Bomb {
-  ///     fn drop(&mut self) {
-  ///         panic!("boom"); // will abort the program
-  ///     }
+  /// impl Drop for Bomb {
+  ///   fn drop(&mut self) {
+  ///     panic!("boom"); // will abort the program
+  ///   }
   /// }
   /// let _bomb = Bomb;
   /// panic!();
@@ -63,20 +63,17 @@ impl Module {
   }
 
   pub fn unload(self) -> Result<(), UnloadError> {
-    // TEST
-    println!("----------- unloading library");
-
     let library = self.library();
     let library_path = self.library_path.to_string_lossy().into_owned();
 
     unsafe {
-      println!(r#"Trying to call "before_unload"#);
+      // println!("Trying to call \"before_unload\");
 
       let result = call_module_pub_export(library, "__before_unload");
       match result {
         Ok(Some(())) => {}
-        Err(e) => {
-          println!("Failed to get \"before_unload\" from module: {e:#}, ignoring it");
+        Err(_e) => {
+          // println!("Failed to get \"before_unload\" from module: {e:#}, ignoring it");
         }
         Ok(None) => {
           return Err(UnloadError::BeforeUnloadPanicked(library_path));

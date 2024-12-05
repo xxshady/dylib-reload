@@ -45,9 +45,6 @@ pub fn remove_module(module: &Module) {
 pub extern "C" fn on_cached_allocs(module_id: ModuleId, ops: SliceAllocatorOp) {
   let ops = unsafe { ops.into_slice() };
 
-  // TEST
-  println!("received cached alloc ops: {}", ops.len());
-
   let mut allocs = lock_allocs();
   let allocs = allocs.get_mut(&module_id).unwrap_or_else(|| unreachable!());
 
@@ -73,15 +70,4 @@ pub extern "C" fn on_alloc(module_id: ModuleId, ptr: *mut u8, layout: StableLayo
 
   let ptr = AllocatorPtr(ptr);
   allocs.insert(ptr, Allocation(ptr, layout));
-}
-
-pub extern "C" fn on_dealloc(module_id: ModuleId, ptr: *mut u8, layout: StableLayout) {
-  let mut allocs = lock_allocs();
-  let allocs = allocs
-    .get_mut(&module_id)
-    .unwrap_or_else(|| unrecoverable("on_dealloc unreachable"));
-
-  allocs.remove(&AllocatorPtr(ptr)).unwrap_or_else(|| {
-    unrecoverable("did not found allocation");
-  });
 }

@@ -4,7 +4,7 @@ use std::{
 };
 
 use dylib_reload_shared::{
-  exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId, RawSlice, Str,
+  exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId
 };
 use crate::{
   allocator, gen_exports::ModuleExportsImpl, panic_hook, thread_locals, thread_spawn_hook,

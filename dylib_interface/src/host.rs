@@ -90,10 +90,10 @@ fn generate_exports(
           /// Note: not all panics are handled, see a ["double panic"](https://doc.rust-lang.org/std/ops/trait.Drop.html#panics)
           /// ```
           /// struct Bomb;
-          ///   impl Drop for Bomb {
-          ///     fn drop(&mut self) {
-          ///         panic!("boom"); // will abort the program
-          ///     }
+          /// impl Drop for Bomb {
+          ///   fn drop(&mut self) {
+          ///     panic!("boom"); // will abort the program
+          ///   }
           /// }
           /// let _bomb = Bomb;
           /// panic!();

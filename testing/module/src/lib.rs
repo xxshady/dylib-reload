@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use std::{
   cell::Cell,
   thread::{self, sleep},

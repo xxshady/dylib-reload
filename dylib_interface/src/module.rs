@@ -1,8 +1,8 @@
 use std::{fmt::Debug, path::Path};
 
-use proc_macro2::{Span, TokenStream};
-use quote::{quote, ToTokens};
-use syn::{Ident, ReturnType};
+use proc_macro2::{Span, TokenStream as TokenStream2};
+use quote::quote;
+use syn::{FnArg, Ident};
 
 use crate::shared::{
   extract_trait_name_from_path, fn_output_to_type, for_each_trait_item, parse_trait_file,
@@ -58,7 +58,7 @@ fn generate_exports(
   let exports_trait_path: syn::Path =
     syn::parse_str(exports_trait_path).expect("Failed to parse exports_trait_path as syn::Path");
 
-  let mut exports = Vec::<TokenStream>::new();
+  let mut exports = Vec::<TokenStream2>::new();
 
   for item in exports_trait.items {
     let TraitFn {
@@ -130,7 +130,7 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
   let (imports_trait, module_use_items) =
     parse_trait_file(trait_name, imports_file_path, imports_trait_path);
 
-  let mut imports = Vec::<TokenStream>::new();
+  let mut imports = Vec::<TokenStream2>::new();
 
   for item in imports_trait.items {
     let TraitFn {
@@ -144,13 +144,26 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
 
     let mangled_name = Ident::new(&mangled_name, Span::call_site());
 
+    let placeholder_inputs: TokenStream2 = inputs
+      .iter()
+      .map(|arg| {
+        let FnArg::Typed(arg) = arg else {
+          unreachable!();
+        };
+
+        // let ts = arg.pat.to_token_stream();
+        let ty = &arg.ty;
+        quote! { _: #ty , }
+      })
+      .collect();
+
     imports.push(quote! {
       pub #unsafety fn #ident( #inputs ) #output {
         #[allow(non_upper_case_globals)]
         #[unsafe(no_mangle)]
         static mut #mangled_name: #unsafety extern "C" fn( #inputs ) #output = placeholder;
 
-        #unsafety extern "C" fn placeholder( #inputs ) #output {
+        #unsafety extern "C" fn placeholder( #placeholder_inputs ) #output {
           unreachable!();
         }
 

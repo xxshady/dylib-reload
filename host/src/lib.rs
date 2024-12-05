@@ -13,7 +13,7 @@ mod errors;
 mod module;
 mod module_allocs;
 mod helpers;
-use helpers::{cstr_bytes, next_module_id, open_library};
+use helpers::{next_module_id, open_library};
 mod imports_impl;
 mod leak_library;
 

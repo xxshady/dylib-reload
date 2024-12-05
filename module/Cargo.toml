@@ -11,9 +11,6 @@ rust-version.workspace = true
 backtrace = "0.3.74"
 libc.workspace = true
 
-# // TEST
-libc-print = "0.1.23"
-
 [dependencies.dylib_reload_shared]
 version = "=0.1.0"
 path = "../shared"
