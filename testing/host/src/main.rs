@@ -1,5 +1,7 @@
 #[allow(unused_imports)]
-use std::{thread, time::Duration};
+use std::{io::stdin, thread, time::Duration};
+
+use dylib_reload_host::Module;
 
 dylib_interface::include_exports!();
 dylib_interface::include_imports!();
@@ -15,13 +17,35 @@ impl Imports for ModuleImportsImpl {
 }
 
 fn main() {
-  for _ in 1..=3 {
-    load_and_unload();
+  loop {
+    let module = load();
+    println!("----------------------------");
+
+    let mut message = String::new();
+    stdin().read_line(&mut message).unwrap();
+
+    println!("unloading");
+    module.unload().unwrap_or_else(|e| {
+      panic!("{e:#}");
+    });
+
+    message.clear();
+
+    println!("unloaded");
+    stdin().read_line(&mut message).unwrap();
+
+    if message == "q\n" {
+      return;
+    }
   }
 }
 
-fn load_and_unload() {
-  let path = "target/debug/libtest_module.so";
+fn load() -> Module {
+  let path = if cfg!(target_os = "linux") {
+    "target/debug/libtest_module.so"
+  } else {
+    "target/debug/test_module.dll"
+  };
   // let path = "target/release/libtest_module.so";
   // let path = "./libtest_moduledddddd.so";
 
@@ -40,9 +64,8 @@ fn load_and_unload() {
   let a = exports.a();
   dbg!(a);
 
-  // thread::sleep(Duration::from_millis(200));
-  module.unload().unwrap_or_else(|e| {
-    panic!("{e:#}");
-  });
-  // thread::sleep(Duration::from_millis(1000));
+  // module.unload().unwrap_or_else(|e| {
+  //   panic!("{e:#}");
+  // });
+  module
 }

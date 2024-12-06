@@ -36,19 +36,20 @@ pub unsafe fn load_module(path: impl AsRef<OsStr>) -> Result<Module, crate::Erro
 
   init_imports(&library);
 
-  let owner_thread = unsafe {
-    // I could use `std::thread::current().id()`
-    // but I'm not sure how safe it is for FFI + it needs to be stored in a static
-    // (since it's an opaque object and as_u64() is unstable)
-    libc::syscall(libc::SYS_gettid)
-  };
   let module_id = next_module_id();
 
   module_allocs::add_module(module_id);
 
   let exports = ModuleExports::new(&library);
-  exports.init(owner_thread, module_id);
+  exports.init(thread_id::get(), module_id);
 
   let module = Module::new(module_id, library, exports, path.as_ref().into());
   Ok(module)
+}
+
+// TODO: fix it
+#[cfg(target_os = "windows")]
+#[expect(clippy::missing_safety_doc)]
+pub unsafe fn __suppress_unused_warning_for_linux_only_exports(exports: ModuleExports) {
+  exports.spawned_threads_count();
 }

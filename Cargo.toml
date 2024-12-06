@@ -9,7 +9,8 @@ members = [
   "testing/shared",
   "testing/host",
   "testing/module",
-  "define_module_export", "testing/define_module_export", 
+  "define_module_export",
+  "testing/define_module_export",
 ]
 
 [workspace.package]
@@ -23,3 +24,4 @@ rust-version = "1.82.0"
 [workspace.dependencies]
 libc = "0.2.164"
 libloading = "0.8.6"
+thread-id = "5.0.0"

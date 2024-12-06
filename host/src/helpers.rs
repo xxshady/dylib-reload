@@ -1,13 +1,9 @@
 use std::{
   ffi::OsStr,
-  fs::File,
-  io::{BufRead, BufReader},
   mem::MaybeUninit,
-  path::Path,
   sync::atomic::{AtomicU64, Ordering},
 };
 
-use libc::{RTLD_DEEPBIND, RTLD_LAZY, RTLD_LOCAL};
 use dylib_reload_shared::ModuleId;
 use libloading::{Library, Symbol};
 
@@ -41,12 +37,24 @@ pub fn next_module_id() -> ModuleId {
 }
 
 pub unsafe fn open_library(path: impl AsRef<OsStr>) -> Result<libloading::Library, crate::Error> {
-  // RTLD_DEEPBIND allows replacing __cxa_thread_atexit_impl (it's needed to call destructors of thread-locals)
-  // only for dynamic library without replacing it for the whole executable
-  const FLAGS: i32 = RTLD_LAZY | RTLD_LOCAL | RTLD_DEEPBIND;
+  #[cfg(target_os = "linux")]
+  let library = {
+    use libloading::os::unix::Library;
+    use libc::{RTLD_DEEPBIND, RTLD_LAZY, RTLD_LOCAL};
 
-  use libloading::os::unix::Library;
-  let library = Library::open(Some(path), FLAGS)?.into();
+    // RTLD_DEEPBIND allows replacing __cxa_thread_atexit_impl (it's needed to call destructors of thread-locals)
+    // only for dynamic library without replacing it for the whole executable
+    const FLAGS: i32 = RTLD_LAZY | RTLD_LOCAL | RTLD_DEEPBIND;
+
+    Library::open(Some(path), FLAGS)?.into()
+  };
+
+  #[cfg(target_os = "windows")]
+  let library = {
+    use libloading::os::windows::Library;
+    Library::new(path)?.into()
+  };
+
   Ok(library)
 }
 
@@ -56,24 +64,6 @@ pub unsafe fn get_library_export<'lib, F>(
 ) -> Result<Symbol<'lib, F>, libloading::Error> {
   let fn_ = library.get(&cstr_bytes(name))?;
   Ok(fn_)
-}
-
-#[cfg(target_os = "linux")]
-pub fn is_library_loaded(library_path: &Path) -> bool {
-  let library_path = library_path
-    .to_str()
-    .expect("library path must be UTF-8 string");
-
-  let file = File::open("/proc/self/maps").expect("Failed to open /proc/self/maps");
-  let reader = BufReader::new(file);
-
-  reader.lines().any(|line_result| {
-    if let Ok(line) = line_result {
-      line.contains(library_path)
-    } else {
-      false
-    }
-  })
 }
 
 // call module export with panic handling
@@ -95,4 +85,30 @@ pub unsafe fn call_module_pub_export<R>(
   // SAFETY: function returned true so we are allowed to read the pointer
   let return_value = return_value.assume_init_read();
   Ok(Some(return_value))
+}
+
+#[cfg(target_os = "linux")]
+pub mod linux {
+  use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+    path::Path,
+  };
+
+  pub fn is_library_loaded(library_path: &Path) -> bool {
+    let library_path = library_path
+      .to_str()
+      .expect("library path must be UTF-8 string");
+
+    let file = File::open("/proc/self/maps").expect("Failed to open /proc/self/maps");
+    let reader = BufReader::new(file);
+
+    reader.lines().any(|line_result| {
+      if let Ok(line) = line_result {
+        line.contains(library_path)
+      } else {
+        false
+      }
+    })
+  }
 }

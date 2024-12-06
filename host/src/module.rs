@@ -3,11 +3,8 @@ use std::{fmt::Debug, marker::PhantomData, path::PathBuf};
 use dylib_reload_shared::ModuleId;
 
 use crate::{
-  errors::UnloadError,
-  gen_exports::ModuleExports,
-  helpers::{call_module_pub_export, is_library_loaded},
-  leak_library::LeakLibrary,
-  module_allocs,
+  errors::UnloadError, gen_exports::ModuleExports, helpers::call_module_pub_export,
+  leak_library::LeakLibrary, module_allocs,
 };
 
 #[must_use = "module will be leaked if dropped, if you don't want that consider using `unload` method"]
@@ -81,23 +78,36 @@ impl Module {
       }
     }
 
-    if self.exports.spawned_threads_count() > 0 {
-      return Err(UnloadError::ThreadsStillRunning(library_path));
+    #[cfg(target_os = "linux")]
+    {
+      if self.exports.spawned_threads_count() > 0 {
+        return Err(UnloadError::ThreadsStillRunning(library_path));
+      }
+
+      self.exports.lock_module_allocator();
+
+      unsafe {
+        self.exports.run_thread_local_dtors();
+      }
     }
 
+    #[cfg(target_os = "windows")]
     self.exports.lock_module_allocator();
-
-    unsafe {
-      self.exports.run_thread_local_dtors();
-    }
 
     module_allocs::remove_module(&self);
 
+    dbg!();
     self.library.take().close()?;
+    dbg!();
 
-    let still_loaded = is_library_loaded(&self.library_path);
-    if still_loaded {
-      return Err(UnloadError::UnloadingFail(library_path));
+    #[cfg(target_os = "linux")]
+    {
+      use crate::helpers::linux::is_library_loaded;
+
+      let still_loaded = is_library_loaded(&self.library_path);
+      if still_loaded {
+        return Err(UnloadError::UnloadingFail(library_path));
+      }
     }
 
     Ok(())

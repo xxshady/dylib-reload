@@ -22,18 +22,25 @@ impl Exports for ModuleExportsImpl {
 
 #[define_module_export]
 fn main() {
-  dbg!();
-  vec![1_u8; 1024 * 1024 * 10];
-  std::mem::forget(vec![1_u8; 1024 * 1024 * 10]);
+  // dbg!();
+  // vec![1_u8; 1024 * 1024 * 10];
+  std::mem::forget(vec![1_u8; 1024 * 1024 * 50]);
 
-  thread_local! {
-    static V: Cell<Vec<u8>> = Vec::new().into();
+  // struct TestTlsDrop;
+  // impl Drop for TestTlsDrop {
+  //   fn drop(&mut self) {
+  //     vec![1];
+  //   }
+  // }
+  // thread_local! {
+  //   static V: TestTlsDrop = TestTlsDrop;
+  // }
+  // V.with(|_| {});
+
+  fn test_panic() {
+    panic!();
   }
-  V.with(|v| {
-    v.replace(vec![1_u8; 1024 * 1024 * 300]);
-  });
-
-  // panic!();
+  test_panic();
   // 123
 }
 

@@ -28,6 +28,18 @@ impl Allocator {
 
 unsafe impl GlobalAlloc for Allocator {
   unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+    #[cfg(target_os = "windows")]
+    {
+      use crate::helpers::disable_allocator_for_thread_local_destructors;
+      if disable_allocator_for_thread_local_destructors() {
+        unrecoverable(
+          "module cannot allocate after its memory has been freed\n\
+          note: check if thread-locals registered in module have allocations\
+          inside Drop implementations, since currently it's not supported on windows",
+        );
+      }
+    }
+
     assert_allocator_is_still_accessible();
 
     let ptr = self.inner.alloc(layout);
@@ -47,6 +59,14 @@ unsafe impl GlobalAlloc for Allocator {
   }
 
   unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
+    #[cfg(target_os = "windows")]
+    {
+      use crate::helpers::disable_allocator_for_thread_local_destructors;
+      if disable_allocator_for_thread_local_destructors() {
+        return;
+      }
+    }
+
     assert_allocator_is_still_accessible();
 
     self.inner.dealloc(ptr, layout);

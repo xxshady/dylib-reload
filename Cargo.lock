@@ -71,6 +71,7 @@ dependencies = [
  "libc",
  "libloading",
  "thiserror",
+ "thread-id",
 ]
 
 [[package]]
@@ -82,6 +83,7 @@ dependencies = [
  "dylib_interface",
  "dylib_reload_shared",
  "libc",
+ "thread-id",
 ]
 
 [[package]]
@@ -242,10 +244,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "thread-id"
+version = "5.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "99043e46c5a15af379c06add30d9c93a6c0e8849de00d244c4a2c417da128d80"
+dependencies = [
+ "libc",
+ "windows-sys",
+]
+
+[[package]]
 name = "unicode-ident"
 version = "1.0.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "adb9e6ca4f869e1180728b7950e35922a7fc6397f7b641499e8f3ef06e50dc83"
+
+[[package]]
+name = "windows-sys"
+version = "0.59.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1e38bc4d79ed67fd075bcc251a1c39b32a1776bbe92e5bef1f0bf1f8c531853b"
+dependencies = [
+ "windows-targets",
+]
 
 [[package]]
 name = "windows-targets"
