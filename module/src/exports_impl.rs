@@ -12,25 +12,30 @@ use crate::{
 };
 
 impl Exports for ModuleExportsImpl {
-  unsafe fn init(host_owner_thread: usize, module: ModuleId) {
-    HOST_OWNER_THREAD = host_owner_thread;
-    MODULE_ID = module;
+  fn init(host_owner_thread: usize, module: ModuleId) {
+    unsafe {
+      HOST_OWNER_THREAD = host_owner_thread;
+      MODULE_ID = module;
 
-    allocator::init();
+      allocator::init();
+    }
+
     panic_hook::init();
 
     dbg!(host_owner_thread, is_it_host_owner_thread());
   }
 
-  unsafe fn exit(allocs: dylib_reload_shared::SliceAllocation) {
-    let allocs = allocs.into_slice();
+  fn exit(allocs: dylib_reload_shared::SliceAllocation) {
+    let allocs = unsafe { allocs.into_slice() };
     let system = System;
 
     for Allocation(AllocatorPtr(ptr), layout, ..) in allocs {
-      system.dealloc(
-        *ptr,
-        Layout::from_size_align(layout.size, layout.align).unwrap(),
-      );
+      unsafe {
+        system.dealloc(
+          *ptr,
+          Layout::from_size_align(layout.size, layout.align).unwrap(),
+        );
+      }
     }
   }
 
@@ -42,11 +47,13 @@ impl Exports for ModuleExportsImpl {
     ALLOCATOR_LOCK.store(true, Ordering::SeqCst);
   }
 
-  unsafe fn run_thread_local_dtors() {
+  fn run_thread_local_dtors() {
     #[cfg(target_os = "linux")]
     {
       use crate::thread_locals;
-      thread_locals::dtors::run();
+      unsafe {
+        thread_locals::dtors::run();
+      }
     }
   }
 
