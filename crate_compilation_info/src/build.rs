@@ -12,8 +12,10 @@ pub fn provide() {
   let host = host.replace("host: ", "");
   let llvm_version = llvm_version.replace("LLVM version: ", "");
 
+  let workspace_version = env!("CARGO_PKG_VERSION");
+
   const ENV_KEY: &str = "__CRATE_COMPILATION_INFO__";
-  println!("cargo:rustc-env={ENV_KEY}={rustc_version}|{host}|{llvm_version}");
+  println!("cargo:rustc-env={ENV_KEY}={rustc_version}|{host}|{llvm_version}|{workspace_version}");
 }
 
 fn get_rust_versions() -> String {
