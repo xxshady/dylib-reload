@@ -41,13 +41,17 @@ fn main() {
 }
 
 fn load() -> Module<ModuleExports> {
-  let path = if cfg!(target_os = "linux") {
-    "target/debug/libtest_module.so"
+  let directory = if cfg!(debug_assertions) {
+    "debug"
   } else {
-    "target/debug/test_module.dll"
+    "release"
   };
-  // let path = "target/release/libtest_module.so";
-  // let path = "./libtest_moduledddddd.so";
+
+  let path = if cfg!(target_os = "linux") {
+    format!("target/{directory}/libtest_module.so")
+  } else {
+    format!("target/{directory}/test_module.dll")
+  };
 
   let module = unsafe { dylib_reload_host::load_module::<ModuleExports>(path) }.unwrap();
 

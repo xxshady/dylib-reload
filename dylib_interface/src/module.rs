@@ -6,7 +6,7 @@ use syn::{FnArg, Ident};
 
 use crate::shared::{
   extract_trait_name_from_path, fn_output_to_type, for_each_trait_item, parse_trait_file,
-  write_code_to_file, TraitFn,
+  write_code_to_file, TraitFn, SAFETY_DOC,
 };
 
 /// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
@@ -147,13 +147,13 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
           unreachable!();
         };
 
-        // let ts = arg.pat.to_token_stream();
         let ty = &arg.ty;
         quote! { _: #ty , }
       })
       .collect();
 
     imports.push(quote! {
+      #[doc = #SAFETY_DOC]
       pub unsafe fn #ident( #inputs ) #output {
         #[allow(non_upper_case_globals)]
         #[unsafe(no_mangle)]

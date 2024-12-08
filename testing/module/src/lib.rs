@@ -28,31 +28,30 @@ impl Exports for ModuleExportsImpl {
 fn main() {
   // dbg!();
   // vec![1_u8; 1024 * 1024 * 10];
-  std::mem::forget(vec![1_u8; 1024 * 1024 * 50]);
+  // std::mem::forget(vec![1_u8; 1024 * 1024 * 50]);
 
-  struct TestTlsDrop;
-  impl Drop for TestTlsDrop {
-    fn drop(&mut self) {
-      // dbg!();
-      vec![1];
-    }
-  }
-  thread_local! {
-    static V: TestTlsDrop = TestTlsDrop;
-    static V2: Cell<Vec<u8>> = Vec::new().into();
-  }
-  V.with(|_| {});
-  V2.with(|v| {
-    let mut vec = v.take();
-    vec.push(1);
-    v.replace(vec);
-  });
+  // struct TestTlsDrop;
+  // impl Drop for TestTlsDrop {
+  //   fn drop(&mut self) {
+  //     // dbg!();
+  //     vec![1];
+  //   }
+  // }
+  // thread_local! {
+  //   static V: TestTlsDrop = TestTlsDrop;
+  //   static V2: Cell<Vec<u8>> = Vec::new().into();
+  // }
+  // V.with(|_| {});
+  // V2.with(|v| {
+  //   let mut vec = v.take();
+  //   vec.push(1);
+  //   v.replace(vec);
+  // });
 
   // fn test_panic() {
   //   panic!();
   // }
   // test_panic();
-  // 123
 }
 
 // #[unsafe(no_mangle)]

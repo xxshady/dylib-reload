@@ -65,9 +65,9 @@ impl<E: ModuleExportsForHost> Module<E> {
   /// ```
   ///
   /// # Safety
-  /// You must ensure that the returned value is actually `R` at runtime.
-  /// For example if you called this function with type `bool` but module returns `i32`, Undefined Behavior will occur.
-  ///
+  /// Behavior is undefined if any of the following conditions are violated:
+  /// 1. Returned value must be actually `R` at runtime. For example if you called this function with type `bool` but module returns `i32`, UB will occur.
+  /// 2. Types of arguments and return value must be FFI-safe.
   #[must_use = "returns `None` if module panics"]
   pub unsafe fn call_main<R>(&self) -> Option<ModuleValue<'_, R>> {
     call_module_pub_export(self.library(), "__main").unwrap_or_else(|e| {

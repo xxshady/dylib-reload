@@ -186,3 +186,8 @@ pub fn fn_output_to_type(output: &ReturnType) -> TokenStream2 {
     ReturnType::Type(_, ty) => ty.to_token_stream(),
   }
 }
+
+pub const SAFETY_DOC: &str = "# Safety\n\
+  Behavior is undefined if any of the following conditions are violated:\n\
+  1. Types of arguments and return value must be FFI-safe.\n\
+  2. Host and module crates must be compiled with same shared crate code (which contains exports and imports traits).";

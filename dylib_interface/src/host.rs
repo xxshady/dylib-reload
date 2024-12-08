@@ -5,7 +5,7 @@ use quote::quote;
 
 use crate::shared::{
   extract_trait_name_from_path, fn_output_to_type, for_each_trait_item, parse_trait_file,
-  write_code_to_file, TraitFn,
+  write_code_to_file, TraitFn, SAFETY_DOC,
 };
 
 /// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
@@ -86,7 +86,7 @@ fn generate_exports(
         quote! {
           /// Returns `None` if module panics.
           /// Consider unloading module if it panicked, as it is unsafe to call it again.
-          /// Note: not all panics are handled, see a ["double panic"](https://doc.rust-lang.org/std/ops/trait.Drop.html#panics)
+          /// Note: not all panics are handled, see a ["double panic"](https://doc.rust-lang.org/std/ops/trait.Drop.html#panics).
           /// ```
           /// struct Bomb;
           /// impl Drop for Bomb {
@@ -97,9 +97,7 @@ fn generate_exports(
           /// let _bomb = Bomb;
           /// panic!();
           /// ```
-          ///
-          /// # Safety
-          /// It's up to you to ensure that types of arguments and return value are FFI-safe
+          #[doc = #SAFETY_DOC]
           pub unsafe fn #ident<'module>( &'module self, #inputs ) -> Option<ModuleValue<'module, #return_type>> {
             use std::mem::MaybeUninit;
 
@@ -127,8 +125,7 @@ fn generate_exports(
           #ident: unsafe extern "C" fn( #inputs ) #output
         },
         quote! {
-          /// # Safety
-          /// It's up to you to ensure that types of arguments and return value are FFI-safe.
+          #[doc = #SAFETY_DOC]
           pub unsafe fn #ident<'module>( &'module self, #inputs ) -> ModuleValue<'module, #return_type> {
             let return_value = (self.#ident)( #inputs_without_types );
             ModuleValue::new(return_value)

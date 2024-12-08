@@ -3,8 +3,6 @@
 TODO: non dev mode?
 TODO: check crate (workspace?) version as well
 
-TODO: what if wrong host crate or module crate "version" will be used?
-
 TODO: document thread-locals destructors behavior on library unload,
       whats allowed and whats not, for example allocations in destructors on windows
 
