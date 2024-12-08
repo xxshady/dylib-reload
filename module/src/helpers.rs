@@ -1,7 +1,7 @@
 use crate::{allocator_lock, gen_imports, HOST_OWNER_THREAD};
 
 pub fn unrecoverable(message: &str) -> ! {
-  gen_imports::unrecoverable(message.into())
+  unsafe { gen_imports::unrecoverable(message.into()) }
 }
 
 pub fn assert_allocator_is_still_accessible() {

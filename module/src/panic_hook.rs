@@ -9,7 +9,9 @@ pub fn init() {
     let backtrace = backtrace::Backtrace::new();
     let panic_message = format!("{info}\nbacktrace:\n{backtrace:?}");
 
-    gen_imports::println(panic_message.as_str().into());
+    unsafe {
+      gen_imports::println(panic_message.as_str().into());
+    }
 
     backtrace::clear_symbol_cache();
   }));

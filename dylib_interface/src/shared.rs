@@ -98,7 +98,6 @@ pub fn write_code_to_file(file: &str, code: TokenStream2) {
 
 pub struct TraitFn<'a> {
   pub ident: &'a Ident,
-  pub unsafety: Option<Token![unsafe]>,
   pub inputs: &'a Punctuated<FnArg, Token![,]>,
   pub inputs_without_types: TokenStream2,
   pub output: &'a ReturnType,
@@ -135,7 +134,6 @@ pub fn for_each_trait_item<'trait_>(
 
   TraitFn {
     ident,
-    unsafety: fn_.unsafety,
     inputs: &fn_.inputs,
     inputs_without_types,
     output: &fn_.output,

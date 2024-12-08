@@ -16,7 +16,7 @@ use testing_shared::exports::Exports;
 impl Exports for ModuleExportsImpl {
   fn a() -> i32 {
     // panic!("awdawdadwadwdwddwdwdwddddddddddddddd");
-    gen_imports::b() + 1
+    (unsafe { gen_imports::b() }) + 1
   }
 
   fn b() -> String {

@@ -97,19 +97,22 @@ impl<E: ModuleExportsForHost> Module<E> {
 
     #[cfg(target_os = "linux")]
     {
-      if *self.internal_exports.spawned_threads_count() > 0 {
+      let spawned_threads = unsafe { *self.internal_exports.spawned_threads_count() };
+
+      if spawned_threads > 0 {
         return Err(UnloadError::ThreadsStillRunning(library_path));
       }
 
-      self.internal_exports.lock_module_allocator();
-
       unsafe {
+        self.internal_exports.lock_module_allocator();
         self.internal_exports.run_thread_local_dtors();
       }
     }
 
     #[cfg(target_os = "windows")]
-    self.internal_exports.lock_module_allocator();
+    unsafe {
+      self.internal_exports.lock_module_allocator();
+    }
 
     module_allocs::remove_module(&self);
 

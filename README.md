@@ -3,10 +3,7 @@
 TODO: non dev mode?
 TODO: check crate (workspace?) version as well
 
-TODO: document or even add trait for types which are safe to move from module
-      to host
-
-TODO: make exports/imports bindings unsafe because there is no guarantee about FFI safety, also: what if wrong host or module version will be used?
+TODO: what if wrong host crate or module crate "version" will be used?
 
 TODO: document thread-locals destructors behavior on library unload,
       whats allowed and whats not, for example allocations in destructors on windows

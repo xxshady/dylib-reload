@@ -58,7 +58,6 @@ fn generate_exports(
   for item in &exports_trait.items {
     let TraitFn {
       ident,
-      unsafety,
       inputs,
       inputs_without_types,
       output,
@@ -79,7 +78,7 @@ fn generate_exports(
     let (decl, impl_) = if pub_exports {
       (
         quote! {
-          #ident: #unsafety extern "C" fn(
+          #ident: unsafe extern "C" fn(
             ____return_value____: *mut std::mem::MaybeUninit<#return_type>,
             #inputs
           ) -> bool
@@ -98,7 +97,10 @@ fn generate_exports(
           /// let _bomb = Bomb;
           /// panic!();
           /// ```
-          pub #unsafety fn #ident<'module>( &'module self, #inputs ) -> Option<ModuleValue<'module, #return_type>> {
+          ///
+          /// # Safety
+          /// It's up to you to ensure that types of arguments and return value are FFI-safe
+          pub unsafe fn #ident<'module>( &'module self, #inputs ) -> Option<ModuleValue<'module, #return_type>> {
             use std::mem::MaybeUninit;
 
             let mut ____return_value____ = MaybeUninit::<#return_type>::uninit();
@@ -122,10 +124,12 @@ fn generate_exports(
     } else {
       (
         quote! {
-          #ident: #unsafety extern "C" fn( #inputs ) #output
+          #ident: unsafe extern "C" fn( #inputs ) #output
         },
         quote! {
-          pub #unsafety fn #ident<'module>( &'module self, #inputs ) -> ModuleValue<'module, #return_type> {
+          /// # Safety
+          /// It's up to you to ensure that types of arguments and return value are FFI-safe.
+          pub unsafe fn #ident<'module>( &'module self, #inputs ) -> ModuleValue<'module, #return_type> {
             let return_value = (self.#ident)( #inputs_without_types );
             ModuleValue::new(return_value)
           }
@@ -186,7 +190,6 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
   for item in imports_trait.items {
     let TraitFn {
       ident,
-      unsafety,
       inputs,
       inputs_without_types,
       output,
@@ -198,12 +201,12 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
 
     imports.push(quote! {
       unsafe {
-        let ptr: *mut #unsafety extern "C" fn( #inputs ) #output
+        let ptr: *mut unsafe extern "C" fn( #inputs ) #output
           = *library.get(concat!(#mangled_name, "\0").as_bytes()).expect(#panic_message);
 
         *ptr = impl_;
 
-        #unsafety extern "C" fn impl_( #inputs ) #output {
+        unsafe extern "C" fn impl_( #inputs ) #output {
           <ModuleImportsImpl as Imports>::#ident( #inputs_without_types )
         }
       }

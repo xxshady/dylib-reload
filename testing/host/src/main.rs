@@ -63,7 +63,7 @@ fn load() -> Module<ModuleExports> {
   // dbg!(&a);
   // let a = *a;
 
-  let b = module.exports().b().unwrap();
+  let b = unsafe { module.exports().b() }.unwrap();
   dbg!(b);
 
   // module.unload().unwrap_or_else(|e| {

@@ -63,7 +63,6 @@ fn generate_exports(
   for item in exports_trait.items {
     let TraitFn {
       ident,
-      unsafety,
       inputs,
       inputs_without_types,
       output,
@@ -77,7 +76,7 @@ fn generate_exports(
 
       quote! {
         #[unsafe(no_mangle)]
-        pub #unsafety extern "C" fn #mangled_name(
+        pub unsafe extern "C" fn #mangled_name(
           ____return_value____: *mut std::mem::MaybeUninit<#return_type>, // will be initialized if function won't panic
           #inputs
         ) -> bool // returns false if function panicked
@@ -88,9 +87,7 @@ fn generate_exports(
 
           match result {
             Ok(value) => {
-              unsafe {
-                (*____return_value____).write(value);
-              }
+              (*____return_value____).write(value);
               true
             }
             // ignoring content since it's handled in our panic hook
@@ -101,7 +98,7 @@ fn generate_exports(
     } else {
       quote! {
         #[unsafe(no_mangle)]
-        pub #unsafety extern "C" fn #mangled_name( #inputs ) #output {
+        pub unsafe extern "C" fn #mangled_name( #inputs ) #output {
           <ModuleExportsImpl as Exports>::#ident( #inputs_without_types )
         }
       }
@@ -135,7 +132,6 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
   for item in imports_trait.items {
     let TraitFn {
       ident,
-      unsafety,
       inputs,
       inputs_without_types,
       output,
@@ -158,12 +154,12 @@ fn generate_imports(imports_file_path: impl AsRef<Path> + Debug, imports_trait_p
       .collect();
 
     imports.push(quote! {
-      pub #unsafety fn #ident( #inputs ) #output {
+      pub unsafe fn #ident( #inputs ) #output {
         #[allow(non_upper_case_globals)]
         #[unsafe(no_mangle)]
-        static mut #mangled_name: #unsafety extern "C" fn( #inputs ) #output = placeholder;
+        static mut #mangled_name: unsafe extern "C" fn( #inputs ) #output = placeholder;
 
-        #unsafety extern "C" fn placeholder( #placeholder_inputs ) #output {
+        unsafe extern "C" fn placeholder( #placeholder_inputs ) #output {
           unreachable!();
         }
 

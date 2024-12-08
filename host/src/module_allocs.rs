@@ -27,7 +27,9 @@ pub fn add_module(module_id: ModuleId) {
 }
 
 pub fn remove_module<E: ModuleExportsForHost>(module: &Module<E>) {
-  module.internal_exports.take_cached_allocs_before_exit();
+  unsafe {
+    module.internal_exports.take_cached_allocs_before_exit();
+  }
 
   let mut allocs = lock_allocs();
   let Some(allocs) = allocs.remove(&module.id) else {
