@@ -34,7 +34,7 @@ unsafe impl GlobalAlloc for Allocator {
       if disable_allocator_for_thread_local_destructors() {
         unrecoverable(
           "module cannot allocate after its memory has been freed\n\
-          note: check if thread-locals registered in module have allocations \
+          note: check if thread-locals registered in main thread of the module have allocations \
           inside Drop implementation, since currently it's not supported on windows",
         );
       }

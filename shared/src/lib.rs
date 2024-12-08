@@ -77,10 +77,6 @@ impl<T> From<&[T]> for RawSlice<T> {
 pub struct Str(RawSlice<u8>);
 
 impl Str {
-  /// # Caution ⚠️
-  /// Be very careful when you return `Str` from module exports or imports,
-  /// it's better to clone it immediately using [`to_string`](Self::to_string)
-  ///
   /// # Safety
   /// See `Safety` of [`std::slice::from_raw_parts`]
   pub unsafe fn into_str<'a>(self) -> &'a str {

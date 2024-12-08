@@ -7,7 +7,7 @@ use dylib_reload_shared::{
   Allocation, AllocatorOp, AllocatorPtr, ModuleId, SliceAllocatorOp, StableLayout,
 };
 
-use crate::{helpers::unrecoverable, Module};
+use crate::{exports_types::ModuleExportsForHost, helpers::unrecoverable, Module};
 
 type Allocs = HashMap<ModuleId, HashMap<AllocatorPtr, Allocation>>;
 
@@ -26,8 +26,8 @@ pub fn add_module(module_id: ModuleId) {
   allocs.insert(module_id, Default::default());
 }
 
-pub fn remove_module(module: &Module) {
-  module.exports.take_cached_allocs_before_exit();
+pub fn remove_module<E: ModuleExportsForHost>(module: &Module<E>) {
+  module.internal_exports.take_cached_allocs_before_exit();
 
   let mut allocs = lock_allocs();
   let Some(allocs) = allocs.remove(&module.id) else {
@@ -38,7 +38,7 @@ pub fn remove_module(module: &Module) {
   let allocs: &[Allocation] = &allocs;
 
   unsafe {
-    module.exports.exit(allocs.into());
+    module.internal_exports.exit(allocs.into());
   }
 }
 

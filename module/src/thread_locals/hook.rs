@@ -11,12 +11,12 @@ pub unsafe extern "C" fn __cxa_thread_atexit_impl(
   dso_symbol: *mut c_void,
 ) {
   // if we are not in HOST_OWNER_THREAD use original __cxa_thread_atexit_impl
-  if is_it_host_owner_thread() {
+  if !is_it_host_owner_thread() {
     // from fasterthanlime article
     // https://fasterthanli.me/articles/so-you-want-to-live-reload-rust
 
-    type NextFn = extern "C" fn(*mut c_void, *mut c_void, *mut c_void);
-    let original_impl: NextFn = transmute(libc::dlsym(
+    type OriginalImpl = extern "C" fn(*mut c_void, *mut c_void, *mut c_void);
+    let original_impl: OriginalImpl = transmute(libc::dlsym(
       libc::RTLD_NEXT,
       c"__cxa_thread_atexit_impl".as_ptr(),
     ));

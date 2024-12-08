@@ -1,43 +1,53 @@
 use std::{fmt::Debug, marker::PhantomData, path::PathBuf};
 
 use dylib_reload_shared::ModuleId;
+use libloading::Library;
 
 use crate::{
-  errors::UnloadError, gen_exports::ModuleExports, helpers::call_module_pub_export,
-  leak_library::LeakLibrary, module_allocs,
+  errors::UnloadError,
+  exports_types::{ModuleExportsForHost, ModuleValue},
+  gen_exports::ModuleExports as InternalModuleExports,
+  helpers::call_module_pub_export,
+  leak_library::LeakLibrary,
+  module_allocs,
 };
 
 #[must_use = "module will be leaked if dropped, if you don't want that consider using `unload` method"]
-pub struct Module {
+pub struct Module<E: ModuleExportsForHost> {
   pub id: ModuleId,
-
   pub(crate) library: LeakLibrary,
   library_path: PathBuf,
-
-  pub(crate) exports: ModuleExports,
+  pub(crate) internal_exports: InternalModuleExports,
+  pub_exports: E,
 
   /// Module must be loaded and unloaded from the same thread
   _not_thread_safe: PhantomData<*const ()>,
 }
 
-impl Module {
+impl<E: ModuleExportsForHost> Module<E> {
   pub(crate) fn new(
     id: ModuleId,
-    library: libloading::Library,
-    exports: ModuleExports,
+    library: Library,
+    internal_exports: InternalModuleExports,
+    pub_exports: E,
     library_path: PathBuf,
   ) -> Self {
     Self {
       id,
       library: LeakLibrary::new(library),
       library_path,
-      exports,
+      internal_exports,
+      pub_exports,
       _not_thread_safe: PhantomData,
     }
   }
 
-  pub fn library(&self) -> &libloading::Library {
+  pub fn library(&self) -> &Library {
     self.library.get_ref()
+  }
+
+  pub fn exports(&self) -> &E {
+    &self.pub_exports
   }
 
   /// Returns `None` if module panics.
@@ -53,12 +63,19 @@ impl Module {
   /// let _bomb = Bomb;
   /// panic!();
   /// ```
-  pub unsafe fn call_main<R>(&self) -> Option<R> {
+  ///
+  /// # Safety
+  /// You must ensure that the returned value is actually `R` at runtime.
+  /// For example if you called this function with type `bool` but module returns `i32`, Undefined Behavior will occur.
+  ///
+  #[must_use = "returns `None` if module panics"]
+  pub unsafe fn call_main<R>(&self) -> Option<ModuleValue<'_, R>> {
     call_module_pub_export(self.library(), "__main").unwrap_or_else(|e| {
       panic!("Failed to get main fn from module, reason: {e:#}");
     })
   }
 
+  /// Unloads module, if it fails, module may be leaked and never be unloaded.
   pub fn unload(self) -> Result<(), UnloadError> {
     let library = self.library();
     let library_path = self.library_path.to_string_lossy().into_owned();
@@ -69,8 +86,8 @@ impl Module {
       let result = call_module_pub_export(library, "__before_unload");
       match result {
         Ok(Some(())) => {}
-        Err(_e) => {
-          // println!("Failed to get \"before_unload\" from module: {e:#}, ignoring it");
+        Err(_) => {
+          // couldn't get it? it doesn't matter, moving on
         }
         Ok(None) => {
           return Err(UnloadError::BeforeUnloadPanicked(library_path));
@@ -80,25 +97,23 @@ impl Module {
 
     #[cfg(target_os = "linux")]
     {
-      if self.exports.spawned_threads_count() > 0 {
+      if *self.internal_exports.spawned_threads_count() > 0 {
         return Err(UnloadError::ThreadsStillRunning(library_path));
       }
 
-      self.exports.lock_module_allocator();
+      self.internal_exports.lock_module_allocator();
 
       unsafe {
-        self.exports.run_thread_local_dtors();
+        self.internal_exports.run_thread_local_dtors();
       }
     }
 
     #[cfg(target_os = "windows")]
-    self.exports.lock_module_allocator();
+    self.internal_exports.lock_module_allocator();
 
     module_allocs::remove_module(&self);
 
-    dbg!();
     self.library.take().close()?;
-    dbg!();
 
     #[cfg(target_os = "linux")]
     {
@@ -114,7 +129,7 @@ impl Module {
   }
 }
 
-impl Debug for Module {
+impl<E: ModuleExportsForHost> Debug for Module<E> {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     let id = self.id;
     write!(f, "Module {{ id: {id} }}")

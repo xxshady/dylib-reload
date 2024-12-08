@@ -40,7 +40,7 @@ fn main() {
   }
 }
 
-fn load() -> Module {
+fn load() -> Module<ModuleExports> {
   let path = if cfg!(target_os = "linux") {
     "target/debug/libtest_module.so"
   } else {
@@ -49,23 +49,27 @@ fn load() -> Module {
   // let path = "target/release/libtest_module.so";
   // let path = "./libtest_moduledddddd.so";
 
-  let module = unsafe { dylib_reload_host::load_module(path) }.unwrap();
+  let module = unsafe { dylib_reload_host::load_module::<ModuleExports>(path) }.unwrap();
 
   init_imports(module.library());
-  let exports = ModuleExports::new(module.library());
 
   // dbg!();
   unsafe {
-    let out: Option<()> = module.call_main();
-    dbg!(out);
+    module.call_main::<()>().unwrap();
   }
   // dbg!();
 
-  let a = exports.a();
-  dbg!(a);
+  // let a = module.exports().a().unwrap();
+  // dbg!(&a);
+  // let a = *a;
+
+  let b = module.exports().b().unwrap();
+  dbg!(b);
 
   // module.unload().unwrap_or_else(|e| {
   //   panic!("{e:#}");
   // });
+
+  // todo!()
   module
 }

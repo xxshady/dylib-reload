@@ -48,7 +48,7 @@ pub fn generate_pub(
 fn generate_exports(
   exports_file_path: impl AsRef<Path> + Debug,
   exports_trait_path: &str,
-  panic_handling: bool,
+  pub_exports: bool,
 ) {
   let trait_name = extract_trait_name_from_path(exports_trait_path);
 
@@ -72,7 +72,7 @@ fn generate_exports(
 
     let mangled_name = Ident::new(&mangled_name, Span::call_site());
 
-    let code = if panic_handling {
+    let code = if pub_exports {
       let return_type = fn_output_to_type(output);
 
       quote! {

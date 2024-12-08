@@ -18,6 +18,10 @@ impl Exports for ModuleExportsImpl {
     // panic!("awdawdadwadwdwddwdwdwddddddddddddddd");
     gen_imports::b() + 1
   }
+
+  fn b() -> String {
+    "qwawawada".to_owned()
+  }
 }
 
 #[define_module_export]
@@ -26,21 +30,28 @@ fn main() {
   // vec![1_u8; 1024 * 1024 * 10];
   std::mem::forget(vec![1_u8; 1024 * 1024 * 50]);
 
-  // struct TestTlsDrop;
-  // impl Drop for TestTlsDrop {
-  //   fn drop(&mut self) {
-  //     vec![1];
-  //   }
-  // }
-  // thread_local! {
-  //   static V: TestTlsDrop = TestTlsDrop;
-  // }
-  // V.with(|_| {});
-
-  fn test_panic() {
-    panic!();
+  struct TestTlsDrop;
+  impl Drop for TestTlsDrop {
+    fn drop(&mut self) {
+      // dbg!();
+      vec![1];
+    }
   }
-  test_panic();
+  thread_local! {
+    static V: TestTlsDrop = TestTlsDrop;
+    static V2: Cell<Vec<u8>> = Vec::new().into();
+  }
+  V.with(|_| {});
+  V2.with(|v| {
+    let mut vec = v.take();
+    vec.push(1);
+    v.replace(vec);
+  });
+
+  // fn test_panic() {
+  //   panic!();
+  // }
+  // test_panic();
   // 123
 }
 

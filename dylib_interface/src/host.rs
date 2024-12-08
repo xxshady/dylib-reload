@@ -45,7 +45,7 @@ pub fn generate_pub(
 fn generate_exports(
   exports_file_path: impl AsRef<Path> + Debug,
   exports_trait_path: &str,
-  panic_handling: bool,
+  pub_exports: bool,
 ) {
   let trait_name = extract_trait_name_from_path(exports_trait_path);
   let (exports_trait, module_use_items) =
@@ -65,6 +65,8 @@ fn generate_exports(
       mangled_name,
     } = for_each_trait_item(trait_name, item);
 
+    let return_type = fn_output_to_type(output);
+
     let panic_message =
       format!(r#"Failed to get "{ident}" fn symbol from module (mangled name: "{mangled_name}")"#);
 
@@ -74,9 +76,7 @@ fn generate_exports(
       }
     });
 
-    let (decl, impl_) = if panic_handling {
-      let return_type = fn_output_to_type(output);
-
+    let (decl, impl_) = if pub_exports {
       (
         quote! {
           #ident: #unsafety extern "C" fn(
@@ -98,10 +98,10 @@ fn generate_exports(
           /// let _bomb = Bomb;
           /// panic!();
           /// ```
-          pub #unsafety fn #ident(&self, #inputs ) -> Option<#return_type> {
+          pub #unsafety fn #ident<'module>( &'module self, #inputs ) -> Option<ModuleValue<'module, #return_type>> {
             use std::mem::MaybeUninit;
 
-            let mut ____return_value____ = MaybeUninit::uninit();
+            let mut ____return_value____ = MaybeUninit::<#return_type>::uninit();
 
             let success = (self.#ident)(
               &mut ____return_value____,
@@ -112,11 +112,10 @@ fn generate_exports(
             }
 
             // SAFETY: function returned true so we are allowed to read the pointer
-            let ____return_value____ = unsafe {
+            let return_value = unsafe {
               ____return_value____.assume_init_read()
             };
-
-            Some(____return_value____)
+            Some(ModuleValue::new(return_value))
           }
         },
       )
@@ -126,8 +125,9 @@ fn generate_exports(
           #ident: #unsafety extern "C" fn( #inputs ) #output
         },
         quote! {
-          pub #unsafety fn #ident(&self, #inputs ) #output {
-            (self.#ident)( #inputs_without_types )
+          pub #unsafety fn #ident<'module>( &'module self, #inputs ) -> ModuleValue<'module, #return_type> {
+            let return_value = (self.#ident)( #inputs_without_types );
+            ModuleValue::new(return_value)
           }
         },
       )
@@ -137,10 +137,18 @@ fn generate_exports(
     export_impls.push(impl_);
   }
 
+  let types_import_crate = if pub_exports {
+    quote! { dylib_reload_host }
+  } else {
+    quote! { crate }
+  };
+
   write_code_to_file(
     "generated_module_exports.rs",
     quote! {
       #module_use_items
+
+      use #types_import_crate::exports_types::{ModuleValue, ModuleExportsForHost};
 
       pub struct ModuleExports {
         #( #export_decls, )*
@@ -154,6 +162,12 @@ fn generate_exports(
         }
 
         #( #export_impls )*
+      }
+
+      impl ModuleExportsForHost for ModuleExports {
+        fn new(library: &libloading::Library) -> Self {
+          Self::new(library)
+        }
       }
     },
   );
