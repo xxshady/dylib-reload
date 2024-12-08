@@ -53,7 +53,7 @@ fn load() -> Module<ModuleExports> {
     format!("target/{directory}/test_module.dll")
   };
 
-  let module = unsafe { dylib_reload_host::load_module::<ModuleExports>(path) }.unwrap();
+  let module = dylib_reload_host::load_module::<ModuleExports>(path).unwrap();
 
   init_imports(module.library());
 

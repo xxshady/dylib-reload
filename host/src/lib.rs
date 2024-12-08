@@ -21,14 +21,16 @@ use exports_types::ModuleExportsForHost;
 
 pub use crate::{errors::Error, module::Module};
 
-pub unsafe fn load_module<E: ModuleExportsForHost>(
+pub fn load_module<E: ModuleExportsForHost>(
   path: impl AsRef<OsStr>,
 ) -> Result<Module<E>, crate::Error> {
   let library = open_library(&path)?;
 
-  let compiled_with: Symbol<*const Str> = library.get(b"__CRATE_COMPILATION_INFO__\0")?;
-  let compiled_with: &Str = &**compiled_with;
-  let compiled_with = compiled_with.to_string();
+  let compiled_with = unsafe {
+    let compiled_with: Symbol<*const Str> = library.get(b"__CRATE_COMPILATION_INFO__\0")?;
+    let compiled_with: &Str = &**compiled_with;
+    compiled_with.to_string()
+  };
 
   let expected = crate_compilation_info::get!();
   if compiled_with != expected {
@@ -45,7 +47,9 @@ pub unsafe fn load_module<E: ModuleExportsForHost>(
   module_allocs::add_module(module_id);
 
   let internal_exports = InternalModuleExports::new(&library);
-  internal_exports.init(thread_id::get(), module_id);
+  unsafe {
+    internal_exports.init(thread_id::get(), module_id);
+  }
 
   let pub_exports = E::new(&library);
   let module = Module::new(

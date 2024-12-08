@@ -36,7 +36,7 @@ pub fn next_module_id() -> ModuleId {
   id
 }
 
-pub unsafe fn open_library(path: impl AsRef<OsStr>) -> Result<libloading::Library, crate::Error> {
+pub fn open_library(path: impl AsRef<OsStr>) -> Result<libloading::Library, crate::Error> {
   #[cfg(target_os = "linux")]
   let library = {
     use libloading::os::unix::Library;
@@ -46,7 +46,7 @@ pub unsafe fn open_library(path: impl AsRef<OsStr>) -> Result<libloading::Librar
     // only for dynamic library without replacing it for the whole executable
     const FLAGS: i32 = RTLD_LAZY | RTLD_LOCAL | RTLD_DEEPBIND;
 
-    Library::open(Some(path), FLAGS)?.into()
+    unsafe { Library::open(Some(path), FLAGS) }?.into()
   };
 
   #[cfg(target_os = "windows")]
