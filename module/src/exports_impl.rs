@@ -7,7 +7,7 @@ use dylib_reload_shared::{
   exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId,
 };
 use crate::{
-  allocator, gen_exports::ModuleExportsImpl, helpers::is_it_host_owner_thread, panic_hook,
+  allocator, gen_exports::ModuleExportsImpl, panic_hook,
   ALLOCATOR_LOCK, HOST_OWNER_THREAD, MODULE_ID,
 };
 
@@ -21,17 +21,13 @@ impl Exports for ModuleExportsImpl {
     }
 
     panic_hook::init();
-
-    dbg!(host_owner_thread, is_it_host_owner_thread());
   }
 
   fn exit(allocs: dylib_reload_shared::SliceAllocation) {
     let allocs = unsafe { allocs.into_slice() };
-    let system = System;
-
     for Allocation(AllocatorPtr(ptr), layout, ..) in allocs {
       unsafe {
-        system.dealloc(
+        System.dealloc(
           *ptr,
           Layout::from_size_align(layout.size, layout.align).unwrap(),
         );

@@ -1,3 +1,1 @@
-pub trait Imports {
-  fn b() -> i32;
-}
+pub trait Imports {}

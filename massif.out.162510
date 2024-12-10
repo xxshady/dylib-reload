@@ -1,0 +1,1588 @@
+desc: (none)
+cmd: target/debug/test_host
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=238550
+mem_heap_B=472
+mem_heap_extra_B=16
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=239520
+mem_heap_B=1736
+mem_heap_extra_B=32
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=349042
+mem_heap_B=1736
+mem_heap_extra_B=32
+mem_stacks_B=0
+heap_tree=detailed
+n4: 1736 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x490A1A4: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x491A513: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x4917873: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+    n1: 1024 0x490BDFF: getdelim (iogetdelim.c:77)
+     n1: 1024 0x49231FE: pthread_getattr_np@@GLIBC_2.32 (pthread_getattr_np.c:122)
+      n1: 1024 0x156741: get_stack_start (stack_overflow.rs:329)
+       n1: 1024 0x156741: stack_start_aligned (stack_overflow.rs:343)
+        n1: 1024 0x156741: install_main_guard_linux (stack_overflow.rs:392)
+         n1: 1024 0x156741: install_main_guard (stack_overflow.rs:367)
+          n1: 1024 0x156741: init (stack_overflow.rs:131)
+           n1: 1024 0x156741: init (mod.rs:57)
+            n1: 1024 0x156741: init (rt.rs:102)
+             n1: 1024 0x156741: {closure#0} (rt.rs:172)
+              n1: 1024 0x156741: do_call<std::rt::lang_start_internal::{closure_env#0}, ()> (panicking.rs:557)
+               n1: 1024 0x156741: try<(), std::rt::lang_start_internal::{closure_env#0}> (panicking.rs:520)
+                n1: 1024 0x156741: catch_unwind<std::rt::lang_start_internal::{closure_env#0}, ()> (panic.rs:358)
+                 n1: 1024 0x156741: std::rt::lang_start_internal (rt.rs:172)
+                  n1: 1024 0x119879: std::rt::lang_start (rt.rs:194)
+                   n0: 1024 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 472 0x490AE6E: __fopen_internal (iofopen.c:65)
+  n1: 472 0x490AE6E: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x49230A5: pthread_getattr_np@@GLIBC_2.32 (pthread_getattr_np.c:85)
+    n1: 472 0x156741: get_stack_start (stack_overflow.rs:329)
+     n1: 472 0x156741: stack_start_aligned (stack_overflow.rs:343)
+      n1: 472 0x156741: install_main_guard_linux (stack_overflow.rs:392)
+       n1: 472 0x156741: install_main_guard (stack_overflow.rs:367)
+        n1: 472 0x156741: init (stack_overflow.rs:131)
+         n1: 472 0x156741: init (mod.rs:57)
+          n1: 472 0x156741: init (rt.rs:102)
+           n1: 472 0x156741: {closure#0} (rt.rs:172)
+            n1: 472 0x156741: do_call<std::rt::lang_start_internal::{closure_env#0}, ()> (panicking.rs:557)
+             n1: 472 0x156741: try<(), std::rt::lang_start_internal::{closure_env#0}> (panicking.rs:520)
+              n1: 472 0x156741: catch_unwind<std::rt::lang_start_internal::{closure_env#0}, ()> (panic.rs:358)
+               n1: 472 0x156741: std::rt::lang_start_internal (rt.rs:172)
+                n1: 472 0x119879: std::rt::lang_start (rt.rs:194)
+                 n0: 472 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 240 0x490BC41: getdelim (iogetdelim.c:107)
+  n1: 240 0x49231FE: pthread_getattr_np@@GLIBC_2.32 (pthread_getattr_np.c:122)
+   n1: 240 0x156741: get_stack_start (stack_overflow.rs:329)
+    n1: 240 0x156741: stack_start_aligned (stack_overflow.rs:343)
+     n1: 240 0x156741: install_main_guard_linux (stack_overflow.rs:392)
+      n1: 240 0x156741: install_main_guard (stack_overflow.rs:367)
+       n1: 240 0x156741: init (stack_overflow.rs:131)
+        n1: 240 0x156741: init (mod.rs:57)
+         n1: 240 0x156741: init (rt.rs:102)
+          n1: 240 0x156741: {closure#0} (rt.rs:172)
+           n1: 240 0x156741: do_call<std::rt::lang_start_internal::{closure_env#0}, ()> (panicking.rs:557)
+            n1: 240 0x156741: try<(), std::rt::lang_start_internal::{closure_env#0}> (panicking.rs:520)
+             n1: 240 0x156741: catch_unwind<std::rt::lang_start_internal::{closure_env#0}, ()> (panic.rs:358)
+              n1: 240 0x156741: std::rt::lang_start_internal (rt.rs:172)
+               n1: 240 0x119879: std::rt::lang_start (rt.rs:194)
+                n0: 240 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=4
+#-----------
+time=350934
+mem_heap_B=1080
+mem_heap_extra_B=24
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=394058
+mem_heap_B=1130
+mem_heap_extra_B=46
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=409661
+mem_heap_B=3030
+mem_heap_extra_B=114
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=503318
+mem_heap_B=3038
+mem_heap_extra_B=130
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=515792
+mem_heap_B=5614
+mem_heap_extra_B=154
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=532838
+mem_heap_B=1349378
+mem_heap_extra_B=190
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=568689
+mem_heap_B=1989378
+mem_heap_extra_B=198
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=580233
+mem_heap_B=106847915
+mem_heap_extra_B=4213
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=105441593
+mem_heap_B=106847945
+mem_heap_extra_B=4223
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=105446899
+mem_heap_B=106848116
+mem_heap_extra_B=4292
+mem_stacks_B=0
+heap_tree=peak
+n2: 106848116 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 106842128 0x4EB69C9: ???
+  n1: 106842128 0x4EB60CE: ???
+   n3: 106842128 0x4EB4532: ???
+    n1: 105497600 0x4F74A9A: ???
+     n1: 105497600 0x4F74BCC: ???
+      n2: 105497600 0x4F76688: ???
+       n1: 104857600 0x4F76325: ???
+        n1: 104857600 0x4F76495: ???
+         n1: 104857600 0x4F06DE9: ???
+          n1: 104857600 0x4EC4ABF: ???
+           n1: 104857600 0x4EB4114: ???
+            n1: 104857600 0x4EB3D41: ???
+             n1: 104857600 0x4EB415B: ???
+              n1: 104857600 0x4EB400A: ???
+               n1: 104857600 0x4EB3FA5: ???
+                n1: 104857600 0x4EB4041: ???
+                 n1: 104857600 0x119587: dylib_reload_host::helpers::call_module_pub_export (helpers.rs:80)
+                  n1: 104857600 0x11A124: dylib_reload_host::module::Module<E>::call_main (module.rs:73)
+                   n1: 104857600 0x115BA3: test_host::host::load (host.rs:82)
+                    n1: 104857600 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                     n1: 104857600 0x1157A9: test_host::host::main (host.rs:21)
+                      n1: 104857600 0x115165: test_host::main (main.rs:4)
+                       n1: 104857600 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                        n1: 104857600 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                         n1: 104857600 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                          n1: 104857600 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                           n1: 104857600 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                            n1: 104857600 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                             n1: 104857600 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                              n1: 104857600 0x156ADD: {closure#1} (rt.rs:174)
+                               n1: 104857600 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                n1: 104857600 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                 n1: 104857600 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                  n1: 104857600 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                   n1: 104857600 0x119879: std::rt::lang_start (rt.rs:194)
+                                    n0: 104857600 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+       n0: 640000 in 1 place, below massif's threshold (1.00%)
+    n1: 1343504 0x4EB8DCA: ???
+     n1: 1343504 0x4EB8EFC: ???
+      n1: 1343504 0x4EB90A8: ???
+       n1: 1343504 0x4EBA4E1: ???
+        n1: 1343504 0x4EBA86B: ???
+         n1: 1343504 0x4EBB30E: ???
+          n1: 1343504 0x4EBC424: ???
+           n1: 1343504 0x4EB8484: ???
+            n1: 1343504 0x4EB661A: ???
+             n1: 1343504 0x4EB4263: ???
+              n1: 1343504 0x4EB4416: ???
+               n1: 1343504 0x1279DE: dylib_reload_host::gen_exports::ModuleExports::init (generated_module_exports.rs:87)
+                n1: 1343504 0x11C272: dylib_reload_host::load_module (lib.rs:51)
+                 n1: 1343504 0x115A33: test_host::host::load (host.rs:76)
+                  n1: 1343504 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                   n1: 1343504 0x1157A9: test_host::host::main (host.rs:21)
+                    n1: 1343504 0x115165: test_host::main (main.rs:4)
+                     n1: 1343504 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                      n1: 1343504 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                       n1: 1343504 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                        n1: 1343504 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                         n1: 1343504 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                          n1: 1343504 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                           n1: 1343504 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                            n1: 1343504 0x156ADD: {closure#1} (rt.rs:174)
+                             n1: 1343504 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                              n1: 1343504 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                               n1: 1343504 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                n1: 1343504 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                 n1: 1343504 0x119879: std::rt::lang_start (rt.rs:194)
+                                  n0: 1343504 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+    n0: 1024 in 1 place, below massif's threshold (1.00%)
+ n0: 5988 in 25 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=14
+#-----------
+time=105447786
+mem_heap_B=106848035
+mem_heap_extra_B=4261
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=105674273
+mem_heap_B=106848315
+mem_heap_extra_B=4277
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=105690765
+mem_heap_B=12114
+mem_heap_extra_B=102
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=105703220
+mem_heap_B=12114
+mem_heap_extra_B=102
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=105715675
+mem_heap_B=12114
+mem_heap_extra_B=102
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=105728130
+mem_heap_B=12114
+mem_heap_extra_B=102
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=105740578
+mem_heap_B=12114
+mem_heap_extra_B=102
+mem_stacks_B=0
+heap_tree=detailed
+n6: 12114 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 8222 0x16BD61: alloc::raw_vec::RawVecInner<A>::try_allocate_in (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 8192 0x1325D7: with_capacity (raw_vec.rs:149)
+   n1: 8192 0x1325D7: with_capacity<u8> (raw_vec.rs:129)
+    n1: 8192 0x1325D7: alloc::boxed::Box<[T]>::new_uninit_slice (boxed.rs:671)
+     n1: 8192 0x128F61: with_capacity (buffer.rs:35)
+      n1: 8192 0x128F61: std::io::buffered::bufreader::BufReader<R>::with_capacity (bufreader.rs:103)
+       n1: 8192 0x12902C: std::io::buffered::bufreader::BufReader<R>::new (bufreader.rs:74)
+        n1: 8192 0x1275A1: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:104)
+         n1: 8192 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+          n1: 8192 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+           n1: 8192 0x1157A9: test_host::host::main (host.rs:21)
+            n1: 8192 0x115165: test_host::main (main.rs:4)
+             n1: 8192 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+              n1: 8192 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+               n1: 8192 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                n1: 8192 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                 n1: 8192 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                  n1: 8192 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                   n1: 8192 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                    n1: 8192 0x156ADD: {closure#1} (rt.rs:174)
+                     n1: 8192 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                      n1: 8192 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                       n1: 8192 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                        n1: 8192 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                         n1: 8192 0x119879: std::rt::lang_start (rt.rs:194)
+                          n0: 8192 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+  n0: 30 in 2 places, all below massif's threshold (1.00%)
+ n1: 2304 0x4004EDC: malloc (rtld-malloc.h:56)
+  n1: 2304 0x4004EDC: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
+   n1: 2304 0x4004EDC: _dl_find_object_update_1 (dl-find_object.c:671)
+    n1: 2304 0x4004EDC: _dl_find_object_update (dl-find_object.c:805)
+     n1: 2304 0x400DC37: dl_open_worker_begin (dl-open.c:756)
+      n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+       n1: 2304 0x400CD1F: dl_open_worker (dl-open.c:803)
+        n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+         n1: 2304 0x400D163: _dl_open (dl-open.c:905)
+          n1: 2304 0x491D193: dlopen_doit (dlopen.c:56)
+           n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+            n1: 2304 0x4001668: _dl_catch_error (dl-catch.c:256)
+             n1: 2304 0x491CC72: _dlerror_run (dlerror.c:138)
+              n1: 2304 0x491D24E: dlopen_implementation (dlopen.c:71)
+               n1: 2304 0x491D24E: dlopen@@GLIBC_2.34 (dlopen.c:81)
+                n1: 2304 0x117FB8: libloading::os::unix::Library::open::{{closure}} (mod.rs:190)
+                 n1: 2304 0x117984: libloading::os::unix::with_dlerror (mod.rs:69)
+                  n1: 2304 0x117DC4: libloading::os::unix::Library::open (mod.rs:188)
+                   n1: 2304 0x118FC1: dylib_reload_host::helpers::open_library (helpers.rs:49)
+                    n1: 2304 0x11BF72: dylib_reload_host::load_module (lib.rs:27)
+                     n1: 2304 0x115A33: test_host::host::load (host.rs:76)
+                      n1: 2304 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                       n1: 2304 0x1157A9: test_host::host::main (host.rs:21)
+                        n1: 2304 0x115165: test_host::main (main.rs:4)
+                         n1: 2304 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                          n1: 2304 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                           n1: 2304 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                            n1: 2304 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                             n1: 2304 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                              n1: 2304 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                               n1: 2304 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                n1: 2304 0x156ADD: {closure#1} (rt.rs:174)
+                                 n1: 2304 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                  n1: 2304 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                   n1: 2304 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                    n1: 2304 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                     n1: 2304 0x119879: std::rt::lang_start (rt.rs:194)
+                                      n0: 2304 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 1024 0x15B521: alloc (alloc.rs:99)
+  n1: 1024 0x15B521: alloc_impl (alloc.rs:192)
+   n1: 1024 0x15B521: allocate (alloc.rs:254)
+    n1: 1024 0x15B521: try_allocate_in<alloc::alloc::Global> (raw_vec.rs:465)
+     n1: 1024 0x15B521: with_capacity_in<alloc::alloc::Global> (raw_vec.rs:412)
+      n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (raw_vec.rs:189)
+       n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (mod.rs:801)
+        n1: 1024 0x15B521: with_capacity<u8> (mod.rs:482)
+         n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (bufwriter.rs:122)
+          n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (linewriter.rs:110)
+           n1: 1024 0x15B521: new<std::io::stdio::StdoutRaw> (linewriter.rs:90)
+            n1: 1024 0x15B521: {closure#0} (stdio.rs:677)
+             n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+              n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:512)
+               n1: 1024 0x15B521: std::sync::once::Once::call_once_force::{{closure}} (once.rs:217)
+                n1: 1024 0x111D22: std::sys::sync::once::futex::Once::call (futex.rs:177)
+                 n1: 1024 0x11170A: call_once_force<std::sync::once_lock::{impl#0}::initialize::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !>> (once.rs:217)
+                  n1: 1024 0x11170A: std::sync::once_lock::OnceLock<T>::initialize (once_lock.rs:511)
+                   n1: 1024 0x158D03: get_or_try_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:390)
+                    n1: 1024 0x158D03: get_or_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+                     n1: 1024 0x158D03: stdout (stdio.rs:677)
+                      n1: 1024 0x158D03: print_to<std::io::stdio::Stdout> (stdio.rs:1122)
+                       n1: 1024 0x158D03: std::io::stdio::_print (stdio.rs:1232)
+                        n1: 1024 0x1157CB: test_host::host::main (host.rs:18)
+                         n1: 1024 0x115165: test_host::main (main.rs:4)
+                          n1: 1024 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                           n1: 1024 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                            n1: 1024 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                             n1: 1024 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                              n1: 1024 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                               n1: 1024 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                                n1: 1024 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                 n1: 1024 0x156ADD: {closure#1} (rt.rs:174)
+                                  n1: 1024 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                   n1: 1024 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                    n1: 1024 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                     n1: 1024 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                      n1: 1024 0x119879: std::rt::lang_start (rt.rs:194)
+                                       n0: 1024 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 244 0x126BAA: alloc::alloc::alloc (alloc.rs:99)
+  n1: 244 0x126CDC: alloc::alloc::Global::alloc_impl (alloc.rs:192)
+   n1: 244 0x126E88: <alloc::alloc::Global as core::alloc::Allocator>::allocate (alloc.rs:254)
+    n1: 244 0x122D61: do_alloc<alloc::alloc::Global> (alloc.rs:15)
+     n1: 244 0x122D61: hashbrown::raw::RawTableInner::new_uninitialized (mod.rs:1534)
+      n2: 244 0x1230EB: hashbrown::raw::RawTableInner::fallible_with_capacity (mod.rs:1572)
+       n1: 244 0x124A41: prepare_resize<alloc::alloc::Global> (mod.rs:2633)
+        n1: 244 0x124A41: resize_inner<alloc::alloc::Global> (mod.rs:2829)
+         n1: 244 0x124A41: reserve_rehash_inner<alloc::alloc::Global> (mod.rs:2719)
+          n1: 244 0x124A41: hashbrown::raw::RawTable<T,A>::reserve_rehash (mod.rs:1045)
+           n1: 244 0x126A54: hashbrown::raw::RawTable<T,A>::reserve (mod.rs:993)
+            n1: 244 0x1257DD: hashbrown::raw::RawTable<T,A>::find_or_find_insert_slot (mod.rs:1206)
+             n1: 244 0x12A0A4: find_or_find_insert_slot<u64, std::collections::hash::map::HashMap<dylib_reload_shared::AllocatorPtr, dylib_reload_shared::Allocation, std::hash::random::RandomState>, std::hash::random::RandomState, alloc::alloc::Global, u64> (map.rs:1810)
+              n1: 244 0x12A0A4: hashbrown::map::HashMap<K,V,S,A>::insert (map.rs:1790)
+               n1: 244 0x13283A: std::collections::hash::map::HashMap<K,V,S>::insert (map.rs:1137)
+                n1: 244 0x1295CE: dylib_reload_host::module_allocs::add_module (module_allocs.rs:26)
+                 n1: 244 0x11C231: dylib_reload_host::load_module (lib.rs:47)
+                  n1: 244 0x115A33: test_host::host::load (host.rs:76)
+                   n1: 244 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                    n1: 244 0x1157A9: test_host::host::main (host.rs:21)
+                     n1: 244 0x115165: test_host::main (main.rs:4)
+                      n1: 244 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                       n1: 244 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                        n1: 244 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                         n1: 244 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                          n1: 244 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                           n1: 244 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                            n1: 244 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                             n1: 244 0x156ADD: {closure#1} (rt.rs:174)
+                              n1: 244 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                               n1: 244 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                n1: 244 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                 n1: 244 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                  n1: 244 0x119879: std::rt::lang_start (rt.rs:194)
+                                   n0: 244 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+       n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 198 in 23 places, all below massif's threshold (1.00%)
+ n1: 122 0x16BB1B: alloc::raw_vec::finish_grow (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 122 0x16BCB8: alloc::raw_vec::RawVecInner<A>::grow_amortized (in /home/xshady/dylib-reload/target/debug/test_host)
+   n1: 122 0x1120C5: alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle (in /home/xshady/dylib-reload/target/debug/test_host)
+    n1: 122 0x12FE4A: alloc::vec::Vec<T,A>::append_elements (mod.rs:2553)
+     n1: 122 0x130322: spec_extend<u8, alloc::alloc::Global> (spec_extend.rs:55)
+      n1: 122 0x130322: extend_from_slice<u8, alloc::alloc::Global> (mod.rs:3008)
+       n1: 122 0x130322: std::io::read_until (mod.rs:2111)
+        n1: 122 0x1307DE: std::io::BufRead::read_line::{{closure}} (mod.rs:2481)
+         n1: 122 0x130567: std::io::append_to_string (mod.rs:382)
+          n1: 122 0x128F21: std::io::BufRead::read_line (mod.rs:2481)
+           n1: 122 0x130D44: <std::io::Lines<B> as core::iter::traits::iterator::Iterator>::next (mod.rs:3185)
+            n1: 122 0x1308E3: core::iter::traits::iterator::Iterator::try_fold (iterator.rs:2405)
+             n1: 122 0x130883: core::iter::traits::iterator::Iterator::any (iterator.rs:2812)
+              n1: 122 0x1275CC: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:106)
+               n1: 122 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+                n1: 122 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+                 n1: 122 0x1157A9: test_host::host::main (host.rs:21)
+                  n1: 122 0x115165: test_host::main (main.rs:4)
+                   n1: 122 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                    n1: 122 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                     n1: 122 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                      n1: 122 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                       n1: 122 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                        n1: 122 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                         n1: 122 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                          n1: 122 0x156ADD: {closure#1} (rt.rs:174)
+                           n1: 122 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                            n1: 122 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                             n1: 122 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                              n1: 122 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                               n1: 122 0x119879: std::rt::lang_start (rt.rs:194)
+                                n0: 122 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+#-----------
+snapshot=21
+#-----------
+time=105752242
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=105764677
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=105777112
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=105789547
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=105801982
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=105825645
+mem_heap_B=12117
+mem_heap_extra_B=99
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=105838130
+mem_heap_B=12117
+mem_heap_extra_B=99
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=105850615
+mem_heap_B=12117
+mem_heap_extra_B=99
+mem_stacks_B=0
+heap_tree=detailed
+n6: 12117 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 8222 0x16BD61: alloc::raw_vec::RawVecInner<A>::try_allocate_in (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 8192 0x1325D7: with_capacity (raw_vec.rs:149)
+   n1: 8192 0x1325D7: with_capacity<u8> (raw_vec.rs:129)
+    n1: 8192 0x1325D7: alloc::boxed::Box<[T]>::new_uninit_slice (boxed.rs:671)
+     n1: 8192 0x128F61: with_capacity (buffer.rs:35)
+      n1: 8192 0x128F61: std::io::buffered::bufreader::BufReader<R>::with_capacity (bufreader.rs:103)
+       n1: 8192 0x12902C: std::io::buffered::bufreader::BufReader<R>::new (bufreader.rs:74)
+        n1: 8192 0x1275A1: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:104)
+         n1: 8192 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+          n1: 8192 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+           n1: 8192 0x1157A9: test_host::host::main (host.rs:21)
+            n1: 8192 0x115165: test_host::main (main.rs:4)
+             n1: 8192 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+              n1: 8192 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+               n1: 8192 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                n1: 8192 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                 n1: 8192 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                  n1: 8192 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                   n1: 8192 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                    n1: 8192 0x156ADD: {closure#1} (rt.rs:174)
+                     n1: 8192 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                      n1: 8192 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                       n1: 8192 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                        n1: 8192 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                         n1: 8192 0x119879: std::rt::lang_start (rt.rs:194)
+                          n0: 8192 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+  n0: 30 in 2 places, all below massif's threshold (1.00%)
+ n1: 2304 0x4004EDC: malloc (rtld-malloc.h:56)
+  n1: 2304 0x4004EDC: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
+   n1: 2304 0x4004EDC: _dl_find_object_update_1 (dl-find_object.c:671)
+    n1: 2304 0x4004EDC: _dl_find_object_update (dl-find_object.c:805)
+     n1: 2304 0x400DC37: dl_open_worker_begin (dl-open.c:756)
+      n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+       n1: 2304 0x400CD1F: dl_open_worker (dl-open.c:803)
+        n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+         n1: 2304 0x400D163: _dl_open (dl-open.c:905)
+          n1: 2304 0x491D193: dlopen_doit (dlopen.c:56)
+           n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+            n1: 2304 0x4001668: _dl_catch_error (dl-catch.c:256)
+             n1: 2304 0x491CC72: _dlerror_run (dlerror.c:138)
+              n1: 2304 0x491D24E: dlopen_implementation (dlopen.c:71)
+               n1: 2304 0x491D24E: dlopen@@GLIBC_2.34 (dlopen.c:81)
+                n1: 2304 0x117FB8: libloading::os::unix::Library::open::{{closure}} (mod.rs:190)
+                 n1: 2304 0x117984: libloading::os::unix::with_dlerror (mod.rs:69)
+                  n1: 2304 0x117DC4: libloading::os::unix::Library::open (mod.rs:188)
+                   n1: 2304 0x118FC1: dylib_reload_host::helpers::open_library (helpers.rs:49)
+                    n1: 2304 0x11BF72: dylib_reload_host::load_module (lib.rs:27)
+                     n1: 2304 0x115A33: test_host::host::load (host.rs:76)
+                      n1: 2304 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                       n1: 2304 0x1157A9: test_host::host::main (host.rs:21)
+                        n1: 2304 0x115165: test_host::main (main.rs:4)
+                         n1: 2304 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                          n1: 2304 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                           n1: 2304 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                            n1: 2304 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                             n1: 2304 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                              n1: 2304 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                               n1: 2304 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                n1: 2304 0x156ADD: {closure#1} (rt.rs:174)
+                                 n1: 2304 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                  n1: 2304 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                   n1: 2304 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                    n1: 2304 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                     n1: 2304 0x119879: std::rt::lang_start (rt.rs:194)
+                                      n0: 2304 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 1024 0x15B521: alloc (alloc.rs:99)
+  n1: 1024 0x15B521: alloc_impl (alloc.rs:192)
+   n1: 1024 0x15B521: allocate (alloc.rs:254)
+    n1: 1024 0x15B521: try_allocate_in<alloc::alloc::Global> (raw_vec.rs:465)
+     n1: 1024 0x15B521: with_capacity_in<alloc::alloc::Global> (raw_vec.rs:412)
+      n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (raw_vec.rs:189)
+       n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (mod.rs:801)
+        n1: 1024 0x15B521: with_capacity<u8> (mod.rs:482)
+         n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (bufwriter.rs:122)
+          n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (linewriter.rs:110)
+           n1: 1024 0x15B521: new<std::io::stdio::StdoutRaw> (linewriter.rs:90)
+            n1: 1024 0x15B521: {closure#0} (stdio.rs:677)
+             n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+              n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:512)
+               n1: 1024 0x15B521: std::sync::once::Once::call_once_force::{{closure}} (once.rs:217)
+                n1: 1024 0x111D22: std::sys::sync::once::futex::Once::call (futex.rs:177)
+                 n1: 1024 0x11170A: call_once_force<std::sync::once_lock::{impl#0}::initialize::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !>> (once.rs:217)
+                  n1: 1024 0x11170A: std::sync::once_lock::OnceLock<T>::initialize (once_lock.rs:511)
+                   n1: 1024 0x158D03: get_or_try_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:390)
+                    n1: 1024 0x158D03: get_or_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+                     n1: 1024 0x158D03: stdout (stdio.rs:677)
+                      n1: 1024 0x158D03: print_to<std::io::stdio::Stdout> (stdio.rs:1122)
+                       n1: 1024 0x158D03: std::io::stdio::_print (stdio.rs:1232)
+                        n1: 1024 0x1157CB: test_host::host::main (host.rs:18)
+                         n1: 1024 0x115165: test_host::main (main.rs:4)
+                          n1: 1024 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                           n1: 1024 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                            n1: 1024 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                             n1: 1024 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                              n1: 1024 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                               n1: 1024 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                                n1: 1024 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                 n1: 1024 0x156ADD: {closure#1} (rt.rs:174)
+                                  n1: 1024 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                   n1: 1024 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                    n1: 1024 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                     n1: 1024 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                      n1: 1024 0x119879: std::rt::lang_start (rt.rs:194)
+                                       n0: 1024 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 244 0x126BAA: alloc::alloc::alloc (alloc.rs:99)
+  n1: 244 0x126CDC: alloc::alloc::Global::alloc_impl (alloc.rs:192)
+   n1: 244 0x126E88: <alloc::alloc::Global as core::alloc::Allocator>::allocate (alloc.rs:254)
+    n1: 244 0x122D61: do_alloc<alloc::alloc::Global> (alloc.rs:15)
+     n1: 244 0x122D61: hashbrown::raw::RawTableInner::new_uninitialized (mod.rs:1534)
+      n2: 244 0x1230EB: hashbrown::raw::RawTableInner::fallible_with_capacity (mod.rs:1572)
+       n1: 244 0x124A41: prepare_resize<alloc::alloc::Global> (mod.rs:2633)
+        n1: 244 0x124A41: resize_inner<alloc::alloc::Global> (mod.rs:2829)
+         n1: 244 0x124A41: reserve_rehash_inner<alloc::alloc::Global> (mod.rs:2719)
+          n1: 244 0x124A41: hashbrown::raw::RawTable<T,A>::reserve_rehash (mod.rs:1045)
+           n1: 244 0x126A54: hashbrown::raw::RawTable<T,A>::reserve (mod.rs:993)
+            n1: 244 0x1257DD: hashbrown::raw::RawTable<T,A>::find_or_find_insert_slot (mod.rs:1206)
+             n1: 244 0x12A0A4: find_or_find_insert_slot<u64, std::collections::hash::map::HashMap<dylib_reload_shared::AllocatorPtr, dylib_reload_shared::Allocation, std::hash::random::RandomState>, std::hash::random::RandomState, alloc::alloc::Global, u64> (map.rs:1810)
+              n1: 244 0x12A0A4: hashbrown::map::HashMap<K,V,S,A>::insert (map.rs:1790)
+               n1: 244 0x13283A: std::collections::hash::map::HashMap<K,V,S>::insert (map.rs:1137)
+                n1: 244 0x1295CE: dylib_reload_host::module_allocs::add_module (module_allocs.rs:26)
+                 n1: 244 0x11C231: dylib_reload_host::load_module (lib.rs:47)
+                  n1: 244 0x115A33: test_host::host::load (host.rs:76)
+                   n1: 244 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                    n1: 244 0x1157A9: test_host::host::main (host.rs:21)
+                     n1: 244 0x115165: test_host::main (main.rs:4)
+                      n1: 244 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                       n1: 244 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                        n1: 244 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                         n1: 244 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                          n1: 244 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                           n1: 244 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                            n1: 244 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                             n1: 244 0x156ADD: {closure#1} (rt.rs:174)
+                              n1: 244 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                               n1: 244 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                n1: 244 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                 n1: 244 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                  n1: 244 0x119879: std::rt::lang_start (rt.rs:194)
+                                   n0: 244 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+       n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 198 in 23 places, all below massif's threshold (1.00%)
+ n1: 125 0x16BB1B: alloc::raw_vec::finish_grow (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 125 0x16BCB8: alloc::raw_vec::RawVecInner<A>::grow_amortized (in /home/xshady/dylib-reload/target/debug/test_host)
+   n1: 125 0x1120C5: alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle (in /home/xshady/dylib-reload/target/debug/test_host)
+    n1: 125 0x12FE4A: alloc::vec::Vec<T,A>::append_elements (mod.rs:2553)
+     n1: 125 0x130322: spec_extend<u8, alloc::alloc::Global> (spec_extend.rs:55)
+      n1: 125 0x130322: extend_from_slice<u8, alloc::alloc::Global> (mod.rs:3008)
+       n1: 125 0x130322: std::io::read_until (mod.rs:2111)
+        n1: 125 0x1307DE: std::io::BufRead::read_line::{{closure}} (mod.rs:2481)
+         n1: 125 0x130567: std::io::append_to_string (mod.rs:382)
+          n1: 125 0x128F21: std::io::BufRead::read_line (mod.rs:2481)
+           n1: 125 0x130D44: <std::io::Lines<B> as core::iter::traits::iterator::Iterator>::next (mod.rs:3185)
+            n1: 125 0x1308E3: core::iter::traits::iterator::Iterator::try_fold (iterator.rs:2405)
+             n1: 125 0x130883: core::iter::traits::iterator::Iterator::any (iterator.rs:2812)
+              n1: 125 0x1275CC: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:106)
+               n1: 125 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+                n1: 125 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+                 n1: 125 0x1157A9: test_host::host::main (host.rs:21)
+                  n1: 125 0x115165: test_host::main (main.rs:4)
+                   n1: 125 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                    n1: 125 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                     n1: 125 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                      n1: 125 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                       n1: 125 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                        n1: 125 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                         n1: 125 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                          n1: 125 0x156ADD: {closure#1} (rt.rs:174)
+                           n1: 125 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                            n1: 125 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                             n1: 125 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                              n1: 125 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                               n1: 125 0x119879: std::rt::lang_start (rt.rs:194)
+                                n0: 125 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+#-----------
+snapshot=29
+#-----------
+time=105863100
+mem_heap_B=12117
+mem_heap_extra_B=99
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=105875578
+mem_heap_B=12117
+mem_heap_extra_B=99
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=105888073
+mem_heap_B=12119
+mem_heap_extra_B=97
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=105902029
+mem_heap_B=12119
+mem_heap_extra_B=97
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=105915985
+mem_heap_B=12119
+mem_heap_extra_B=97
+mem_stacks_B=0
+heap_tree=detailed
+n6: 12119 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 8222 0x16BD61: alloc::raw_vec::RawVecInner<A>::try_allocate_in (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 8192 0x1325D7: with_capacity (raw_vec.rs:149)
+   n1: 8192 0x1325D7: with_capacity<u8> (raw_vec.rs:129)
+    n1: 8192 0x1325D7: alloc::boxed::Box<[T]>::new_uninit_slice (boxed.rs:671)
+     n1: 8192 0x128F61: with_capacity (buffer.rs:35)
+      n1: 8192 0x128F61: std::io::buffered::bufreader::BufReader<R>::with_capacity (bufreader.rs:103)
+       n1: 8192 0x12902C: std::io::buffered::bufreader::BufReader<R>::new (bufreader.rs:74)
+        n1: 8192 0x1275A1: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:104)
+         n1: 8192 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+          n1: 8192 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+           n1: 8192 0x1157A9: test_host::host::main (host.rs:21)
+            n1: 8192 0x115165: test_host::main (main.rs:4)
+             n1: 8192 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+              n1: 8192 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+               n1: 8192 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                n1: 8192 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                 n1: 8192 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                  n1: 8192 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                   n1: 8192 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                    n1: 8192 0x156ADD: {closure#1} (rt.rs:174)
+                     n1: 8192 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                      n1: 8192 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                       n1: 8192 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                        n1: 8192 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                         n1: 8192 0x119879: std::rt::lang_start (rt.rs:194)
+                          n0: 8192 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+  n0: 30 in 2 places, all below massif's threshold (1.00%)
+ n1: 2304 0x4004EDC: malloc (rtld-malloc.h:56)
+  n1: 2304 0x4004EDC: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
+   n1: 2304 0x4004EDC: _dl_find_object_update_1 (dl-find_object.c:671)
+    n1: 2304 0x4004EDC: _dl_find_object_update (dl-find_object.c:805)
+     n1: 2304 0x400DC37: dl_open_worker_begin (dl-open.c:756)
+      n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+       n1: 2304 0x400CD1F: dl_open_worker (dl-open.c:803)
+        n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+         n1: 2304 0x400D163: _dl_open (dl-open.c:905)
+          n1: 2304 0x491D193: dlopen_doit (dlopen.c:56)
+           n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+            n1: 2304 0x4001668: _dl_catch_error (dl-catch.c:256)
+             n1: 2304 0x491CC72: _dlerror_run (dlerror.c:138)
+              n1: 2304 0x491D24E: dlopen_implementation (dlopen.c:71)
+               n1: 2304 0x491D24E: dlopen@@GLIBC_2.34 (dlopen.c:81)
+                n1: 2304 0x117FB8: libloading::os::unix::Library::open::{{closure}} (mod.rs:190)
+                 n1: 2304 0x117984: libloading::os::unix::with_dlerror (mod.rs:69)
+                  n1: 2304 0x117DC4: libloading::os::unix::Library::open (mod.rs:188)
+                   n1: 2304 0x118FC1: dylib_reload_host::helpers::open_library (helpers.rs:49)
+                    n1: 2304 0x11BF72: dylib_reload_host::load_module (lib.rs:27)
+                     n1: 2304 0x115A33: test_host::host::load (host.rs:76)
+                      n1: 2304 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                       n1: 2304 0x1157A9: test_host::host::main (host.rs:21)
+                        n1: 2304 0x115165: test_host::main (main.rs:4)
+                         n1: 2304 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                          n1: 2304 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                           n1: 2304 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                            n1: 2304 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                             n1: 2304 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                              n1: 2304 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                               n1: 2304 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                n1: 2304 0x156ADD: {closure#1} (rt.rs:174)
+                                 n1: 2304 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                  n1: 2304 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                   n1: 2304 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                    n1: 2304 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                     n1: 2304 0x119879: std::rt::lang_start (rt.rs:194)
+                                      n0: 2304 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 1024 0x15B521: alloc (alloc.rs:99)
+  n1: 1024 0x15B521: alloc_impl (alloc.rs:192)
+   n1: 1024 0x15B521: allocate (alloc.rs:254)
+    n1: 1024 0x15B521: try_allocate_in<alloc::alloc::Global> (raw_vec.rs:465)
+     n1: 1024 0x15B521: with_capacity_in<alloc::alloc::Global> (raw_vec.rs:412)
+      n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (raw_vec.rs:189)
+       n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (mod.rs:801)
+        n1: 1024 0x15B521: with_capacity<u8> (mod.rs:482)
+         n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (bufwriter.rs:122)
+          n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (linewriter.rs:110)
+           n1: 1024 0x15B521: new<std::io::stdio::StdoutRaw> (linewriter.rs:90)
+            n1: 1024 0x15B521: {closure#0} (stdio.rs:677)
+             n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+              n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:512)
+               n1: 1024 0x15B521: std::sync::once::Once::call_once_force::{{closure}} (once.rs:217)
+                n1: 1024 0x111D22: std::sys::sync::once::futex::Once::call (futex.rs:177)
+                 n1: 1024 0x11170A: call_once_force<std::sync::once_lock::{impl#0}::initialize::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !>> (once.rs:217)
+                  n1: 1024 0x11170A: std::sync::once_lock::OnceLock<T>::initialize (once_lock.rs:511)
+                   n1: 1024 0x158D03: get_or_try_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:390)
+                    n1: 1024 0x158D03: get_or_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+                     n1: 1024 0x158D03: stdout (stdio.rs:677)
+                      n1: 1024 0x158D03: print_to<std::io::stdio::Stdout> (stdio.rs:1122)
+                       n1: 1024 0x158D03: std::io::stdio::_print (stdio.rs:1232)
+                        n1: 1024 0x1157CB: test_host::host::main (host.rs:18)
+                         n1: 1024 0x115165: test_host::main (main.rs:4)
+                          n1: 1024 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                           n1: 1024 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                            n1: 1024 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                             n1: 1024 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                              n1: 1024 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                               n1: 1024 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                                n1: 1024 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                 n1: 1024 0x156ADD: {closure#1} (rt.rs:174)
+                                  n1: 1024 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                   n1: 1024 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                    n1: 1024 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                     n1: 1024 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                      n1: 1024 0x119879: std::rt::lang_start (rt.rs:194)
+                                       n0: 1024 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 244 0x126BAA: alloc::alloc::alloc (alloc.rs:99)
+  n1: 244 0x126CDC: alloc::alloc::Global::alloc_impl (alloc.rs:192)
+   n1: 244 0x126E88: <alloc::alloc::Global as core::alloc::Allocator>::allocate (alloc.rs:254)
+    n1: 244 0x122D61: do_alloc<alloc::alloc::Global> (alloc.rs:15)
+     n1: 244 0x122D61: hashbrown::raw::RawTableInner::new_uninitialized (mod.rs:1534)
+      n2: 244 0x1230EB: hashbrown::raw::RawTableInner::fallible_with_capacity (mod.rs:1572)
+       n1: 244 0x124A41: prepare_resize<alloc::alloc::Global> (mod.rs:2633)
+        n1: 244 0x124A41: resize_inner<alloc::alloc::Global> (mod.rs:2829)
+         n1: 244 0x124A41: reserve_rehash_inner<alloc::alloc::Global> (mod.rs:2719)
+          n1: 244 0x124A41: hashbrown::raw::RawTable<T,A>::reserve_rehash (mod.rs:1045)
+           n1: 244 0x126A54: hashbrown::raw::RawTable<T,A>::reserve (mod.rs:993)
+            n1: 244 0x1257DD: hashbrown::raw::RawTable<T,A>::find_or_find_insert_slot (mod.rs:1206)
+             n1: 244 0x12A0A4: find_or_find_insert_slot<u64, std::collections::hash::map::HashMap<dylib_reload_shared::AllocatorPtr, dylib_reload_shared::Allocation, std::hash::random::RandomState>, std::hash::random::RandomState, alloc::alloc::Global, u64> (map.rs:1810)
+              n1: 244 0x12A0A4: hashbrown::map::HashMap<K,V,S,A>::insert (map.rs:1790)
+               n1: 244 0x13283A: std::collections::hash::map::HashMap<K,V,S>::insert (map.rs:1137)
+                n1: 244 0x1295CE: dylib_reload_host::module_allocs::add_module (module_allocs.rs:26)
+                 n1: 244 0x11C231: dylib_reload_host::load_module (lib.rs:47)
+                  n1: 244 0x115A33: test_host::host::load (host.rs:76)
+                   n1: 244 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                    n1: 244 0x1157A9: test_host::host::main (host.rs:21)
+                     n1: 244 0x115165: test_host::main (main.rs:4)
+                      n1: 244 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                       n1: 244 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                        n1: 244 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                         n1: 244 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                          n1: 244 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                           n1: 244 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                            n1: 244 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                             n1: 244 0x156ADD: {closure#1} (rt.rs:174)
+                              n1: 244 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                               n1: 244 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                n1: 244 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                 n1: 244 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                  n1: 244 0x119879: std::rt::lang_start (rt.rs:194)
+                                   n0: 244 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+       n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 198 in 23 places, all below massif's threshold (1.00%)
+ n1: 127 0x16BB1B: alloc::raw_vec::finish_grow (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 127 0x16BCB8: alloc::raw_vec::RawVecInner<A>::grow_amortized (in /home/xshady/dylib-reload/target/debug/test_host)
+   n1: 127 0x1120C5: alloc::raw_vec::RawVecInner<A>::reserve::do_reserve_and_handle (in /home/xshady/dylib-reload/target/debug/test_host)
+    n1: 127 0x12FE4A: alloc::vec::Vec<T,A>::append_elements (mod.rs:2553)
+     n1: 127 0x130322: spec_extend<u8, alloc::alloc::Global> (spec_extend.rs:55)
+      n1: 127 0x130322: extend_from_slice<u8, alloc::alloc::Global> (mod.rs:3008)
+       n1: 127 0x130322: std::io::read_until (mod.rs:2111)
+        n1: 127 0x1307DE: std::io::BufRead::read_line::{{closure}} (mod.rs:2481)
+         n1: 127 0x130567: std::io::append_to_string (mod.rs:382)
+          n1: 127 0x128F21: std::io::BufRead::read_line (mod.rs:2481)
+           n1: 127 0x130D44: <std::io::Lines<B> as core::iter::traits::iterator::Iterator>::next (mod.rs:3185)
+            n1: 127 0x1308E3: core::iter::traits::iterator::Iterator::try_fold (iterator.rs:2405)
+             n1: 127 0x130883: core::iter::traits::iterator::Iterator::any (iterator.rs:2812)
+              n1: 127 0x1275CC: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:106)
+               n1: 127 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+                n1: 127 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+                 n1: 127 0x1157A9: test_host::host::main (host.rs:21)
+                  n1: 127 0x115165: test_host::main (main.rs:4)
+                   n1: 127 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                    n1: 127 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                     n1: 127 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                      n1: 127 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                       n1: 127 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                        n1: 127 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                         n1: 127 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                          n1: 127 0x156ADD: {closure#1} (rt.rs:174)
+                           n1: 127 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                            n1: 127 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                             n1: 127 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                              n1: 127 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                               n1: 127 0x119879: std::rt::lang_start (rt.rs:194)
+                                n0: 127 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+#-----------
+snapshot=34
+#-----------
+time=105929941
+mem_heap_B=12119
+mem_heap_extra_B=97
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=105943897
+mem_heap_B=12119
+mem_heap_extra_B=97
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=105957037
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=105980689
+mem_heap_B=12105
+mem_heap_extra_B=111
+mem_stacks_B=0
+heap_tree=detailed
+n5: 12105 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 8222 0x16BD61: alloc::raw_vec::RawVecInner<A>::try_allocate_in (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 8192 0x1325D7: with_capacity (raw_vec.rs:149)
+   n1: 8192 0x1325D7: with_capacity<u8> (raw_vec.rs:129)
+    n1: 8192 0x1325D7: alloc::boxed::Box<[T]>::new_uninit_slice (boxed.rs:671)
+     n1: 8192 0x128F61: with_capacity (buffer.rs:35)
+      n1: 8192 0x128F61: std::io::buffered::bufreader::BufReader<R>::with_capacity (bufreader.rs:103)
+       n1: 8192 0x12902C: std::io::buffered::bufreader::BufReader<R>::new (bufreader.rs:74)
+        n1: 8192 0x1275A1: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:104)
+         n1: 8192 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+          n1: 8192 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+           n1: 8192 0x1157A9: test_host::host::main (host.rs:21)
+            n1: 8192 0x115165: test_host::main (main.rs:4)
+             n1: 8192 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+              n1: 8192 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+               n1: 8192 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                n1: 8192 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                 n1: 8192 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                  n1: 8192 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                   n1: 8192 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                    n1: 8192 0x156ADD: {closure#1} (rt.rs:174)
+                     n1: 8192 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                      n1: 8192 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                       n1: 8192 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                        n1: 8192 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                         n1: 8192 0x119879: std::rt::lang_start (rt.rs:194)
+                          n0: 8192 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+  n0: 30 in 2 places, all below massif's threshold (1.00%)
+ n1: 2304 0x4004EDC: malloc (rtld-malloc.h:56)
+  n1: 2304 0x4004EDC: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
+   n1: 2304 0x4004EDC: _dl_find_object_update_1 (dl-find_object.c:671)
+    n1: 2304 0x4004EDC: _dl_find_object_update (dl-find_object.c:805)
+     n1: 2304 0x400DC37: dl_open_worker_begin (dl-open.c:756)
+      n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+       n1: 2304 0x400CD1F: dl_open_worker (dl-open.c:803)
+        n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+         n1: 2304 0x400D163: _dl_open (dl-open.c:905)
+          n1: 2304 0x491D193: dlopen_doit (dlopen.c:56)
+           n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+            n1: 2304 0x4001668: _dl_catch_error (dl-catch.c:256)
+             n1: 2304 0x491CC72: _dlerror_run (dlerror.c:138)
+              n1: 2304 0x491D24E: dlopen_implementation (dlopen.c:71)
+               n1: 2304 0x491D24E: dlopen@@GLIBC_2.34 (dlopen.c:81)
+                n1: 2304 0x117FB8: libloading::os::unix::Library::open::{{closure}} (mod.rs:190)
+                 n1: 2304 0x117984: libloading::os::unix::with_dlerror (mod.rs:69)
+                  n1: 2304 0x117DC4: libloading::os::unix::Library::open (mod.rs:188)
+                   n1: 2304 0x118FC1: dylib_reload_host::helpers::open_library (helpers.rs:49)
+                    n1: 2304 0x11BF72: dylib_reload_host::load_module (lib.rs:27)
+                     n1: 2304 0x115A33: test_host::host::load (host.rs:76)
+                      n1: 2304 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                       n1: 2304 0x1157A9: test_host::host::main (host.rs:21)
+                        n1: 2304 0x115165: test_host::main (main.rs:4)
+                         n1: 2304 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                          n1: 2304 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                           n1: 2304 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                            n1: 2304 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                             n1: 2304 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                              n1: 2304 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                               n1: 2304 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                n1: 2304 0x156ADD: {closure#1} (rt.rs:174)
+                                 n1: 2304 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                  n1: 2304 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                   n1: 2304 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                    n1: 2304 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                     n1: 2304 0x119879: std::rt::lang_start (rt.rs:194)
+                                      n0: 2304 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 1024 0x15B521: alloc (alloc.rs:99)
+  n1: 1024 0x15B521: alloc_impl (alloc.rs:192)
+   n1: 1024 0x15B521: allocate (alloc.rs:254)
+    n1: 1024 0x15B521: try_allocate_in<alloc::alloc::Global> (raw_vec.rs:465)
+     n1: 1024 0x15B521: with_capacity_in<alloc::alloc::Global> (raw_vec.rs:412)
+      n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (raw_vec.rs:189)
+       n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (mod.rs:801)
+        n1: 1024 0x15B521: with_capacity<u8> (mod.rs:482)
+         n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (bufwriter.rs:122)
+          n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (linewriter.rs:110)
+           n1: 1024 0x15B521: new<std::io::stdio::StdoutRaw> (linewriter.rs:90)
+            n1: 1024 0x15B521: {closure#0} (stdio.rs:677)
+             n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+              n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:512)
+               n1: 1024 0x15B521: std::sync::once::Once::call_once_force::{{closure}} (once.rs:217)
+                n1: 1024 0x111D22: std::sys::sync::once::futex::Once::call (futex.rs:177)
+                 n1: 1024 0x11170A: call_once_force<std::sync::once_lock::{impl#0}::initialize::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !>> (once.rs:217)
+                  n1: 1024 0x11170A: std::sync::once_lock::OnceLock<T>::initialize (once_lock.rs:511)
+                   n1: 1024 0x158D03: get_or_try_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:390)
+                    n1: 1024 0x158D03: get_or_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+                     n1: 1024 0x158D03: stdout (stdio.rs:677)
+                      n1: 1024 0x158D03: print_to<std::io::stdio::Stdout> (stdio.rs:1122)
+                       n1: 1024 0x158D03: std::io::stdio::_print (stdio.rs:1232)
+                        n1: 1024 0x1157CB: test_host::host::main (host.rs:18)
+                         n1: 1024 0x115165: test_host::main (main.rs:4)
+                          n1: 1024 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                           n1: 1024 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                            n1: 1024 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                             n1: 1024 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                              n1: 1024 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                               n1: 1024 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                                n1: 1024 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                 n1: 1024 0x156ADD: {closure#1} (rt.rs:174)
+                                  n1: 1024 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                   n1: 1024 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                    n1: 1024 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                     n1: 1024 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                      n1: 1024 0x119879: std::rt::lang_start (rt.rs:194)
+                                       n0: 1024 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n0: 311 in 24 places, all below massif's threshold (1.00%)
+ n1: 244 0x126BAA: alloc::alloc::alloc (alloc.rs:99)
+  n1: 244 0x126CDC: alloc::alloc::Global::alloc_impl (alloc.rs:192)
+   n1: 244 0x126E88: <alloc::alloc::Global as core::alloc::Allocator>::allocate (alloc.rs:254)
+    n1: 244 0x122D61: do_alloc<alloc::alloc::Global> (alloc.rs:15)
+     n1: 244 0x122D61: hashbrown::raw::RawTableInner::new_uninitialized (mod.rs:1534)
+      n2: 244 0x1230EB: hashbrown::raw::RawTableInner::fallible_with_capacity (mod.rs:1572)
+       n1: 244 0x124A41: prepare_resize<alloc::alloc::Global> (mod.rs:2633)
+        n1: 244 0x124A41: resize_inner<alloc::alloc::Global> (mod.rs:2829)
+         n1: 244 0x124A41: reserve_rehash_inner<alloc::alloc::Global> (mod.rs:2719)
+          n1: 244 0x124A41: hashbrown::raw::RawTable<T,A>::reserve_rehash (mod.rs:1045)
+           n1: 244 0x126A54: hashbrown::raw::RawTable<T,A>::reserve (mod.rs:993)
+            n1: 244 0x1257DD: hashbrown::raw::RawTable<T,A>::find_or_find_insert_slot (mod.rs:1206)
+             n1: 244 0x12A0A4: find_or_find_insert_slot<u64, std::collections::hash::map::HashMap<dylib_reload_shared::AllocatorPtr, dylib_reload_shared::Allocation, std::hash::random::RandomState>, std::hash::random::RandomState, alloc::alloc::Global, u64> (map.rs:1810)
+              n1: 244 0x12A0A4: hashbrown::map::HashMap<K,V,S,A>::insert (map.rs:1790)
+               n1: 244 0x13283A: std::collections::hash::map::HashMap<K,V,S>::insert (map.rs:1137)
+                n1: 244 0x1295CE: dylib_reload_host::module_allocs::add_module (module_allocs.rs:26)
+                 n1: 244 0x11C231: dylib_reload_host::load_module (lib.rs:47)
+                  n1: 244 0x115A33: test_host::host::load (host.rs:76)
+                   n1: 244 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                    n1: 244 0x1157A9: test_host::host::main (host.rs:21)
+                     n1: 244 0x115165: test_host::main (main.rs:4)
+                      n1: 244 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                       n1: 244 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                        n1: 244 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                         n1: 244 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                          n1: 244 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                           n1: 244 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                            n1: 244 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                             n1: 244 0x156ADD: {closure#1} (rt.rs:174)
+                              n1: 244 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                               n1: 244 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                n1: 244 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                 n1: 244 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                  n1: 244 0x119879: std::rt::lang_start (rt.rs:194)
+                                   n0: 244 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+       n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=38
+#-----------
+time=105993117
+mem_heap_B=12105
+mem_heap_extra_B=111
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=106005545
+mem_heap_B=12105
+mem_heap_extra_B=111
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=106017973
+mem_heap_B=12105
+mem_heap_extra_B=111
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=106029592
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=106051612
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=106073632
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=106095871
+mem_heap_B=12106
+mem_heap_extra_B=110
+mem_stacks_B=0
+heap_tree=detailed
+n5: 12106 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 8222 0x16BD61: alloc::raw_vec::RawVecInner<A>::try_allocate_in (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 8192 0x1325D7: with_capacity (raw_vec.rs:149)
+   n1: 8192 0x1325D7: with_capacity<u8> (raw_vec.rs:129)
+    n1: 8192 0x1325D7: alloc::boxed::Box<[T]>::new_uninit_slice (boxed.rs:671)
+     n1: 8192 0x128F61: with_capacity (buffer.rs:35)
+      n1: 8192 0x128F61: std::io::buffered::bufreader::BufReader<R>::with_capacity (bufreader.rs:103)
+       n1: 8192 0x12902C: std::io::buffered::bufreader::BufReader<R>::new (bufreader.rs:74)
+        n1: 8192 0x1275A1: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:104)
+         n1: 8192 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+          n1: 8192 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+           n1: 8192 0x1157A9: test_host::host::main (host.rs:21)
+            n1: 8192 0x115165: test_host::main (main.rs:4)
+             n1: 8192 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+              n1: 8192 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+               n1: 8192 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                n1: 8192 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                 n1: 8192 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                  n1: 8192 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                   n1: 8192 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                    n1: 8192 0x156ADD: {closure#1} (rt.rs:174)
+                     n1: 8192 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                      n1: 8192 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                       n1: 8192 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                        n1: 8192 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                         n1: 8192 0x119879: std::rt::lang_start (rt.rs:194)
+                          n0: 8192 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+  n0: 30 in 2 places, all below massif's threshold (1.00%)
+ n1: 2304 0x4004EDC: malloc (rtld-malloc.h:56)
+  n1: 2304 0x4004EDC: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
+   n1: 2304 0x4004EDC: _dl_find_object_update_1 (dl-find_object.c:671)
+    n1: 2304 0x4004EDC: _dl_find_object_update (dl-find_object.c:805)
+     n1: 2304 0x400DC37: dl_open_worker_begin (dl-open.c:756)
+      n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+       n1: 2304 0x400CD1F: dl_open_worker (dl-open.c:803)
+        n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+         n1: 2304 0x400D163: _dl_open (dl-open.c:905)
+          n1: 2304 0x491D193: dlopen_doit (dlopen.c:56)
+           n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+            n1: 2304 0x4001668: _dl_catch_error (dl-catch.c:256)
+             n1: 2304 0x491CC72: _dlerror_run (dlerror.c:138)
+              n1: 2304 0x491D24E: dlopen_implementation (dlopen.c:71)
+               n1: 2304 0x491D24E: dlopen@@GLIBC_2.34 (dlopen.c:81)
+                n1: 2304 0x117FB8: libloading::os::unix::Library::open::{{closure}} (mod.rs:190)
+                 n1: 2304 0x117984: libloading::os::unix::with_dlerror (mod.rs:69)
+                  n1: 2304 0x117DC4: libloading::os::unix::Library::open (mod.rs:188)
+                   n1: 2304 0x118FC1: dylib_reload_host::helpers::open_library (helpers.rs:49)
+                    n1: 2304 0x11BF72: dylib_reload_host::load_module (lib.rs:27)
+                     n1: 2304 0x115A33: test_host::host::load (host.rs:76)
+                      n1: 2304 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                       n1: 2304 0x1157A9: test_host::host::main (host.rs:21)
+                        n1: 2304 0x115165: test_host::main (main.rs:4)
+                         n1: 2304 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                          n1: 2304 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                           n1: 2304 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                            n1: 2304 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                             n1: 2304 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                              n1: 2304 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                               n1: 2304 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                n1: 2304 0x156ADD: {closure#1} (rt.rs:174)
+                                 n1: 2304 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                  n1: 2304 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                   n1: 2304 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                    n1: 2304 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                     n1: 2304 0x119879: std::rt::lang_start (rt.rs:194)
+                                      n0: 2304 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 1024 0x15B521: alloc (alloc.rs:99)
+  n1: 1024 0x15B521: alloc_impl (alloc.rs:192)
+   n1: 1024 0x15B521: allocate (alloc.rs:254)
+    n1: 1024 0x15B521: try_allocate_in<alloc::alloc::Global> (raw_vec.rs:465)
+     n1: 1024 0x15B521: with_capacity_in<alloc::alloc::Global> (raw_vec.rs:412)
+      n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (raw_vec.rs:189)
+       n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (mod.rs:801)
+        n1: 1024 0x15B521: with_capacity<u8> (mod.rs:482)
+         n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (bufwriter.rs:122)
+          n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (linewriter.rs:110)
+           n1: 1024 0x15B521: new<std::io::stdio::StdoutRaw> (linewriter.rs:90)
+            n1: 1024 0x15B521: {closure#0} (stdio.rs:677)
+             n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+              n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:512)
+               n1: 1024 0x15B521: std::sync::once::Once::call_once_force::{{closure}} (once.rs:217)
+                n1: 1024 0x111D22: std::sys::sync::once::futex::Once::call (futex.rs:177)
+                 n1: 1024 0x11170A: call_once_force<std::sync::once_lock::{impl#0}::initialize::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !>> (once.rs:217)
+                  n1: 1024 0x11170A: std::sync::once_lock::OnceLock<T>::initialize (once_lock.rs:511)
+                   n1: 1024 0x158D03: get_or_try_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:390)
+                    n1: 1024 0x158D03: get_or_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+                     n1: 1024 0x158D03: stdout (stdio.rs:677)
+                      n1: 1024 0x158D03: print_to<std::io::stdio::Stdout> (stdio.rs:1122)
+                       n1: 1024 0x158D03: std::io::stdio::_print (stdio.rs:1232)
+                        n1: 1024 0x1157CB: test_host::host::main (host.rs:18)
+                         n1: 1024 0x115165: test_host::main (main.rs:4)
+                          n1: 1024 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                           n1: 1024 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                            n1: 1024 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                             n1: 1024 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                              n1: 1024 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                               n1: 1024 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                                n1: 1024 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                 n1: 1024 0x156ADD: {closure#1} (rt.rs:174)
+                                  n1: 1024 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                   n1: 1024 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                    n1: 1024 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                     n1: 1024 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                      n1: 1024 0x119879: std::rt::lang_start (rt.rs:194)
+                                       n0: 1024 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n0: 312 in 24 places, all below massif's threshold (1.00%)
+ n1: 244 0x126BAA: alloc::alloc::alloc (alloc.rs:99)
+  n1: 244 0x126CDC: alloc::alloc::Global::alloc_impl (alloc.rs:192)
+   n1: 244 0x126E88: <alloc::alloc::Global as core::alloc::Allocator>::allocate (alloc.rs:254)
+    n1: 244 0x122D61: do_alloc<alloc::alloc::Global> (alloc.rs:15)
+     n1: 244 0x122D61: hashbrown::raw::RawTableInner::new_uninitialized (mod.rs:1534)
+      n2: 244 0x1230EB: hashbrown::raw::RawTableInner::fallible_with_capacity (mod.rs:1572)
+       n1: 244 0x124A41: prepare_resize<alloc::alloc::Global> (mod.rs:2633)
+        n1: 244 0x124A41: resize_inner<alloc::alloc::Global> (mod.rs:2829)
+         n1: 244 0x124A41: reserve_rehash_inner<alloc::alloc::Global> (mod.rs:2719)
+          n1: 244 0x124A41: hashbrown::raw::RawTable<T,A>::reserve_rehash (mod.rs:1045)
+           n1: 244 0x126A54: hashbrown::raw::RawTable<T,A>::reserve (mod.rs:993)
+            n1: 244 0x1257DD: hashbrown::raw::RawTable<T,A>::find_or_find_insert_slot (mod.rs:1206)
+             n1: 244 0x12A0A4: find_or_find_insert_slot<u64, std::collections::hash::map::HashMap<dylib_reload_shared::AllocatorPtr, dylib_reload_shared::Allocation, std::hash::random::RandomState>, std::hash::random::RandomState, alloc::alloc::Global, u64> (map.rs:1810)
+              n1: 244 0x12A0A4: hashbrown::map::HashMap<K,V,S,A>::insert (map.rs:1790)
+               n1: 244 0x13283A: std::collections::hash::map::HashMap<K,V,S>::insert (map.rs:1137)
+                n1: 244 0x1295CE: dylib_reload_host::module_allocs::add_module (module_allocs.rs:26)
+                 n1: 244 0x11C231: dylib_reload_host::load_module (lib.rs:47)
+                  n1: 244 0x115A33: test_host::host::load (host.rs:76)
+                   n1: 244 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                    n1: 244 0x1157A9: test_host::host::main (host.rs:21)
+                     n1: 244 0x115165: test_host::main (main.rs:4)
+                      n1: 244 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                       n1: 244 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                        n1: 244 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                         n1: 244 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                          n1: 244 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                           n1: 244 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                            n1: 244 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                             n1: 244 0x156ADD: {closure#1} (rt.rs:174)
+                              n1: 244 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                               n1: 244 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                n1: 244 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                 n1: 244 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                  n1: 244 0x119879: std::rt::lang_start (rt.rs:194)
+                                   n0: 244 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+       n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=45
+#-----------
+time=106108292
+mem_heap_B=12106
+mem_heap_extra_B=110
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=106120796
+mem_heap_B=12106
+mem_heap_extra_B=110
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=106133234
+mem_heap_B=12106
+mem_heap_extra_B=110
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=106156208
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=106168486
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=106174625
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=106180764
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=106194657
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=106200796
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=106206935
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=106213067
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=106219206
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=106225345
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=106231484
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=detailed
+n5: 11992 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 8222 0x16BD61: alloc::raw_vec::RawVecInner<A>::try_allocate_in (in /home/xshady/dylib-reload/target/debug/test_host)
+  n1: 8192 0x1325D7: with_capacity (raw_vec.rs:149)
+   n1: 8192 0x1325D7: with_capacity<u8> (raw_vec.rs:129)
+    n1: 8192 0x1325D7: alloc::boxed::Box<[T]>::new_uninit_slice (boxed.rs:671)
+     n1: 8192 0x128F61: with_capacity (buffer.rs:35)
+      n1: 8192 0x128F61: std::io::buffered::bufreader::BufReader<R>::with_capacity (bufreader.rs:103)
+       n1: 8192 0x12902C: std::io::buffered::bufreader::BufReader<R>::new (bufreader.rs:74)
+        n1: 8192 0x1275A1: dylib_reload_host::helpers::linux::is_library_loaded (helpers.rs:104)
+         n1: 8192 0x119EE8: dylib_reload_host::module::Module<E>::unload (module.rs:125)
+          n1: 8192 0x1158E0: test_host::host::module_load_loop (host.rs:30)
+           n1: 8192 0x1157A9: test_host::host::main (host.rs:21)
+            n1: 8192 0x115165: test_host::main (main.rs:4)
+             n1: 8192 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+              n1: 8192 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+               n1: 8192 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                n1: 8192 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                 n1: 8192 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                  n1: 8192 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                   n1: 8192 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                    n1: 8192 0x156ADD: {closure#1} (rt.rs:174)
+                     n1: 8192 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                      n1: 8192 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                       n1: 8192 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                        n1: 8192 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                         n1: 8192 0x119879: std::rt::lang_start (rt.rs:194)
+                          n0: 8192 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+  n0: 30 in 2 places, all below massif's threshold (1.00%)
+ n1: 2304 0x4004EDC: malloc (rtld-malloc.h:56)
+  n1: 2304 0x4004EDC: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
+   n1: 2304 0x4004EDC: _dl_find_object_update_1 (dl-find_object.c:671)
+    n1: 2304 0x4004EDC: _dl_find_object_update (dl-find_object.c:805)
+     n1: 2304 0x400DC37: dl_open_worker_begin (dl-open.c:756)
+      n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+       n1: 2304 0x400CD1F: dl_open_worker (dl-open.c:803)
+        n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+         n1: 2304 0x400D163: _dl_open (dl-open.c:905)
+          n1: 2304 0x491D193: dlopen_doit (dlopen.c:56)
+           n1: 2304 0x400151B: _dl_catch_exception (dl-catch.c:237)
+            n1: 2304 0x4001668: _dl_catch_error (dl-catch.c:256)
+             n1: 2304 0x491CC72: _dlerror_run (dlerror.c:138)
+              n1: 2304 0x491D24E: dlopen_implementation (dlopen.c:71)
+               n1: 2304 0x491D24E: dlopen@@GLIBC_2.34 (dlopen.c:81)
+                n1: 2304 0x117FB8: libloading::os::unix::Library::open::{{closure}} (mod.rs:190)
+                 n1: 2304 0x117984: libloading::os::unix::with_dlerror (mod.rs:69)
+                  n1: 2304 0x117DC4: libloading::os::unix::Library::open (mod.rs:188)
+                   n1: 2304 0x118FC1: dylib_reload_host::helpers::open_library (helpers.rs:49)
+                    n1: 2304 0x11BF72: dylib_reload_host::load_module (lib.rs:27)
+                     n1: 2304 0x115A33: test_host::host::load (host.rs:76)
+                      n1: 2304 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                       n1: 2304 0x1157A9: test_host::host::main (host.rs:21)
+                        n1: 2304 0x115165: test_host::main (main.rs:4)
+                         n1: 2304 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                          n1: 2304 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                           n1: 2304 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                            n1: 2304 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                             n1: 2304 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                              n1: 2304 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                               n1: 2304 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                n1: 2304 0x156ADD: {closure#1} (rt.rs:174)
+                                 n1: 2304 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                  n1: 2304 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                   n1: 2304 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                    n1: 2304 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                     n1: 2304 0x119879: std::rt::lang_start (rt.rs:194)
+                                      n0: 2304 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 1024 0x15B521: alloc (alloc.rs:99)
+  n1: 1024 0x15B521: alloc_impl (alloc.rs:192)
+   n1: 1024 0x15B521: allocate (alloc.rs:254)
+    n1: 1024 0x15B521: try_allocate_in<alloc::alloc::Global> (raw_vec.rs:465)
+     n1: 1024 0x15B521: with_capacity_in<alloc::alloc::Global> (raw_vec.rs:412)
+      n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (raw_vec.rs:189)
+       n1: 1024 0x15B521: with_capacity_in<u8, alloc::alloc::Global> (mod.rs:801)
+        n1: 1024 0x15B521: with_capacity<u8> (mod.rs:482)
+         n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (bufwriter.rs:122)
+          n1: 1024 0x15B521: with_capacity<std::io::stdio::StdoutRaw> (linewriter.rs:110)
+           n1: 1024 0x15B521: new<std::io::stdio::StdoutRaw> (linewriter.rs:90)
+            n1: 1024 0x15B521: {closure#0} (stdio.rs:677)
+             n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+              n1: 1024 0x15B521: {closure#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:512)
+               n1: 1024 0x15B521: std::sync::once::Once::call_once_force::{{closure}} (once.rs:217)
+                n1: 1024 0x111D22: std::sys::sync::once::futex::Once::call (futex.rs:177)
+                 n1: 1024 0x11170A: call_once_force<std::sync::once_lock::{impl#0}::initialize::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !>> (once.rs:217)
+                  n1: 1024 0x11170A: std::sync::once_lock::OnceLock<T>::initialize (once_lock.rs:511)
+                   n1: 1024 0x158D03: get_or_try_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::sync::once_lock::{impl#0}::get_or_init::{closure_env#0}<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}>, !> (once_lock.rs:390)
+                    n1: 1024 0x158D03: get_or_init<std::sync::reentrant_lock::ReentrantLock<core::cell::RefCell<std::io::buffered::linewriter::LineWriter<std::io::stdio::StdoutRaw>>>, std::io::stdio::stdout::{closure_env#0}> (once_lock.rs:304)
+                     n1: 1024 0x158D03: stdout (stdio.rs:677)
+                      n1: 1024 0x158D03: print_to<std::io::stdio::Stdout> (stdio.rs:1122)
+                       n1: 1024 0x158D03: std::io::stdio::_print (stdio.rs:1232)
+                        n1: 1024 0x1157CB: test_host::host::main (host.rs:18)
+                         n1: 1024 0x115165: test_host::main (main.rs:4)
+                          n1: 1024 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                           n1: 1024 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                            n1: 1024 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                             n1: 1024 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                              n1: 1024 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                               n1: 1024 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                                n1: 1024 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                                 n1: 1024 0x156ADD: {closure#1} (rt.rs:174)
+                                  n1: 1024 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                                   n1: 1024 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                    n1: 1024 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                     n1: 1024 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                      n1: 1024 0x119879: std::rt::lang_start (rt.rs:194)
+                                       n0: 1024 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+ n1: 244 0x126BAA: alloc::alloc::alloc (alloc.rs:99)
+  n1: 244 0x126CDC: alloc::alloc::Global::alloc_impl (alloc.rs:192)
+   n1: 244 0x126E88: <alloc::alloc::Global as core::alloc::Allocator>::allocate (alloc.rs:254)
+    n1: 244 0x122D61: do_alloc<alloc::alloc::Global> (alloc.rs:15)
+     n1: 244 0x122D61: hashbrown::raw::RawTableInner::new_uninitialized (mod.rs:1534)
+      n2: 244 0x1230EB: hashbrown::raw::RawTableInner::fallible_with_capacity (mod.rs:1572)
+       n1: 244 0x124A41: prepare_resize<alloc::alloc::Global> (mod.rs:2633)
+        n1: 244 0x124A41: resize_inner<alloc::alloc::Global> (mod.rs:2829)
+         n1: 244 0x124A41: reserve_rehash_inner<alloc::alloc::Global> (mod.rs:2719)
+          n1: 244 0x124A41: hashbrown::raw::RawTable<T,A>::reserve_rehash (mod.rs:1045)
+           n1: 244 0x126A54: hashbrown::raw::RawTable<T,A>::reserve (mod.rs:993)
+            n1: 244 0x1257DD: hashbrown::raw::RawTable<T,A>::find_or_find_insert_slot (mod.rs:1206)
+             n1: 244 0x12A0A4: find_or_find_insert_slot<u64, std::collections::hash::map::HashMap<dylib_reload_shared::AllocatorPtr, dylib_reload_shared::Allocation, std::hash::random::RandomState>, std::hash::random::RandomState, alloc::alloc::Global, u64> (map.rs:1810)
+              n1: 244 0x12A0A4: hashbrown::map::HashMap<K,V,S,A>::insert (map.rs:1790)
+               n1: 244 0x13283A: std::collections::hash::map::HashMap<K,V,S>::insert (map.rs:1137)
+                n1: 244 0x1295CE: dylib_reload_host::module_allocs::add_module (module_allocs.rs:26)
+                 n1: 244 0x11C231: dylib_reload_host::load_module (lib.rs:47)
+                  n1: 244 0x115A33: test_host::host::load (host.rs:76)
+                   n1: 244 0x11581B: test_host::host::module_load_loop (host.rs:27)
+                    n1: 244 0x1157A9: test_host::host::main (host.rs:21)
+                     n1: 244 0x115165: test_host::main (main.rs:4)
+                      n1: 244 0x11308A: core::ops::function::FnOnce::call_once (function.rs:250)
+                       n1: 244 0x116D4D: std::sys::backtrace::__rust_begin_short_backtrace (backtrace.rs:154)
+                        n1: 244 0x1198A0: std::rt::lang_start::{{closure}} (rt.rs:195)
+                         n1: 244 0x156ADD: call_once<(), (dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (function.rs:284)
+                          n1: 244 0x156ADD: do_call<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panicking.rs:557)
+                           n1: 244 0x156ADD: try<i32, &(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe)> (panicking.rs:520)
+                            n1: 244 0x156ADD: catch_unwind<&(dyn core::ops::function::Fn<(), Output=i32> + core::marker::Sync + core::panic::unwind_safe::RefUnwindSafe), i32> (panic.rs:358)
+                             n1: 244 0x156ADD: {closure#1} (rt.rs:174)
+                              n1: 244 0x156ADD: do_call<std::rt::lang_start_internal::{closure_env#1}, isize> (panicking.rs:557)
+                               n1: 244 0x156ADD: try<isize, std::rt::lang_start_internal::{closure_env#1}> (panicking.rs:520)
+                                n1: 244 0x156ADD: catch_unwind<std::rt::lang_start_internal::{closure_env#1}, isize> (panic.rs:358)
+                                 n1: 244 0x156ADD: std::rt::lang_start_internal (rt.rs:174)
+                                  n1: 244 0x119879: std::rt::lang_start (rt.rs:194)
+                                   n0: 244 0x11518D: main (in /home/xshady/dylib-reload/target/debug/test_host)
+       n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 198 in 24 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=59
+#-----------
+time=106237623
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=106246608
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=106255566
+mem_heap_B=11992
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=106256815
+mem_heap_B=3800
+mem_heap_extra_B=80
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=106261845
+mem_heap_B=412
+mem_heap_extra_B=44
+mem_stacks_B=0
+heap_tree=empty
