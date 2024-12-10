@@ -1,7 +1,5 @@
 use std::{
-  ffi::OsStr,
-  mem::MaybeUninit,
-  sync::atomic::{AtomicU64, Ordering},
+  mem::MaybeUninit, path::Path, sync::atomic::{AtomicU64, Ordering}
 };
 
 use dylib_reload_shared::ModuleId;
@@ -36,7 +34,7 @@ pub fn next_module_id() -> ModuleId {
   id
 }
 
-pub fn open_library(path: impl AsRef<OsStr>) -> Result<libloading::Library, crate::Error> {
+pub fn open_library(path: &Path) -> Result<libloading::Library, crate::Error> {
   #[cfg(target_os = "linux")]
   let library = {
     use libloading::os::unix::Library;
@@ -52,7 +50,7 @@ pub fn open_library(path: impl AsRef<OsStr>) -> Result<libloading::Library, crat
   #[cfg(target_os = "windows")]
   let library = {
     use libloading::os::windows::Library;
-    Library::new(path)?.into()
+    unsafe { Library::new(path) }?.into()
   };
 
   Ok(library)

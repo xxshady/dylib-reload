@@ -5,6 +5,9 @@ pub enum Error {
   #[error("libloading error")]
   Libloading(#[from] libloading::Error),
 
+  #[error("this module is already loaded")]
+  ModuleAlreadyLoaded,
+
   #[error(
     "module is compiled with different rustc version:\n\
     {0}\n\

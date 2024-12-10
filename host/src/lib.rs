@@ -1,4 +1,4 @@
-use std::ffi::OsStr;
+use std::{ffi::OsStr, path::Path};
 
 use libloading::Symbol;
 
@@ -24,7 +24,18 @@ pub use crate::{errors::Error, module::Module};
 pub fn load_module<E: ModuleExportsForHost>(
   path: impl AsRef<OsStr>,
 ) -> Result<Module<E>, crate::Error> {
-  let library = open_library(&path)?;
+  let path = Path::new(path.as_ref());
+
+  #[cfg(target_os = "linux")]
+  {
+    use helpers::linux::is_library_loaded;
+
+    if is_library_loaded(path) {
+      return Err(Error::ModuleAlreadyLoaded);
+    }
+  }
+
+  let library = open_library(path)?;
 
   let compiled_with = unsafe {
     let compiled_with: Symbol<*const Str> = library.get(b"__CRATE_COMPILATION_INFO__\0")?;
@@ -57,7 +68,7 @@ pub fn load_module<E: ModuleExportsForHost>(
     library,
     internal_exports,
     pub_exports,
-    path.as_ref().into(),
+    path.to_owned(),
   );
   Ok(module)
 }
