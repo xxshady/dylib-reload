@@ -6,8 +6,6 @@
 
 > **note:** currently Linux has the best support, Windows is supported partially, see [support matrix](#feature-support-matrix).
 
-TODO: comparison with other rust crates for hot reload?
-
 ## Why?
 
 Why would you use dynamic libraries when WebAssembly already exist? Well, if you can you should use WebAssembly since it's much more memory-safe approach. But what if WASM is not enough for you for some of these reasons: (some of which may be resolved in the future)
