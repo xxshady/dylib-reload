@@ -1,5 +1,5 @@
 [package]
-name = "dylib_reload_module"
+name = "relib_module"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -7,20 +7,25 @@ repository.workspace = true
 readme.workspace = true
 rust-version.workspace = true
 
+[features]
+default = ["global_alloc_tracker"]
+global_alloc_tracker = []
+
 [dependencies]
 backtrace = "0.3.74"
+relib_export = { version = "0.1.0", path = "../export" }
 thread-id.workspace = true
 
 [target.'cfg(target_os = "linux")'.dependencies]
 libc.workspace = true
 
-[dependencies.dylib_reload_shared]
+[dependencies.relib_internal_shared]
 version = "=0.1.0"
 path = "../shared"
 
-[dependencies.dylib_interface]
+[dependencies.relib_interface]
 version = "0.1.0"
-path = "../dylib_interface"
+path = "../interface"
 features = ["normal"]
 
 [dependencies.crate_compilation_info]
@@ -30,12 +35,12 @@ features = ["normal"]
 
 [build-dependencies]
 
-[build-dependencies.dylib_interface]
+[build-dependencies.relib_interface]
 version = "0.1.0"
-path = "../dylib_interface"
+path = "../interface"
 features = ["build"]
 
-[build-dependencies.dylib_reload_shared]
+[build-dependencies.relib_internal_shared]
 version = "=0.1.0"
 path = "../shared"
 

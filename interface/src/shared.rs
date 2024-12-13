@@ -7,6 +7,8 @@ use syn::{
   ItemUse,
 };
 
+use relib_internal_shared::fn_inputs_without_types;
+
 pub fn format_code(code: &str) -> String {
   let file = syn::parse_file(code).unwrap_or_else(|e| {
     panic!("Failed to parse code as syn File, reason: {e:#?}");
@@ -119,18 +121,7 @@ pub fn for_each_trait_item<'trait_>(
 
   let ident = &fn_.ident;
 
-  let inputs_without_types = fn_
-    .inputs
-    .iter()
-    .map(|arg| {
-      let FnArg::Typed(arg) = arg else {
-        unreachable!();
-      };
-
-      let ts = arg.pat.to_token_stream();
-      quote! { #ts , }
-    })
-    .collect();
+  let inputs_without_types = fn_inputs_without_types!(fn_.inputs);
 
   TraitFn {
     ident,
@@ -138,7 +129,7 @@ pub fn for_each_trait_item<'trait_>(
     inputs_without_types,
     output: &fn_.output,
 
-    mangled_name: format!("__{trait_name}_{ident}"),
+    mangled_name: format!("__relib__{trait_name}_{ident}"),
   }
 }
 
@@ -175,15 +166,6 @@ fn patch_item_use_if_needed(item_use: &ItemUse, crate_name: &Ident) -> TokenStre
       let code = item_use.to_token_stream();
       panic!("unexpected syntax: `{code}`");
     }
-  }
-}
-
-pub fn fn_output_to_type(output: &ReturnType) -> TokenStream2 {
-  match output {
-    ReturnType::Default => {
-      quote! { () }
-    }
-    ReturnType::Type(_, ty) => ty.to_token_stream(),
   }
 }
 

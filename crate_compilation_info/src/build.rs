@@ -14,7 +14,7 @@ pub fn provide() {
 
   let workspace_version = env!("CARGO_PKG_VERSION");
 
-  const ENV_KEY: &str = "__CRATE_COMPILATION_INFO__";
+  const ENV_KEY: &str = "__RELIB__CRATE_COMPILATION_INFO__";
   println!("cargo:rustc-env={ENV_KEY}={rustc_version}|{host}|{llvm_version}|{workspace_version}");
 }
 

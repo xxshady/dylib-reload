@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
-  "dylib_interface",
+  "interface",
   "host",
   "module",
   "shared",
@@ -9,8 +9,9 @@ members = [
   "testing/shared",
   "testing/host",
   "testing/module",
-  "define_module_export",
-  "testing/define_module_export",
+  "exportify",
+  "export",
+  "relib",
 ]
 
 [workspace.package]

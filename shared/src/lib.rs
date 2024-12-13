@@ -112,3 +112,32 @@ unsafe impl Send for Str {}
 unsafe impl Sync for Str {}
 
 pub type ModuleId = u64;
+
+#[macro_export]
+macro_rules! output_to_return_type {
+  ($output:ident) => {
+    match &$output {
+      syn::ReturnType::Default => {
+        quote! { () }
+      }
+      syn::ReturnType::Type(_, ty) => quote::ToTokens::to_token_stream(ty),
+    }
+  };
+}
+
+#[macro_export]
+macro_rules! fn_inputs_without_types {
+  ($inputs:expr) => {
+    $inputs
+      .iter()
+      .map(|arg| {
+        let syn::FnArg::Typed(arg) = arg else {
+          unreachable!();
+        };
+
+        let ts = quote::ToTokens::to_token_stream(&arg.pat);
+        quote! { #ts , }
+      })
+      .collect::<proc_macro2::TokenStream>()
+  };
+}

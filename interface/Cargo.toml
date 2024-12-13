@@ -1,5 +1,5 @@
 [package]
-name = "dylib_interface"
+name = "relib_interface"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -8,8 +8,21 @@ readme.workspace = true
 rust-version.workspace = true
 
 [features]
-build = ["dep:prettyplease", "dep:proc-macro2", "dep:quote", "dep:syn"]
+build = [
+  "dep:relib_internal_shared",
+  "dep:prettyplease",
+  "dep:proc-macro2",
+  "dep:quote",
+  "dep:syn",
+]
 normal = []
+
+[dependencies]
+
+[dependencies.relib_internal_shared]
+optional = true
+version = "0.1.0"
+path = "../shared"
 
 [dependencies.prettyplease]
 optional = true

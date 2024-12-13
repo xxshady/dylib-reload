@@ -1,9 +1,12 @@
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::{
+  alloc::System,
+  sync::atomic::{AtomicBool, Ordering},
+};
 
-use dylib_reload_shared::ModuleId;
+use relib_internal_shared::ModuleId;
 
-dylib_interface::include_exports!();
-dylib_interface::include_imports!();
+relib_interface::include_exports!();
+relib_interface::include_imports!();
 
 #[cfg(target_os = "linux")]
 mod thread_locals;
@@ -12,13 +15,18 @@ mod thread_spawn_hook;
 
 mod helpers;
 mod exports_impl;
-mod allocator;
-use allocator::Allocator;
+mod alloc_tracker;
+use alloc_tracker::AllocTracker;
 mod compilation_info;
 mod panic_hook;
 
+/// Middleware for tracking all allocations to deallocate leaks
+/// (for example `std::mem:forget`, static items) on module unload.
+/// It sends all allocations and deallocations to host because to
+/// store allocations we need to allocate unknown amount of memory.
+#[cfg(feature = "global_alloc_tracker")]
 #[global_allocator]
-static GLOBAL: Allocator = Allocator::new();
+static ALLOC_TRACKER: AllocTracker<System> = AllocTracker::new(System);
 
 static ALLOCATOR_LOCK: AtomicBool = AtomicBool::new(false);
 fn allocator_lock() -> bool {
@@ -31,4 +39,6 @@ static mut MODULE_ID: ModuleId = 0;
 // The id of the thread in which this module was loaded and in which it must be unloaded
 //
 // SAFETY: will be initialized on one thread once and then never change
-pub static mut HOST_OWNER_THREAD: usize = 0;
+static mut HOST_OWNER_THREAD: usize = 0;
+
+pub use relib_export::export;

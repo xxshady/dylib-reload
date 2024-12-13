@@ -7,6 +7,6 @@ pub use build::provide;
 #[macro_export]
 macro_rules! get {
   () => {
-    env!("__CRATE_COMPILATION_INFO__")
+    env!("__RELIB__CRATE_COMPILATION_INFO__")
   };
 }

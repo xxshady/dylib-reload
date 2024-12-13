@@ -1,4 +1,4 @@
-use dylib_reload_shared::{
+use relib_internal_shared::{
   imports::___Internal___Imports___ as Imports, ModuleId, SliceAllocatorOp, StableLayout, Str,
 };
 use crate::{gen_imports::ModuleImportsImpl, helpers, module_allocs};

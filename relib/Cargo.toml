@@ -1,5 +1,5 @@
 [package]
-name = "define_module_export"
+name = "relib"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -8,6 +8,3 @@ readme.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-proc-macro2 = "1.0.78"
-quote = "1.0.35"
-syn = { version = "1.0.109", features = ["full"] }

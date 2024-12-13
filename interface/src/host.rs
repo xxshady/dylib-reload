@@ -3,9 +3,11 @@ use std::{fmt::Debug, path::Path};
 use proc_macro2::TokenStream;
 use quote::quote;
 
+use relib_internal_shared::output_to_return_type;
+
 use crate::shared::{
-  extract_trait_name_from_path, fn_output_to_type, for_each_trait_item, parse_trait_file,
-  write_code_to_file, TraitFn, SAFETY_DOC,
+  extract_trait_name_from_path, for_each_trait_item, parse_trait_file, write_code_to_file, TraitFn,
+  SAFETY_DOC,
 };
 
 /// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
@@ -64,7 +66,7 @@ fn generate_exports(
       mangled_name,
     } = for_each_trait_item(trait_name, item);
 
-    let return_type = fn_output_to_type(output);
+    let return_type = output_to_return_type!(output);
 
     let panic_message =
       format!(r#"Failed to get "{ident}" fn symbol from module (mangled name: "{mangled_name}")"#);
@@ -139,7 +141,7 @@ fn generate_exports(
   }
 
   let types_import_crate = if pub_exports {
-    quote! { dylib_reload_host }
+    quote! { relib_host }
   } else {
     quote! { crate }
   };

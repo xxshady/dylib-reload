@@ -1,6 +1,6 @@
 use std::{fmt::Debug, marker::PhantomData, path::PathBuf};
 
-use dylib_reload_shared::ModuleId;
+use relib_internal_shared::ModuleId;
 use libloading::Library;
 
 use crate::{
@@ -70,7 +70,7 @@ impl<E: ModuleExportsForHost> Module<E> {
   /// 2. Types of arguments and return value must be FFI-safe.
   #[must_use = "returns `None` if module panics"]
   pub unsafe fn call_main<R>(&self) -> Option<ModuleValue<'_, R>> {
-    call_module_pub_export(self.library(), "__main").unwrap_or_else(|e| {
+    call_module_pub_export(self.library(), "__relib__main").unwrap_or_else(|e| {
       panic!("Failed to get main fn from module, reason: {e:#}");
     })
   }
@@ -83,7 +83,7 @@ impl<E: ModuleExportsForHost> Module<E> {
     unsafe {
       // println!("Trying to call \"before_unload\");
 
-      let result = call_module_pub_export(library, "__before_unload");
+      let result = call_module_pub_export(library, "__relib__before_unload");
       match result {
         Ok(Some(())) => {}
         Err(_) => {

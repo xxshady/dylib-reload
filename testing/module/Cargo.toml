@@ -11,21 +11,20 @@ rust-version.workspace = true
 crate-type = ["cdylib"]
 
 [dependencies]
-testing_define_module_export = { version = "0.1.0", path = "../define_module_export" }
-dylib_reload_module = { version = "0.1.0", path = "../../module" }
+relib_module = { version = "0.1.0", path = "../../module" }
 
 [dependencies.testing_shared]
 version = "=0.1.0"
 path = "../shared"
 
-[dependencies.dylib_interface]
+[dependencies.relib_interface]
 version = "0.1.0"
-path = "../../dylib_interface"
+path = "../../interface"
 features = ["normal"]
 
-[build-dependencies.dylib_interface]
+[build-dependencies.relib_interface]
 version = "0.1.0"
-path = "../../dylib_interface"
+path = "../../interface"
 features = ["build"]
 
 [build-dependencies.testing_shared]

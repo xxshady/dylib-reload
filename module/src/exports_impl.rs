@@ -1,14 +1,9 @@
-use std::{
-  alloc::{GlobalAlloc, Layout, System},
-  sync::atomic::Ordering,
-};
+use std::sync::atomic::Ordering;
 
-use dylib_reload_shared::{
-  exports::___Internal___Exports___ as Exports, Allocation, AllocatorPtr, ModuleId,
-};
+use relib_internal_shared::{exports::___Internal___Exports___ as Exports, ModuleId};
 use crate::{
-  allocator, gen_exports::ModuleExportsImpl, helpers::is_it_host_owner_thread, panic_hook,
-  ALLOCATOR_LOCK, HOST_OWNER_THREAD, MODULE_ID,
+  alloc_tracker, gen_exports::ModuleExportsImpl, panic_hook, ALLOCATOR_LOCK, HOST_OWNER_THREAD,
+  MODULE_ID,
 };
 
 impl Exports for ModuleExportsImpl {
@@ -17,30 +12,21 @@ impl Exports for ModuleExportsImpl {
       HOST_OWNER_THREAD = host_owner_thread;
       MODULE_ID = module;
 
-      allocator::init();
+      alloc_tracker::init();
     }
 
     panic_hook::init();
-
-    dbg!(host_owner_thread, is_it_host_owner_thread());
   }
 
-  fn exit(allocs: dylib_reload_shared::SliceAllocation) {
-    let allocs = unsafe { allocs.into_slice() };
-    let system = System;
-
-    for Allocation(AllocatorPtr(ptr), layout, ..) in allocs {
-      unsafe {
-        system.dealloc(
-          *ptr,
-          Layout::from_size_align(layout.size, layout.align).unwrap(),
-        );
-      }
+  fn exit(allocs: relib_internal_shared::SliceAllocation) {
+    unsafe {
+      let allocs = allocs.into_slice();
+      alloc_tracker::dealloc(allocs);
     }
   }
 
   fn take_cached_allocs_before_exit() {
-    allocator::send_cached_allocs(None);
+    alloc_tracker::send_cached_allocs(None);
   }
 
   fn lock_module_allocator() {

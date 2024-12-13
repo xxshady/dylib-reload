@@ -4,9 +4,11 @@ use proc_macro2::{Span, TokenStream as TokenStream2};
 use quote::quote;
 use syn::{FnArg, Ident};
 
+use relib_internal_shared::output_to_return_type;
+
 use crate::shared::{
-  extract_trait_name_from_path, fn_output_to_type, for_each_trait_item, parse_trait_file,
-  write_code_to_file, TraitFn, SAFETY_DOC,
+  extract_trait_name_from_path, for_each_trait_item, parse_trait_file, write_code_to_file, TraitFn,
+  SAFETY_DOC,
 };
 
 /// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
@@ -72,7 +74,7 @@ fn generate_exports(
     let mangled_name = Ident::new(&mangled_name, Span::call_site());
 
     let code = if pub_exports {
-      let return_type = fn_output_to_type(output);
+      let return_type = output_to_return_type!(output);
 
       quote! {
         #[unsafe(no_mangle)]

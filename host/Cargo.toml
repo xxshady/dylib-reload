@@ -1,5 +1,5 @@
 [package]
-name = "dylib_reload_host"
+name = "relib_host"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -15,13 +15,13 @@ thread-id.workspace = true
 [target.'cfg(target_os = "linux")'.dependencies]
 libc.workspace = true
 
-[dependencies.dylib_reload_shared]
+[dependencies.relib_internal_shared]
 version = "=0.1.0"
 path = "../shared"
 
-[dependencies.dylib_interface]
+[dependencies.relib_interface]
 version = "0.1.0"
-path = "../dylib_interface"
+path = "../interface"
 features = ["normal"]
 
 [dependencies.crate_compilation_info]
@@ -31,12 +31,12 @@ features = ["normal"]
 
 [build-dependencies]
 
-[build-dependencies.dylib_interface]
+[build-dependencies.relib_interface]
 version = "0.1.0"
-path = "../dylib_interface"
+path = "../interface"
 features = ["build"]
 
-[build-dependencies.dylib_reload_shared]
+[build-dependencies.relib_internal_shared]
 version = "=0.1.0"
 path = "../shared"
 

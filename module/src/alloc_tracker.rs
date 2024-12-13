@@ -1,5 +1,5 @@
 use std::{
-  alloc::{GlobalAlloc, Layout, System},
+  alloc::{GlobalAlloc, Layout},
   collections::HashMap,
   sync::{
     atomic::{AtomicBool, Ordering},
@@ -7,7 +7,7 @@ use std::{
   },
 };
 
-use dylib_reload_shared::{Allocation, AllocatorOp, AllocatorPtr, StableLayout};
+use relib_internal_shared::{Allocation, AllocatorOp, AllocatorPtr, StableLayout};
 
 use crate::{
   gen_imports,
@@ -15,18 +15,20 @@ use crate::{
   MODULE_ID,
 };
 
+static UNLOAD_DEALLOCATION: AtomicBool = AtomicBool::new(false);
+
 #[derive(Default, Debug)]
-pub struct Allocator {
-  inner: System,
+pub struct AllocTracker<A: GlobalAlloc> {
+  allocator: A,
 }
 
-impl Allocator {
-  pub const fn new() -> Self {
-    Allocator { inner: System }
+impl<A: GlobalAlloc> AllocTracker<A> {
+  pub const fn new(allocator: A) -> Self {
+    AllocTracker { allocator }
   }
 }
 
-unsafe impl GlobalAlloc for Allocator {
+unsafe impl<A: GlobalAlloc> GlobalAlloc for AllocTracker<A> {
   unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
     #[cfg(target_os = "windows")]
     {
@@ -42,7 +44,7 @@ unsafe impl GlobalAlloc for Allocator {
 
     assert_allocator_is_still_accessible();
 
-    let ptr = self.inner.alloc(layout);
+    let ptr = self.allocator.alloc(layout);
 
     let c_layout = StableLayout {
       size: layout.size(),
@@ -69,14 +71,16 @@ unsafe impl GlobalAlloc for Allocator {
 
     assert_allocator_is_still_accessible();
 
-    self.inner.dealloc(ptr, layout);
+    self.allocator.dealloc(ptr, layout);
 
-    let c_layout = StableLayout {
-      size: layout.size(),
-      align: layout.align(),
-    };
+    if !UNLOAD_DEALLOCATION.load(Ordering::SeqCst) {
+      let c_layout = StableLayout {
+        size: layout.size(),
+        align: layout.align(),
+      };
 
-    save_dealloc_in_cache(ptr, c_layout);
+      save_dealloc_in_cache(ptr, c_layout);
+    }
   }
 }
 
@@ -163,4 +167,19 @@ pub fn send_cached_allocs(cache: Option<&mut AllocsCache>) {
   }
 
   transport.clear();
+}
+
+pub unsafe fn dealloc(allocs: &[Allocation]) {
+  UNLOAD_DEALLOCATION.swap(true, Ordering::SeqCst);
+
+  for Allocation(AllocatorPtr(ptr), layout) in allocs {
+    unsafe {
+      std::alloc::dealloc(
+        *ptr,
+        Layout::from_size_align(layout.size, layout.align).unwrap(),
+      );
+    }
+  }
+
+  UNLOAD_DEALLOCATION.swap(false, Ordering::SeqCst);
 }

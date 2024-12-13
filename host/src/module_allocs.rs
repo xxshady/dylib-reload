@@ -3,7 +3,7 @@ use std::{
   sync::{LazyLock, Mutex, MutexGuard},
 };
 
-use dylib_reload_shared::{
+use relib_internal_shared::{
   Allocation, AllocatorOp, AllocatorPtr, ModuleId, SliceAllocatorOp, StableLayout,
 };
 

@@ -2,10 +2,10 @@ use std::{ffi::OsStr, path::Path};
 
 use libloading::Symbol;
 
-use dylib_reload_shared::Str;
+use relib_internal_shared::Str;
 
-dylib_interface::include_exports!();
-dylib_interface::include_imports!();
+relib_interface::include_exports!();
+relib_interface::include_imports!();
 use gen_exports::ModuleExports as InternalModuleExports;
 use gen_imports::init_imports;
 
@@ -38,7 +38,7 @@ pub fn load_module<E: ModuleExportsForHost>(
   let library = open_library(path)?;
 
   let compiled_with = unsafe {
-    let compiled_with: Symbol<*const Str> = library.get(b"__CRATE_COMPILATION_INFO__\0")?;
+    let compiled_with: Symbol<*const Str> = library.get(b"__RELIB__CRATE_COMPILATION_INFO__\0")?;
     let compiled_with: &Str = &**compiled_with;
     compiled_with.to_string()
   };

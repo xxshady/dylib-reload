@@ -1,8 +1,10 @@
 use std::{
-  mem::MaybeUninit, path::Path, sync::atomic::{AtomicU64, Ordering}
+  mem::MaybeUninit,
+  path::Path,
+  sync::atomic::{AtomicU64, Ordering},
 };
 
-use dylib_reload_shared::ModuleId;
+use relib_internal_shared::ModuleId;
 use libloading::{Library, Symbol};
 
 pub fn unrecoverable(message: &str) -> ! {
