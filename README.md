@@ -3,7 +3,7 @@
 `relib` is a framework for reloadable dynamic libraries written in Rust.
 
 
-[![demo](https://github.com/user-attachments/assets/872278ae-7c7b-486d-a90a-2bbf50fee61e)](https://github.com/user-attachments/assets/e2da4817-237a-4e90-9c5e-b6f24e4ad57c)
+[![demo](https://github.com/user-attachments/assets/f98707c9-1b59-4e53-9059-a02f1b229a75)](https://github.com/user-attachments/assets/e2da4817-237a-4e90-9c5e-b6f24e4ad57c)
 
 > **note:** currently Linux has the best support, Windows is supported partially, see [support matrix](#feature-support-matrix).
 
