@@ -22,7 +22,7 @@ path = "../shared"
 [dependencies.relib_interface]
 version = "0.1.0"
 path = "../interface"
-features = ["normal"]
+features = ["include"]
 
 [dependencies.crate_compilation_info]
 version = "=0.1.0"
@@ -34,7 +34,7 @@ features = ["normal"]
 [build-dependencies.relib_interface]
 version = "0.1.0"
 path = "../interface"
-features = ["build"]
+features = ["internal", "build"]
 
 [build-dependencies.relib_internal_shared]
 version = "=0.1.0"

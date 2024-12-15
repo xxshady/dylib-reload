@@ -20,7 +20,7 @@ path = "../shared"
 [dependencies.relib_interface]
 version = "0.1.0"
 path = "../../interface"
-features = ["normal"]
+features = ["include"]
 
 [build-dependencies.relib_interface]
 version = "0.1.0"

@@ -5,7 +5,7 @@ pub mod module;
 #[cfg(feature = "build")]
 mod shared;
 
-#[cfg(feature = "normal")]
+#[cfg(feature = "include")]
 #[macro_export]
 macro_rules! include_exports {
   () => {
@@ -18,7 +18,7 @@ macro_rules! include_exports {
   };
 }
 
-#[cfg(feature = "normal")]
+#[cfg(feature = "include")]
 #[macro_export]
 macro_rules! include_imports {
   () => {

@@ -1,5 +1,5 @@
 fn main() {
-  relib_interface::module::generate(
+  relib_interface::module::generate_internal(
     "../shared/src/exports.rs",
     "relib_internal_shared::exports::___Internal___Exports___",
     "../shared/src/imports.rs",

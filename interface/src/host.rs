@@ -17,7 +17,8 @@ use crate::shared::{
 /// let exports = ModuleExports::new(library);
 /// exports.something();
 /// ```
-pub fn generate(
+#[cfg(feature = "internal")]
+pub fn generate_internal(
   exports_file_path: impl AsRef<Path> + Debug,
   exports_trait_path: &str,
   imports_file_path: impl AsRef<Path> + Debug,
@@ -34,7 +35,8 @@ pub fn generate(
 /// let exports = ModuleExports::new(library);
 /// exports.something();
 /// ```
-pub fn generate_pub(
+#[cfg(feature = "public")]
+pub fn generate(
   exports_file_path: impl AsRef<Path> + Debug,
   exports_trait_path: &str,
   imports_file_path: impl AsRef<Path> + Debug,

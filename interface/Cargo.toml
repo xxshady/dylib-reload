@@ -8,6 +8,8 @@ readme.workspace = true
 rust-version.workspace = true
 
 [features]
+default = ["public"]
+
 build = [
   "dep:relib_internal_shared",
   "dep:prettyplease",
@@ -15,7 +17,9 @@ build = [
   "dep:quote",
   "dep:syn",
 ]
-normal = []
+include = []
+internal = ["build"]
+public = ["build"]
 
 [dependencies]
 

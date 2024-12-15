@@ -19,7 +19,8 @@ use crate::shared::{
 ///   // ...
 /// }
 /// ```
-pub fn generate(
+#[cfg(feature = "internal")]
+pub fn generate_internal(
   exports_file_path: impl AsRef<Path> + Debug,
   exports_trait_path: &str,
   imports_file_path: impl AsRef<Path> + Debug,
@@ -30,14 +31,15 @@ pub fn generate(
 }
 
 /// Will generate `generated_module_exports.rs` and `generated_module_imports.rs` in the OUT_DIR which you can include
-/// using `include!(concat!(env!("OUT_DIR"), "/<file>"));` in your `lib.rs` or `main.rs`
+/// using `include_exports!();` and `include_imports!();` in your `lib.rs` or `main.rs`
 /// and then use `ModuleExportsImpl` struct to implement your `Exports` trait:
 /// ```
 /// impl Exports for ModuleExportsImpl {
 ///   // ...
 /// }
 /// ```
-pub fn generate_pub(
+#[cfg(feature = "public")]
+pub fn generate(
   exports_file_path: impl AsRef<Path> + Debug,
   exports_trait_path: &str,
   imports_file_path: impl AsRef<Path> + Debug,
